@@ -1,4 +1,4 @@
-package com.gdu.cashbook1;
+package com.gdu.cashbook;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.web.servlet.support.SpringBootServletInitializer;
