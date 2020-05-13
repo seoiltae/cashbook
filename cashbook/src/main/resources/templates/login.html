@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function() {
+	$('#btn').click(function(){
+		//유효성 검사 코드 구현
+		/*
+		if() {
+			return;		
+		}
+		*/
+		
+		$('#loginForm').submit();
+	
+	});
+});
+</script>
+</head>
+	<body>
+		<h1>로그인</h1>
+		<form id="loginForm" method="post" action="/login">
+			<div>
+				member_id :
+				<input type="text" id="memberId" name="memberId">
+			</div>
+			<div>
+				member_pw :
+				<input type="password" id="memberPw" name="memberPw">
+			</div>
+			<div>
+				<button type="button" id="btn">로그인</button>
+			</div>
+		</form>
+	</body>
+</html>
