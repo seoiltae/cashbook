@@ -18,7 +18,11 @@
 	    cursor: pointer;
 		
 	}
-	div{
+	.text {
+		 padding-top: 20px;
+		 text-align: left; 
+		}
+	.div {
 		 padding-bottom: 20px;
 		}
 	body {  
@@ -28,7 +32,7 @@
 		 width: 400px; 
 		 left: 45%; 
 		 margin-left: auto;
-	}
+		}
 </style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -103,31 +107,52 @@ $(document).ready(function() {
 				</div>
 			</form>	
 			<form method="post" action="/addMember" id="myform">
-				<div>
-					아이디: <input type="text" th:value="${memberIdCheck}" name="memberId" id="memberId" readonly="readonly">
+				<div class="text">
+					아이디
+				</div>
+				<div class="div">
+					 <input type="text" th:value="${memberIdCheck}" name="memberId" id="memberId" readonly="readonly">
 					<span id="idHelper"></span>
 				</div>
-				<div>
-					비밀번호: <input type="password" name="memberPw" id="memberPw"> 
+				<div class="text">
+					비밀번호
+				</div>
+				<div class="div">
+					<input type="password" name="memberPw" id="memberPw"> 
 					<span id="pwHelper"></span>
 				</div>
-				<div>
-					비밀번호 확인: <input type="password"  id="memberPw2"> 
+				<div class="text">
+					비밀번호 확인
 				</div>
-				<div>
-					사용자이름: <input type="text" name="memberName" id="memberName"> 
+				<div class="div">
+					<input type="password"  id="memberPw2"> 
+				</div>
+				<div class="text">
+					사용자이름
+				</div>
+				<div class="div">
+					<input type="text" name="memberName" id="memberName"> 
 					<span id="nameHelper"></span>
 				</div>
-				<div>
-					주소: <input type="text" name="memberAddr" id="memberAddr"> 
+				<div class="text">
+					주소
+				</div>
+				<div class="div">
+					<input type="text" name="memberAddr" id="memberAddr"> 
 					<span id="addrHelper"></span>
 				</div>
-				<div>
-					전화번호: <input type="text" name="memberPhone" id="memberPhone">
+				<div class="text">
+					전화번호
+				</div>
+				<div class="div">
+					<input type="text" name="memberPhone" id="memberPhone">
 					<span id="phoneHelper"></span> 
 				</div>
-				<div>
-					이메일: <input type="text" name="memberEmail" id="memberEmail"> 
+				<div class="text">
+					이메일
+				</div>
+				<div class="div">
+					<input type="text" name="memberEmail" id="memberEmail"> 
 					<span id="emailHelper"></span>
 				</div>
 				<button type="button" id="btn" class="button">회원가입</button>
