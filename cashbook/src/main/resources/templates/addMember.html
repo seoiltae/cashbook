@@ -3,6 +3,33 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style>
+	.button {
+		position: absolute; left: 0px; width: 300px; height: 40px;
+		font-size: 16px;  text-align: center; 
+		background-color: #3498db;
+	    border: none;
+	    border-radius:4px;
+	    color: white;
+	    padding: 10px 10px;
+	    text-decoration: none;
+	    display: inline-block;
+	    margin: 4px 2px;
+	    cursor: pointer;
+		
+	}
+	div{
+		 padding-bottom: 20px;
+		}
+	body {  
+    	 border: 1px solid #e0e0e0;
+    	
+		 position: absolute;  
+		 width: 400px; 
+		 left: 45%; 
+		 margin-left: auto;
+	}
+</style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -56,15 +83,28 @@ $(document).ready(function() {
 		}
 		
 	}); //btn click end
+	
+	$('#idBtn').click(function() {
+		$('#idForm').submit();
+	}); // idBtn click end
 }); //document ready end
 </script>
 </head>
 	<body>
 		<div class="container">
+			<div align=center class="row">
 			<h1>회원가입</h1>
+			<form method="post" action="/checkMemberId" id="idForm">	
+				<div>
+					아이디 중복 확인: <input type="text" name="memberIdCheck" id="memberIdCheck">
+					<button id="idBtn" type="button">중복체크</button>
+					<span th:text="${msg}"></span>
+					<span th:text="${msg2}"></span>
+				</div>
+			</form>	
 			<form method="post" action="/addMember" id="myform">
 				<div>
-					아이디: <input type="text" name="memberId" id="memberId">
+					아이디: <input type="text" th:value="${memberIdCheck}" name="memberId" id="memberId" readonly="readonly">
 					<span id="idHelper"></span>
 				</div>
 				<div>
@@ -90,8 +130,9 @@ $(document).ready(function() {
 					이메일: <input type="text" name="memberEmail" id="memberEmail"> 
 					<span id="emailHelper"></span>
 				</div>
-				<button type="button" id="btn">회원가입</button>
+				<button type="button" id="btn" class="button">회원가입</button>
 			</form>
+			</div>
 		</div>	
 	</body>
 </html>

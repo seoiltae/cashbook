@@ -2,7 +2,31 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>login</title>
+<style>
+	button {
+		position: absolute; left: 0px; width: 300px; height: 40px;
+		font-size: 16px;  text-align: center; 
+		background-color: #3498db;
+	    border: none;
+	    border-radius:4px;
+	    color: white;
+	    padding: 10px 10px;
+	    text-decoration: none;
+	    display: inline-block;
+	    margin: 4px 2px;
+	    cursor: pointer;
+		
+	}
+	body {  
+		   
+    	   border: 1px solid #e0e0e0;
+   		  
+		   width: 400px; position: absolute; 
+		   left: 45%; 
+		   margin-left: auto;
+	}
+</style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -43,22 +67,29 @@ $(document).ready(function() {
 });
 </script>
 </head>
-	<body>
-		<h1>로그인</h1>
+	<body><br><br><br>
+	<div class="container">
+		<h1>로그인</h1><br><br>
+		<div class="row">
 		<form id="loginForm" method="post" action="/login">
 			<div>
 				member_id :
 				<input type="text" id="memberId" name="memberId">
 				<span id="idHelper"></span>
-			</div>
+			</div><br><br>
 			<div>
 				member_pw :
 				<input type="password" id="memberPw" name="memberPw">
 				<span id="pwHelper"></span>
 			</div>
 			<div>
-				<button type="button" id="btn">로그인</button>
+				<span th:text="${msg}"></span>
+			</div><br><br>
+			<div>
+				<button type="button" id="btn" >로그인</button>
 			</div>
 		</form>
+	</div>
+	</div>	
 	</body>
 </html>

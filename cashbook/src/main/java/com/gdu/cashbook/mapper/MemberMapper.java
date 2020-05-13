@@ -7,6 +7,7 @@ import com.gdu.cashbook.vo.Member;
 
 @Mapper
 public interface MemberMapper {
+	public String selectMemberId(String memberIdCheck); //중복확인
 	public  LoginMember selectLoginMember(LoginMember loginMember); //로그인
 	public void insertMember(Member member); // 회원가입
 }
