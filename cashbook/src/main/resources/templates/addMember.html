@@ -90,7 +90,7 @@ $(document).ready(function() {
 	}); //btn click end
 	
 	$('#idBtn').click(function() {
-		if($('#memberId').val().length < 4) {
+		if($('#memberIdCheck').val().length < 4) {
 			helperInit();
 			$('#memberIdHelper').text("id 4자이상")
 			$('#memberIdCheck').focus();

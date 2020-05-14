@@ -19,9 +19,9 @@
 		<div class="container">
 			<h1>memberInfo</h1>
 			<div th:include="/include/menu::sidemenu"></div>
-				<div>
-					<a th:href="@{/removeMember}">회원탈퇴</a>
-					<a th:href="@{/modifyMember}">회원수정</a>
+				<div> <!-- @{/confirm(id=1)} 매개변수 넘기는법 -->
+					 <a th:href="@{/modifyMember}">회원수정</a>
+					 <a th:href="@{/removeMember}">회원탈퇴</a>
 				</div>
 			<table class="table">
 				<tr>

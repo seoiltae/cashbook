@@ -1,18 +1,44 @@
 package com.gdu.cashbook.service;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.gdu.cashbook.mapper.MemberMapper;
+import com.gdu.cashbook.mapper.MemberidMapper;
 import com.gdu.cashbook.vo.LoginMember;
 import com.gdu.cashbook.vo.Member;
+import com.gdu.cashbook.vo.Memberid;
 @Service
 @Transactional
 public class MemberService {
-	@Autowired
-	private MemberMapper memberMapper;
+	@Autowired private MemberMapper memberMapper;
+	@Autowired private MemberidMapper memberidMapper;
 	
+	//로그인한 멤버수정 폼
+	public Member selectMemberUpdate(LoginMember loginMember) {
+		return memberMapper.selectMemberUpdate(loginMember);
+	}
+	
+	//로그인한 멤버 수정 액션
+	public void modifyMember(Member member) {
+		memberMapper.updateMember(member);
+	}
+	
+	//로그인한 회원탈퇴
+	public int removeMember(LoginMember loginMember) {
+		//1. 멤버아이디테이블에 아이디 추가
+		Memberid memberid = new Memberid();
+		
+		memberid.setMemberId(loginMember.getMemberId());
+		if(memberidMapper.insertMemberid(memberid) == 1) {
+		//2. 회원정보 회원탈퇴
+		return memberMapper.deleteMember(loginMember);
+		} 
+		return 0;
+	}
 	//로그인한 회원의 상세정보
 	public Member getMemberOne(LoginMember loginMember) {
 		return memberMapper.selectMemberOne(loginMember);

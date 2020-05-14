@@ -17,13 +17,61 @@ import com.gdu.cashbook.vo.Member;
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
-	// 로그인한 멤버의 상세정보
-	@GetMapping("/memberInfo")
-	public String memberInfo(HttpSession session, Model model) {
+	//로그인한 멤버수정 폼
+	@GetMapping("/modifyMember") //<--회원 정보를 수정할 수 있는 창
+	public String modify(Model model, HttpSession session) {
 		if(session.getAttribute("loginMember") ==null) {
 			return "redirect:/";
 		}
-		// LoginMember타입으로 형변환
+		// LoginMember타입으로 형변환 후 로그인한 회원의 수정할 수 있는 정보를 보여준다
+				Member member = memberService.selectMemberUpdate((LoginMember)(session.getAttribute("loginMember")));
+				System.out.println(member+"<--로그인한 멤버의 정보");
+				model.addAttribute("member", member);
+				return "modifyMember";
+	}
+	//로그인한 회원 수정 액션 
+	@PostMapping("/modifyMember")
+	public String modify(LoginMember loginMember, HttpSession session, Member member) {
+		if(session.getAttribute("loginMember") ==null) {
+			return "redirect:/";
+		}
+		memberService.modifyMember(member);
+		session.invalidate();
+		return "redirect:/";
+	}
+		
+	//로그인한 멤버의 탈퇴 및 수정 시 비밀번호 확인
+	@GetMapping("/removeMember") //<--회원 탈퇴 및 회원수정 시 비밀번호 한번 더 입력
+	public String removeMember(Model model, LoginMember loginMember, HttpSession session) {
+		if(session.getAttribute("loginMember") ==null) {
+			return "redirect:/";
+		}
+		memberService.login(loginMember);
+		model.addAttribute("loginMember", loginMember);
+		return "removeMember";
+	}
+	//회원 탈퇴 
+	@PostMapping("/removeMember")
+	public String removeMember(HttpSession session, @RequestParam("memberPw") String memberPw) {
+		if(session.getAttribute("loginMember") ==null) {
+			return "redirect:/";
+		}
+		LoginMember loginMember = (LoginMember)(session.getAttribute("loginMember"));
+		loginMember.setMemberPw(memberPw);
+		if(memberService.removeMember(loginMember)==1) {
+			System.out.println(loginMember+"회원 탈퇴 시 값이 제대로 넘어가는 확인하는 디버깅");
+			session.invalidate();
+			return "redirect:/index";
+		}
+		return "removeMember";
+	}
+	// 로그인한 멤버의 상세정보
+	@GetMapping("/memberInfo")
+	public String memberInfo(Model model, HttpSession session) {
+		if(session.getAttribute("loginMember") ==null) {
+			return "redirect:/";
+		}
+		// LoginMember타입으로 형변환 후 로그인한 회원의 정보를 보여준다
 		Member member = memberService.getMemberOne((LoginMember)(session.getAttribute("loginMember")));
 		System.out.println(member+"<--로그인한 멤버의 정보");
 		model.addAttribute("member", member);
