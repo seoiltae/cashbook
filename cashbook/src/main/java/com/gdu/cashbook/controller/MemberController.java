@@ -36,6 +36,7 @@ public class MemberController {
 			return "redirect:/";
 		}
 		memberService.modifyMember(member);
+		System.out.println(member+"회원수정할 시에 나오는 정보들");
 		session.invalidate();
 		return "redirect:/";
 	}

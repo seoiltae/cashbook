@@ -31,7 +31,7 @@
 			member_addr = #{memberAddr},
 			member_phone = #{memberPhone},
 			member_email = #{memberEmail}
-		WHERE = member_id = #{memberId}
+		WHERE member_id = #{memberId}
 	</update>
 	<!-- 로그인한 회원의 상세정보 #{memberId}<-로그인 멤버의 아이디 -->
 	<select id="selectMemberOne" parameterType="com.gdu.cashbook.vo.LoginMember" resultType="com.gdu.cashbook.vo.Member">
