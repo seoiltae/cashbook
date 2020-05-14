@@ -15,6 +15,7 @@ public class LoginMember {
 	public void setMemberPw(String memberPw) {
 		this.memberPw = memberPw;
 	}
+	
 	@Override
 	public String toString() {
 		return "LoginMember [memberId=" + memberId + ", memberPw=" + memberPw + "]";

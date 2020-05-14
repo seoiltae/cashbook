@@ -9,8 +9,12 @@ import org.springframework.web.bind.annotation.GetMapping;
 public class IndexController {
 	// 메인 홈 
    @GetMapping({"/","/index"})
-   public String index() {
-      return "index";
+   public String index(HttpSession session) {
+     //로그인 되있을때 홈에서 인덱스 오는거 방지
+	   if(session.getAttribute("loginMember") !=null) {
+		   return "redirect:/home";
+	  }
+	   return "index";
    }
    // 로그인 완료 후 개인화면 관리창
    @GetMapping("/home")

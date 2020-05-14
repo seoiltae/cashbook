@@ -17,6 +17,18 @@ import com.gdu.cashbook.vo.Member;
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
+	// 로그인한 멤버의 상세정보
+	@GetMapping("/memberInfo")
+	public String memberInfo(HttpSession session, Model model) {
+		if(session.getAttribute("loginMember") ==null) {
+			return "redirect:/";
+		}
+		// LoginMember타입으로 형변환
+		Member member = memberService.getMemberOne((LoginMember)(session.getAttribute("loginMember")));
+		System.out.println(member+"<--로그인한 멤버의 정보");
+		model.addAttribute("member", member);
+		return "memberInfo";
+	}
 	
 	//로그인 폼으로 Form
 	@GetMapping("/login") 
