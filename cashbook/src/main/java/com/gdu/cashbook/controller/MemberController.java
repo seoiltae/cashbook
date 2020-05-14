@@ -40,7 +40,7 @@ public class MemberController {
 			return "login"; 
 		} else { //로그인 성공 시 
 			session.setAttribute("loginMember", returnLoginMember); //로그인 성공한 세션 값
-			return "redirect:/";
+			return "redirect:/home";
 		}
 		
 	}

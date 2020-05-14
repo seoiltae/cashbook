@@ -52,6 +52,7 @@ let helperInit = function() {
 	$('#nameHelper').text("");
 	$('#addrHelper').text("");
 	$('#phoneHelper').text("");
+	$('#memberIdHelper').text("");
 	
 };
 
@@ -89,6 +90,12 @@ $(document).ready(function() {
 	}); //btn click end
 	
 	$('#idBtn').click(function() {
+		if($('#memberId').val().length < 4) {
+			helperInit();
+			$('#memberIdHelper').text("id 4자이상")
+			$('#memberIdCheck').focus();
+			retrun;
+		}
 		$('#idForm').submit();
 	}); // idBtn click end
 }); //document ready end
@@ -104,6 +111,7 @@ $(document).ready(function() {
 					<button id="idBtn" type="button">중복체크</button>
 					<span th:text="${msg}"></span>
 					<span th:text="${msg2}"></span>
+					<span id="memberIdHelper"></span>
 				</div>
 			</form>	
 			<form method="post" action="/addMember" id="myform">
