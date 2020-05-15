@@ -5,6 +5,8 @@ package com.gdu.cashbook.service;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.SimpleMailMessage;
+import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,7 +20,7 @@ import com.gdu.cashbook.vo.Memberid;
 public class MemberService {
 	@Autowired private MemberMapper memberMapper;
 	@Autowired private MemberidMapper memberidMapper;
-	 
+	@Autowired private JavaMailSender javaMailSender; //자바메일보내는 객체
 	//비밀번호 찾기
 	public int getMemberPw(Member member) {
 		//pw 추가
@@ -31,6 +33,14 @@ public class MemberService {
 			System.out.println(memberPw+"<--update memberPw");
 			// 메일로 update 성공한 랜덤 pw를 전송
 			// 메일객체 new javaMailSender(); 자바메일샌더 클래스 
+			SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+			simpleMailMessage.setTo(member.getMemberEmail());
+			System.out.println(member.getMemberEmail()+"-----------------------");
+			simpleMailMessage.setFrom("iltaeseo07@gmail.com");
+			simpleMailMessage.setSubject("cashbook 비밀번호 찾기 메일");
+			simpleMailMessage.setText("변경된 비밀번호 : "+memberPw+"입니다.");
+			javaMailSender.send(simpleMailMessage);
+			
 		}
 		return row;
 	}

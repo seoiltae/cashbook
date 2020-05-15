@@ -27,7 +27,7 @@
 				<tr>
 					<td>사진</td>
 					<td>
-						<img src="/upload/${member.memberPic}">
+						<img th:src="@{'/upload/'+${member.memberPic}}"></img>
 						<!--  <img src="@{/upload/$member.memberPic}">-->
 					</td>
 				</tr>
