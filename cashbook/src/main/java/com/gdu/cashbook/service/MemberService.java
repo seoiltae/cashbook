@@ -1,6 +1,6 @@
 package com.gdu.cashbook.service;
 
-import javax.servlet.http.HttpSession;
+
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -16,7 +16,10 @@ import com.gdu.cashbook.vo.Memberid;
 public class MemberService {
 	@Autowired private MemberMapper memberMapper;
 	@Autowired private MemberidMapper memberidMapper;
-	
+	// 이이디 잃어버렸을 떄 찾기
+	public String getMemberIdByMember(Member member) {
+		return memberMapper.selectMemberIdByMember(member);
+	}
 	//로그인한 멤버수정 폼
 	public Member selectMemberUpdate(LoginMember loginMember) {
 		return memberMapper.selectMemberUpdate(loginMember);

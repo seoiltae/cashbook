@@ -7,6 +7,9 @@ import com.gdu.cashbook.vo.Member;
 
 @Mapper //객체를 만듬 @=타입
 public interface MemberMapper {
+	
+	public String selectMemberIdByMember(Member member); //아이디가 기억안나면 알려줄 메소드
+	
 	public Member selectMemberUpdate(LoginMember loginMember); //로그인한 신상정보 수정 폼
 	public void updateMember(Member member); // 로그인한 멤버의 수정 액션
 	public int deleteMember(LoginMember loginMember); //회원 삭제
