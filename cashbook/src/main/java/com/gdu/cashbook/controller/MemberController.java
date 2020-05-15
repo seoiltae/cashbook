@@ -17,7 +17,28 @@ import com.gdu.cashbook.vo.Member;
 public class MemberController {
 	@Autowired
 	private MemberService memberService;
-	
+	// 비밀번호 찾기 폼
+	@GetMapping("/findMemberPw")
+	public String findMemberPw(HttpSession session) {
+		if(session.getAttribute("loginMember") !=null) {
+			return "redirect:/";
+		}
+		return "findMemberPw";
+	}
+	// 비밀번호 찾기 액션
+	@PostMapping("/findMemberPw")
+	public String findMemberPw(HttpSession session, Model model, Member member) {
+		if(session.getAttribute("loginMember") !=null) {
+			return "redirect:/";
+		}
+		int row = memberService.getMemberPw(member);
+		String msg ="아이디와 메일을 확인하세요";
+		if(row==1) {
+			msg ="비밀번호를 입력한 메일로 전송하였습니다";
+		}
+		model.addAttribute("msg", msg);
+		return "memberPwView";
+	}
 	//아이디찾기 폼
 	@GetMapping("/findMemberId")
 	public String findMemberId(HttpSession session) {
