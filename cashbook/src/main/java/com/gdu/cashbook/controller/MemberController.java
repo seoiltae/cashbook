@@ -28,12 +28,13 @@ public class MemberController {
 	// 비밀번호 찾기 액션
 	@PostMapping("/findMemberPw")
 	public String findMemberPw(HttpSession session, Model model, Member member) {
-		if(session.getAttribute("loginMember") !=null) {
-			return "redirect:/";
-		}
+		//if(session.getAttribute("loginMember") !=null) {
+		//	return "redirect:/";
+		//}
 		int row = memberService.getMemberPw(member);
 		String msg ="아이디와 메일을 확인하세요";
-		if(row==1) {
+		if(row == 1) {
+			System.out.println(msg);
 			msg ="비밀번호를 입력한 메일로 전송하였습니다";
 		}
 		model.addAttribute("msg", msg);

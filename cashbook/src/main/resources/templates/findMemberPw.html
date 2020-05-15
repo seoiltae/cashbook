@@ -17,14 +17,14 @@
 <script>
 $(document).ready(function() {
 	$('#btn').click(function(){
-		$('#findid').submit();
+		$('#findpw').submit();
 	});
 });
 </script>
 </head>
 	<body>
 		<h1>비밀번호 찾기</h1>
-		<form method="post" action="@{/findMemberPw}">
+		<form method="post" th:action="@{/findMemberPw}" id="findpw">
 			<div>
 				아이디 :
 				<input type="text" name="memberId">
@@ -34,7 +34,7 @@ $(document).ready(function() {
 				<input type="text" name="memberEmail">
 			</div>
 			<div>
-				<button type=button>비밀번호 찾기</button>
+				<button type="button" id="btn">비밀번호 찾기</button>
 			</div>
 		</form>
 	</body>
