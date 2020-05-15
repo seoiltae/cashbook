@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style th:include="/include/menu::side"></style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -14,18 +15,17 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<style th:include="/include/menu::side"></style>
 </head>
 	<body>
 	<div th:include="/include/menu::sidemenu" class="sidenav"></div>
-		<div class="container">
+		<div class="center">
 			<h1>memberInfo</h1>
 			
 				<div> <!-- @{/confirm(id=1)} 매개변수 넘기는법 -->
 					 <a th:href="@{/modifyMember}">회원수정</a>
 					 <a th:href="@{/removeMember}">회원탈퇴</a>
 				</div>
-			<table class="table">
+			<table class="table tr">
 				<tr>
 					<td>사진</td>
 					<td>

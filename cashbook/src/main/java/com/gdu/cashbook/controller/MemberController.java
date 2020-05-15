@@ -169,7 +169,7 @@ public class MemberController {
 			
 		} else {
 			// 아이디를 사용 불가
-			model.addAttribute("msg", "사용중인 아이디입니다");		
+			model.addAttribute("msg", "중복 된 아이디입니다");		
 		}
 		return "addMember";
 	}

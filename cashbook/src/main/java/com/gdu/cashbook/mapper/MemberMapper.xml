@@ -38,7 +38,6 @@
 			member_addr as memberAddr,
 			member_phone as memberPhone,
 			member_email as memberEmail
-			member_pic as memberPic
 		FROM member	
 		WHERE member_id = #{memberId}
 	</select>
