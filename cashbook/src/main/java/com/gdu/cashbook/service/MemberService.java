@@ -63,12 +63,11 @@ public class MemberService {
 	public int removeMember(LoginMember loginMember) {
 		//1. 멤버아이디테이블에 아이디 추가
 		Memberid memberid = new Memberid();
-		
-		memberid.setMemberId(loginMember.getMemberId());
-		if(memberidMapper.insertMemberid(memberid) == 1) {
-		//2. 회원정보 회원탈퇴
-		return memberMapper.deleteMember(loginMember);
-		} 
+		if(memberMapper.deleteMember(loginMember) == 1) {
+			//2. 회원정보 회원탈퇴
+			memberid.setMemberId(loginMember.getMemberId());
+			return memberidMapper.insertMemberid(memberid);
+			} 
 		return 0;
 	}
 	//로그인한 회원의 상세정보

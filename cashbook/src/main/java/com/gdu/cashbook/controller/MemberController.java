@@ -83,7 +83,7 @@ public class MemberController {
 		return "redirect:/";
 	}
 		
-	//로그인한 멤버의 탈퇴 및 수정 시 비밀번호 확인
+	//로그인한 멤버의 탈퇴 시 비밀번호 확인
 	@GetMapping("/removeMember") //<--회원 탈퇴 및 회원수정 시 비밀번호 한번 더 입력
 	public String removeMember(Model model, LoginMember loginMember, HttpSession session) {
 		if(session.getAttribute("loginMember") ==null) {
