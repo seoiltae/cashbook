@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title> CONFIRM</title>
+<title>Insert title here</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -17,31 +17,25 @@
 <script>
 $(document).ready(function() {
 	$('#btn').click(function(){
-		$('#findpw').submit();
+		$('#findid').submit();
 	});
 });
 </script>
 </head>
 	<body>
-	  	<h1>회원 비밀번호 재확인</h1>
-			<form method="post" action="/removeMember" >
-				<div>
-					비밀번호 입력:
-					<input type="password" name="memberPw" id="memberPw">
-				</div>
-					<button type="button" id="findpw">회원탈퇴</button>
-			</form>
-		<!--  
-			<form method="get" action="/modifyMember" >
-				<div>
-					<input type="text" th:value="${session.loginMember.memberId}" name="memberId" id="memberId">
-				</div>
-				<div>
-					비밀번호 입력:
-					<input type="password" name="memberPw" id="memberPw">
-				</div>
-					<button type="submit">회원정보수정</button>
-			</form>
-		-->
+		<h1>비밀번호 찾기</h1>
+		<form method="post" action="@{/findMemberPw}">
+			<div>
+				아이디 :
+				<input type="text" name="memberId">
+			</div>
+			<div>
+				메일 :
+				<input type="text" name="memberEmail">
+			</div>
+			<div>
+				<button type=button>비밀번호 찾기</button>
+			</div>
+		</form>
 	</body>
 </html>
