@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gdu.cashbook.service.MemberService;
 import com.gdu.cashbook.vo.LoginMember;
 import com.gdu.cashbook.vo.Member;
+import com.gdu.cashbook.vo.MemberForm;
 
 @Controller
 public class MemberController {
@@ -186,14 +187,15 @@ public class MemberController {
 	}
 	//회원가입완료 시 Action
 	@PostMapping("/addMember")
-	public String addMember(Member member, HttpSession session) {
+	public String addMember(MemberForm memberForm, HttpSession session) {
 		//로그인 중일때
 		if(session.getAttribute("loginMember") !=null) { //세션이 널이 아니면 홈으로
 			return "redirect:/"; 
 		}
+		System.out.println(memberForm.toString()); //이미지 파일이 정상적으로 받아오는지 확인
 		//회원가입 폼에서 값이 정상적으로 넘어오는지 확인
-		System.out.println(member.toString());
-		memberService.addMember(member);
+		//System.out.println(member.toString());
+		//memberService.addMember(memberForm);
 		return "redirect:/index"; //완료 후 홈으로
 	}
 	

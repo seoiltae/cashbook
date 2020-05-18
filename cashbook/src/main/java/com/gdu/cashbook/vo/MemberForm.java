@@ -1,13 +1,15 @@
 package com.gdu.cashbook.vo;
 
-public class Member {// VO = DTO
+import org.springframework.web.multipart.MultipartFile;
+
+public class MemberForm {
 	private String memberId;
 	private String memberPw;
 	private String memberName;
 	private String memberAddr;
 	private String memberPhone;
 	private String memberEmail;
-	private String memberPic;
+	private MultipartFile memberPic; //여러 파일일 경우 MultipartFile[] 배열을 이용
 	public String getMemberId() {
 		return memberId;
 	}
@@ -44,19 +46,17 @@ public class Member {// VO = DTO
 	public void setMemberEmail(String memberEmail) {
 		this.memberEmail = memberEmail;
 	}
-	public String getMemberPic() {
+	public MultipartFile getMemberPic() {
 		return memberPic;
 	}
-	public void setMemberPic(String memberPic) {
+	public void setMemberPic(MultipartFile memberPic) {
 		this.memberPic = memberPic;
 	}
 	@Override
 	public String toString() {
-		return "Member [memberId=" + memberId + ", memberPw=" + memberPw + ", memberName=" + memberName
+		return "MemberForm [memberId=" + memberId + ", memberPw=" + memberPw + ", memberName=" + memberName
 				+ ", memberAddr=" + memberAddr + ", memberPhone=" + memberPhone + ", memberEmail=" + memberEmail
 				+ ", memberPic=" + memberPic + "]";
 	}
 	
 }
-
-

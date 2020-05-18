@@ -48,12 +48,13 @@
 <script>
 
 //정규표현식을 정의합니다.
-//function email_check( email ) {
+//function email_check(email) {
 // var regex=/([\w-\.]+)@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.)|(([\w-]+\.)+))([a-zA-Z]{2,4}|[0-9]{1,3})(\]?)$/;
 // return (email != '' && email != 'undefined' && regex.test(email));
-
+//
 //}
 //이메일 양식 검사
+
 var email = ""
 let helperInit = function() {
 	$('#idHelper').text("");
@@ -62,6 +63,7 @@ let helperInit = function() {
 	$('#addrHelper').text("");
 	$('#phoneHelper').text("");
 	$('#memberIdHelper').text("");
+	$('#emailHelper').text("");
 	
 };
 
@@ -92,6 +94,10 @@ $(document).ready(function() {
 			helperInit();
 			$('#phoneHelper').text("전화번호를 입력하세요");
 			$('#memberPhone').focus();
+		} else if($('#memberPhone').val().length === 0) {
+			helperInit();
+			$('#emailHelper').text("이메일 양식이 올바르지 않습니다");
+			$('#memberEmail').focus();
 		} else {
 			$('#myform').submit();
 		}
@@ -123,7 +129,12 @@ $(document).ready(function() {
 					<span id="memberIdHelper"></span>
 				</div>
 			</form>	
-			<form method="post" action="/addMember" id="myform">
+			<!-- multipart/form-data 파일을 바이트타입으로 변환 시키는 인코딩 -->
+			<form method="post" action="/addMember" id="myform" enctype="multipart/form-data">
+				<div>
+					사진 : 
+					<input type="file" name="memberPic" id="">
+				</div>
 				<div class="text">
 					아이디
 				</div>
