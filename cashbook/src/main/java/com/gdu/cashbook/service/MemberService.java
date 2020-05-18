@@ -2,6 +2,8 @@ package com.gdu.cashbook.service;
 
 
 
+import java.io.File;
+import java.io.IOException;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,6 +11,7 @@ import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gdu.cashbook.mapper.MemberMapper;
 import com.gdu.cashbook.mapper.MemberidMapper;
@@ -85,7 +88,46 @@ public class MemberService {
 	}
 	//회원가입
 	public int addMember(MemberForm memberForm) {// 멤버폼을 멤버 타입으로 변환 시켜야한다
-		//파일을 디스크에 물리적으로 저장시킴
-		return memberMapper.insertMember(member);
+		MultipartFile multif = memberForm.getMemberPic();
+		String originName = multif.getOriginalFilename();
+		if(multif.getContentType().equals("image/png") || multif.getContentType().equals("image/jpeg")) {
+			// png와 jpeg 업로드 가능
+		} else {
+			// 그외에 업로드 불가
+		}
+		
+		System.out.println(originName+"<--originName");
+		int lastDot = originName.lastIndexOf("."); // 마지막끝자를 찾는 위치
+		String extension = originName.substring(lastDot); //섭스트링으로 자른 값
+		
+		// 새로운 이름 생성기능 : UUID
+		// 1. db에서 저장
+		String memberPic = memberForm.getMemberId()+extension; 
+		// 멤버 타입에 id, pw, addr, name, phone에 폼타입을 넣는다
+		Member member = new Member();
+		member.setMemberId(memberForm.getMemberId());
+		member.setMemberPw(memberForm.getMemberPw());
+		member.setMemberAddr(memberForm.getMemberAddr());
+		member.setMemberEmail(memberForm.getMemberEmail());
+		member.setMemberName(memberForm.getMemberName());
+		member.setMemberPhone(memberForm.getMemberPhone());
+		member.setMemberPic(memberPic);
+		System.out.println(member+"<-------------addmemberService");
+		int row = memberMapper.insertMember(member);
+		
+		// 2. 파일저장 /업로드 위치에 파일저장
+		String path = "D:\\it\\git-cashbook\\cashbook\\src\\main\\resources\\static\\upload";
+		File file = new File(path+"\\"+memberPic); //새로운 파일 생성
+		try {
+			multif.transferTo(file);
+		} catch (Exception e) {
+			//1번 에러를 2번에러로 변환했다
+			e.printStackTrace();
+			throw new RuntimeException(); // 또다른 예외 
+			// Exception <-모든 에러의 부모 
+			//1. 예외처리를 해야만 문법적으로 이상없는 예외
+			//2. RuntimeException 예외처리를 코드에서 구현하지 않아도 아무문제없는 예외
+		}  
+		return row;
 	}
 }

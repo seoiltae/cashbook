@@ -195,7 +195,7 @@ public class MemberController {
 		System.out.println(memberForm.toString()); //이미지 파일이 정상적으로 받아오는지 확인
 		//회원가입 폼에서 값이 정상적으로 넘어오는지 확인
 		//System.out.println(member.toString());
-		//memberService.addMember(memberForm);
+		memberService.addMember(memberForm);
 		return "redirect:/index"; //완료 후 홈으로
 	}
 	

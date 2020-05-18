@@ -16,5 +16,5 @@ public interface MemberMapper {
 	public Member selectMemberOne(LoginMember loginMember); //로그인 멤버의 상세정보
 	public String selectMemberId(String memberIdCheck); //중복확인
 	public LoginMember selectLoginMember(LoginMember loginMember); //로그인
-	public void insertMember(Member member); // 회원가입
+	public int insertMember(Member member); // 회원가입
 }

@@ -89,14 +89,16 @@
 			member_name,
 			member_addr,
 			member_phone,
-			member_email
+			member_email,
+			member_pic
 		) VALUES (
 			#{memberId},
 			PASSWORD(#{memberPw}),
 			#{memberName},
 			#{memberAddr},
 			#{memberPhone},
-			#{memberEmail}
+			#{memberEmail},
+			#{memberPic}
 		)
 	</insert>
 </mapper>
