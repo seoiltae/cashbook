@@ -17,8 +17,20 @@
 </head>
 <body>
 	<h1>회원정보 수정</h1>
-	<form method="post" action="/modifyMember" id="myform">
-		<div class="text">
+	<form method="post" action="/modifyMember" id="myform" enctype="multipart/form-data">
+				<div>
+					현재 사진
+				</div>
+				<div>
+					<img th:src="@{'/upload/'+${member.memberPic}}"></img>
+				</div>
+				<div>
+					사진 첨부
+				</div>
+				<div>
+					<input type="file" name="memberPic" id="memberPic"> 
+				</div>
+				<div>
 					아이디
 				</div>
 				<div>

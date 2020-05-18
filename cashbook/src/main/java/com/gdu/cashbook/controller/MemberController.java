@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.gdu.cashbook.service.MemberService;
 import com.gdu.cashbook.vo.LoginMember;
@@ -29,9 +30,9 @@ public class MemberController {
 	// 비밀번호 찾기 액션
 	@PostMapping("/findMemberPw")
 	public String findMemberPw(HttpSession session, Model model, Member member) {
-		//if(session.getAttribute("loginMember") !=null) {
-		//	return "redirect:/";
-		//}
+		if(session.getAttribute("loginMember") !=null) {
+			return "redirect:/";
+		}
 		int row = memberService.getMemberPw(member);
 		String msg ="아이디와 메일을 확인하세요";
 		if(row == 1) {
@@ -74,12 +75,12 @@ public class MemberController {
 	}
 	//로그인한 회원 수정 액션 
 	@PostMapping("/modifyMember")
-	public String modify(LoginMember loginMember, HttpSession session, Member member) {
+	public String modify(LoginMember loginMember, HttpSession session, MemberForm memberForm) {
 		if(session.getAttribute("loginMember") ==null) {
 			return "redirect:/";
 		}
-		memberService.modifyMember(member);
-		System.out.println(member+"회원수정할 시에 나오는 정보들");
+		memberService.modifyMember(memberForm);
+		System.out.println(memberForm+"회원수정할 시에 나오는 정보들");
 		session.invalidate();
 		return "redirect:/";
 	}
@@ -191,13 +192,21 @@ public class MemberController {
 		//로그인 중일때
 		if(session.getAttribute("loginMember") !=null) { //세션이 널이 아니면 홈으로
 			return "redirect:/"; 
-		}
-		System.out.println(memberForm.toString()); //이미지 파일이 정상적으로 받아오는지 확인
-		//회원가입 폼에서 값이 정상적으로 넘어오는지 확인
-		//System.out.println(member.toString());
-		memberService.addMember(memberForm);
-		return "redirect:/index"; //완료 후 홈으로
-	}
-	
-	
+		}	
+			MultipartFile multif = memberForm.getMemberPic();
+			String originName = multif.getOriginalFilename();
+			System.out.println(originName+"-----------------------originName-----------");
+			System.out.println(memberForm.toString()+"<-------MemberController"); //이미지 파일이 정상적으로 받아오는지 확인
+			if(memberForm.getMemberPic() !=null && !originName.equals("")) {
+				if(!memberForm.getMemberPic().getContentType().equals("image/png") && 
+						!memberForm.getMemberPic().getContentType().equals("image/jpg") &&
+						!memberForm.getMemberPic().getContentType().equals("image/gif")) {
+					return "redirect:/addMember"; 
+				} 
+			}
+			//회원가입 폼에서 값이 정상적으로 넘어오는지 확인
+			//System.out.println(member.toString());
+			memberService.addMember(memberForm);
+			return "redirect:/index"; //완료 후 홈으로
+			}
 }

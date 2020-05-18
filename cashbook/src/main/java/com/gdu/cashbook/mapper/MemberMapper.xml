@@ -3,6 +3,11 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdu.cashbook.mapper.MemberMapper">
+	<select id="selectMemberPic" parameterType="String" resultType="String">
+		SELECT member_pic
+		FROM member
+		WHERE member_id = #{memberId}
+	</select>
 	<!-- 비밀번호 찾기 궈리  
 		1.유저가 입력한 id와 email일치하면 pw번경(랜덤문자열) update
 		2.1번에서 입력한 pw를 메일로 전송
@@ -29,7 +34,7 @@
 		WHERE member_id = #{memberId}
 		AND	member_pw = PASSWORD(#{memberPw})
 	</delete>
-	<!-- 수정폼 수정할때 비밀번호도 가져옴 -->
+	<!-- 수정폼 로그인된 것-->
 	<select id="selectMemberUpdate" parameterType="com.gdu.cashbook.vo.LoginMember" resultType="com.gdu.cashbook.vo.Member">
 		SELECT
 			member_id as memberId,
@@ -37,7 +42,8 @@
 			member_name as memberName,
 			member_addr as memberAddr,
 			member_phone as memberPhone,
-			member_email as memberEmail
+			member_email as memberEmail,
+			member_pic as memberPic
 		FROM member	
 		WHERE member_id = #{memberId}
 	</select>
@@ -49,7 +55,8 @@
 			member_name = #{memberName},
 			member_addr = #{memberAddr},
 			member_phone = #{memberPhone},
-			member_email = #{memberEmail}
+			member_email = #{memberEmail},
+			member_pic = #{memberPic}
 		WHERE member_id = #{memberId}
 	</update>
 	<!-- 로그인한 회원의 상세정보 #{memberId}<-로그인 멤버의 아이디 -->
