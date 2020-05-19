@@ -79,10 +79,18 @@ public class MemberController {
 		if(session.getAttribute("loginMember") ==null) {
 			return "redirect:/";
 		}
+		MultipartFile multif = memberForm.getMemberPic();//이미지 파일 입력한 값
+		//입력한 파일이 null이 아니고 공백이 아닐경우
+		if(memberForm.getMemberPic() != null && !multif.getOriginalFilename().equals("")) {
+			if(!memberForm.getMemberPic().getContentType().equals("image/png") && //png타입
+					!memberForm.getMemberPic().getContentType().equals("image/jpeg") && //jpge타입
+					!memberForm.getMemberPic().getContentType().equals("image/gif")) { //gif타입
+				return "redirect:/modifyMember";//3가지 타입이 충족하지 못하면 수정화면으로 다시 호출
+			}
+		}
 		memberService.modifyMember(memberForm);
 		System.out.println(memberForm+"회원수정할 시에 나오는 정보들");
-		session.invalidate();
-		return "redirect:/";
+		return "redirect:/memberInfo";
 	}
 		
 	//로그인한 멤버의 탈퇴 시 비밀번호 확인
@@ -199,7 +207,7 @@ public class MemberController {
 			System.out.println(memberForm.toString()+"<-------MemberController"); //이미지 파일이 정상적으로 받아오는지 확인
 			if(memberForm.getMemberPic() !=null && !originName.equals("")) {
 				if(!memberForm.getMemberPic().getContentType().equals("image/png") && 
-						!memberForm.getMemberPic().getContentType().equals("image/jpg") &&
+						!memberForm.getMemberPic().getContentType().equals("image/jpeg") &&
 						!memberForm.getMemberPic().getContentType().equals("image/gif")) {
 					return "redirect:/addMember"; 
 				} 

@@ -2,6 +2,9 @@
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+
+<!-- 멤버아이디로 멤버사진 찾는 쿼리 -->
 <mapper namespace="com.gdu.cashbook.mapper.MemberMapper">
 	<select id="selectMemberPic" parameterType="String" resultType="String">
 		SELECT member_pic

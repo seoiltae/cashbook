@@ -5,6 +5,8 @@ package com.gdu.cashbook.service;
 import java.io.File;
 import java.util.UUID;
 
+import javax.management.RuntimeErrorException;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -62,24 +64,28 @@ public class MemberService {
 
 	//로그인한 멤버 수정 액션
 	public int modifyMember(MemberForm memberForm) {
-		MultipartFile multif = memberForm.getMemberPic();
+		//로그인한 멤버의 아이디의 이미지
+		String originNamePic = memberMapper.selectMemberPic(memberForm.getMemberId());
+		MultipartFile multif = memberForm.getMemberPic(); //입력한 멤버의 이미지를 저장
 		String originName = multif.getOriginalFilename();
-		Member member = new Member();
+		System.out.println(originNamePic+"<--MemberService 수정의 originNamePic ");
 		String memberPic = null;
-		if(originName.equals("")) {
-			memberPic = member.getMemberPic();
+		if(originName.equals("")) { //파일값이 null일 경우 원래 있던 파일의 이름이랑 ==
+			memberPic = originNamePic;
 		}else {	
-			File file = new File(path+"\\"+memberPic);
-			if(file.exists() && !memberPic.equals("default.jpg")) {
-				file.delete(); // 파일 삭제
-			}
-			System.out.println(originName+"<--originName");
+			File ofile = new File(path+"\\"+originNamePic); //새로운 파일생성
+			if(ofile.exists() && !originNamePic.equals("default.jpg")) {//원래파일이 아닐경우
+				ofile.delete(); //파일 삭제
+		}
 			int lastDot = originName.lastIndexOf("."); // 마지막끝자를 찾는 위치
 			String extension = originName.substring(lastDot); //섭스트링으로 자른 값
+			System.out.println(extension); 
 			// 1. db에서 저장
 			memberPic = memberForm.getMemberId()+extension;	
+			System.out.println(memberPic); // 삭제 후 이미지 저장 확인
 		}
 		//멤버 타입으로 형변환
+		Member member = new Member();
 		member.setMemberId(memberForm.getMemberId());
 		member.setMemberPw(memberForm.getMemberPw());
 		member.setMemberAddr(memberForm.getMemberAddr());
@@ -87,12 +93,22 @@ public class MemberService {
 		member.setMemberName(memberForm.getMemberName());
 		member.setMemberPhone(memberForm.getMemberPhone());
 		member.setMemberPic(memberPic);
-		System.out.println(memberPic+"<---------------------------");
+		System.out.println(member+"MemberSerivce 수정 member");
 		//file = new File(path+"\\"+memberPic);
 		int row =memberMapper.updateMember(member);
+		
+		if(!originName.equals("")) {
+			File file = new File(path+"\\"+originNamePic);
+			try {
+					multif.transferTo(file);
+			} catch (Exception e) {
+				e.printStackTrace();
+				throw new RuntimeException(); // 예외처리 안해도되는 예외
+			}
+		}
 		return row;
 	}
-
+		
 	//로그인한 회원탈퇴
 	public int removeMember(LoginMember loginMember) {
 		//1. 멤버 이미지 파일 삭제
