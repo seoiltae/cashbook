@@ -29,4 +29,9 @@ public class CashService {
 		int row = cashMapper.deleteCashOne(cash);
 		return row;
 	}
+	
+	//가계부 수정 폼
+	public Cash modifyCash(Cash cash) {
+		return cashMapper.selectCashNoByCash(cash);
+	}
 }

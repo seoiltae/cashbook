@@ -20,7 +20,17 @@ import com.gdu.cashbook.vo.LoginMember;
 @Controller
 public class CashController {
 	@Autowired CashService cashService;
-	
+	//가계부 수정 폼
+	@GetMapping("/modifyCash")
+	public String modifyCash(Cash cash, Model model, HttpSession session) {
+		if(session.getAttribute("loginMember") ==null) {
+			return "redirect:/";
+		}
+		cash = cashService.modifyCash(cash);
+		model.addAttribute("modiCash", cash);
+		System.out.println(cash+"<--------------dddddddd");
+		return "modifyCash";
+	}
 	//가계부 삭제 post
 	@GetMapping("/removeCash")
 	public String removeCash(Cash cash, @RequestParam("cashNo") int cashNo) {

@@ -49,12 +49,16 @@
 					<td th:unless="${list.cashKind}=='수입'"></td>
 					<td th:if="${list.cashKind} == '지출'" th:text="${'-' + list.cashPrice}"></td>
 					<td th:unless="${list.cashKind}=='지출'"></td>
+					<!-- 삼항연산자 : 조건 ? 참값 : 거짓값 
+					<td th:text="${list.cashKind} == '지출' ? ${'-' + cash.Price} : ''"></td>
+					
+					-->
 					
 					<td th:text="${list.cashPlace}"></td>
 					<td th:text="${list.cashMemo}"></td>
 					<td th:text="${day}"></td>
 					<td><a th:href="@{/removeCash(cashNo=${list.cashNo})}">삭제</a></td>
-					<td><a href="">수정</a></td>
+					<td><a th:href="@{/modifyCash(cashNo=${list.cashNo})}">수정</a></td>
 				</tr>
 			</tbody>
 		</table>

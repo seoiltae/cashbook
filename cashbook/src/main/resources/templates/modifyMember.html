@@ -14,7 +14,15 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function() {
+	$('#btn').click(function(){
+		$('#myform').submit();
+	});
+});
+</script>
 </head>
+
 <body>
 	<h1>회원정보 수정</h1>
 	<form method="post" action="/modifyMember" id="myform" enctype="multipart/form-data">
@@ -66,7 +74,7 @@
 				<div>
 					<input type="text" th:value="${member.memberEmail}" name="memberEmail" id="memberEmail"> 
 				</div>
-				<button type="submit" id="btn" class="button">회원수정</button>
+				<button type="button" id="btn" class="button">회원수정</button>
 	</form>
 </body>
 </html>

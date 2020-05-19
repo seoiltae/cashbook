@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ModifyCash</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function() {
+	$('#btn').click(function(){
+		$('#myform').submit();
+	});
+});
+</script>
+</head>
+<body>
+	<h1>가계부 수정</h1>
+	<form method="post" action="/modifyCash" id="myform">
+				<div>
+					가계부 날짜
+				</div>
+				<div>
+					<input type="text" th:value="${modiCash.cashDate}" name="cashDate" id="cashDate"> 
+				</div>
+				<div>
+					가계부 수입/지출
+				</div>
+				<div>
+					<input type="text" th:value="${modiCash.cashKind}" name="cashKind" id="cashKind"> 
+				</div>
+				<div class="text">
+					카테고리
+				</div>
+				<div>
+					<input type="text" th:value="${modiCash.categoryName}" name="categoryName" id="categoryName"> 
+				</div>
+				<div class="text">
+					금액
+				</div>
+				<div>
+					<input type="text" th:value="${modiCash.cashPrice}" name="cashPrice" id="cashPrice"> 
+				</div>
+				<div class="text">
+					장소
+				</div>
+				<div>
+					<input type="text" th:value="${modiCash.cashPlace}" name="cashPlace" id="cashPlace"> 
+				</div>
+				<div class="text">
+					메모
+				</div>
+				<div>
+					<input type="text" th:value="${modiCash.cashMemo}" name="cashMemo" id="cashMemo"> 
+				</div>
+				<button type="button" id="btn" class="button">가계부 수정</button>
+	</form>
+</body>
+</html>
