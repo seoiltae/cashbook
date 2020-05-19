@@ -22,34 +22,27 @@ public class CashController {
 	@Autowired CashService cashService;
 	
 	//가계부 삭제 post
-	//@PostMapping("/removeCash")
-	//public String removeCash(Cash cash, @RequestParam("memberId") String memberId, 
-	//		@RequestParam("cashNo") int cashNo) {
-	//	cash.setMemberId(memberId);
-	//	cash.setCashNo(cashNo);
-	//	cashService.deleteCashOne(cash);
-	//	return "getCashListByDate";
-	//}
+	@GetMapping("/removeCash")
+	public String removeCash(Cash cash, @RequestParam("cashNo") int cashNo) {
+		cash.setCashNo(cashNo);
+		cashService.removeCash(cash);
+		return "redirect:/getCashListByDate";
+		}
 	@GetMapping("/getCashListByDate")
 	public String getCashListByDate(HttpSession session, Model model, 
 			@RequestParam(value = "day", required = false) //뷰에서 입력한 값을 받아옴
 			@DateTimeFormat(pattern = "yyyy-MM-dd") 
 			LocalDate day) {
-		
+		if(session.getAttribute("loginMember") ==null) {
+			return "redirect:/";
+		}
 		if(day == null) {//day가 널일경우 로컬날짜로 한다
 			day = LocalDate.now(); 
 		}
 		// 날짜 나오게 하는것
 		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-MM-dd"); //날짜나오는 양식
 		String dday = day.format(formatter); //변수에 날짜의 값을 저장해줌
-		
-
-		
-		//day = day.plusDays(1); 
-		//day = day.plusMonths(1);
-		//day = day.minusDays(1);
-		//day = day.minusMonths(1); 
-		
+		//day = day.plusDays(1); day = day.plusMonths(1); day = day.minusDays(1); day = day.minusMonths(1); 직접 날짜의 일을 입력 시
 		//로그인 아이디
 		String loginMemberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
 		//로그인 

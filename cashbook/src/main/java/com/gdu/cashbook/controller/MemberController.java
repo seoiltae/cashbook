@@ -68,10 +68,10 @@ public class MemberController {
 			return "redirect:/";
 		}
 		// LoginMember타입으로 형변환 후 로그인한 회원의 수정할 수 있는 정보를 보여준다
-				Member member = memberService.selectMemberUpdate((LoginMember)(session.getAttribute("loginMember")));
-				System.out.println(member+"<--로그인한 멤버의 정보");
-				model.addAttribute("member", member);
-				return "modifyMember";
+		Member member = memberService.selectMemberUpdate((LoginMember)(session.getAttribute("loginMember")));
+		System.out.println(member+"<--로그인한 멤버의 정보");
+		model.addAttribute("member", member);
+		return "modifyMember";
 	}
 	//로그인한 회원 수정 액션 
 	@PostMapping("/modifyMember")
@@ -201,10 +201,10 @@ public class MemberController {
 		if(session.getAttribute("loginMember") !=null) { //세션이 널이 아니면 홈으로
 			return "redirect:/"; 
 		}	
-			MultipartFile multif = memberForm.getMemberPic();
-			String originName = multif.getOriginalFilename();
-			System.out.println(originName+"-----------------------originName-----------");
-			System.out.println(memberForm.toString()+"<-------MemberController"); //이미지 파일이 정상적으로 받아오는지 확인
+		MultipartFile multif = memberForm.getMemberPic();
+		String originName = multif.getOriginalFilename();
+		System.out.println(originName+"-----------------------originName-----------");
+		System.out.println(memberForm.toString()+"<-------MemberController"); //이미지 파일이 정상적으로 받아오는지 확인
 			if(memberForm.getMemberPic() !=null && !originName.equals("")) {
 				if(!memberForm.getMemberPic().getContentType().equals("image/png") && 
 						!memberForm.getMemberPic().getContentType().equals("image/jpeg") &&
@@ -212,9 +212,9 @@ public class MemberController {
 					return "redirect:/addMember"; 
 				} 
 			}
-			//회원가입 폼에서 값이 정상적으로 넘어오는지 확인
-			//System.out.println(member.toString());
-			memberService.addMember(memberForm);
-			return "redirect:/index"; //완료 후 홈으로
-			}
+		//회원가입 폼에서 값이 정상적으로 넘어오는지 확인
+		//System.out.println(member.toString());
+		memberService.addMember(memberForm);
+		return "redirect:/index"; //완료 후 홈으로
+		}
 }

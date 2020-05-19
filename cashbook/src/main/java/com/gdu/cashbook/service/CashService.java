@@ -25,5 +25,8 @@ public class CashService {
 		return map;
 	}
 	//가계부 삭제(혹시모를 트랜잭션 처리를 위해 void대신 int)
-	
+	public int removeCash(Cash cash) {
+		int row = cashMapper.deleteCashOne(cash);
+		return row;
+	}
 }

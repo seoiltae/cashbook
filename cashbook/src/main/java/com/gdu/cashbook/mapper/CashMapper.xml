@@ -21,8 +21,7 @@
 	<delete id="deleteCashOne" parameterType="com.gdu.cashbook.vo.Cash">
 		DELETE
 		FROM cash
-		WHERE member_id = #{memberId}
-		AND cash_no = #{cashNo}
+		WHERE cash_no = #{cashNo}
 	</delete>
 	<!-- 로그인한 멤버의 오늘 가계부 총합계 , 총합이 null이면 0으로 표시 
 		dual=일시적 테이블 테이블명이 없을떄-->
