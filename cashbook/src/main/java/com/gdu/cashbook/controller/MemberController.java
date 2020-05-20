@@ -73,7 +73,7 @@ public class MemberController {
 		model.addAttribute("member", member);
 		return "modifyMember";
 	}
-	//로그인한 회원 수정 액션 
+	//로그인한 회원 수정 액션
 	@PostMapping("/modifyMember")
 	public String modify(LoginMember loginMember, HttpSession session, MemberForm memberForm) {
 		if(session.getAttribute("loginMember") ==null) {

@@ -2,6 +2,8 @@ package com.gdu.cashbook.controller;
 
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpSession;
@@ -15,11 +17,52 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.cashbook.service.CashService;
 import com.gdu.cashbook.vo.Cash;
+import com.gdu.cashbook.vo.DayAndPrice;
 import com.gdu.cashbook.vo.LoginMember;
 
 @Controller
 public class CashController {
 	@Autowired CashService cashService;
+	@GetMapping("/getCashListByMonth")
+	public String getCashListByMonth(HttpSession session, Model model, 
+			@DateTimeFormat(pattern = "yyyy-MM-dd") 
+			LocalDate day) {
+		if(session.getAttribute("loginMember") ==null) {
+			return "redirect:/";
+		}
+		Calendar cDay = Calendar.getInstance(); //오늘
+		if(day == null) {//day가 널일경우 로컬날짜로 한다
+			day = LocalDate.now();
+		} else {
+			/*
+			 *  LocalDate -> Calendar x
+			 *  LocalDate -> Date -> Calendar
+			 *  LocalDate -> String -> Calendar
+			 *  LocalDate -> Calendar 사용
+			 */
+			cDay.set(day.getYear(), day.getMonthValue()-1, day.getDayOfMonth()); //오늘날짜에서 day값으로 설정
+		}
+		
+		//일별 가계부 총합계리스트 
+		String memberId =((LoginMember)session.getAttribute("loginMember")).getMemberId();
+		int year = cDay.get(Calendar.YEAR);
+		int month = cDay.get(Calendar.MONTH)+1;
+		List<DayAndPrice> dayAndPriceList = cashService.getCashAndPriceList(memberId, year, month);
+		System.out.println(dayAndPriceList+"<----------dayAndPriceList(year, month)");
+		System.out.println(memberId+"<-----------memberId");
+		for(DayAndPrice dp : dayAndPriceList) {
+	         System.out.println(dp);
+	      }
+		model.addAttribute("dayAndPriceList", dayAndPriceList); //월별 가계부 총합계리스트
+		model.addAttribute("day", day); // 오늘년도,월,일
+		model.addAttribute("month", cDay.get(Calendar.MONTH)+1); //월
+		model.addAttribute("lastDay", cDay.getActualMaximum(Calendar.DATE)); //마지막 일
+		Calendar firstDay = cDay;
+		firstDay.set(Calendar.DATE, 1); // 일만 1일로 변경
+		firstDay.get(Calendar.DAY_OF_WEEK);//1이면 일요일, 2이면 월요일
+		model.addAttribute("firstDayOfWeek", firstDay.get(Calendar.DAY_OF_WEEK)); // 이번달에 1일이 무슨요일
+		return "getCashListByMonth";
+	}
 	//가계부 수정 폼
 	@GetMapping("/modifyCash")
 	public String modifyCash(Cash cash, Model model, HttpSession session) {

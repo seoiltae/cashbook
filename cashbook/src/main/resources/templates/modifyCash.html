@@ -21,8 +21,10 @@ $(document).ready(function() {
 	});
 });
 </script>
+<style th:include="/include/menu::side"></style>
 </head>
-<body>
+<div th:include="/include/menu::sidemenu" class="sidenav"></div>
+<body><center>
 	<h1>가계부 수정</h1>
 	<form method="post" action="/modifyCash" id="myform">
 				<div>
@@ -63,5 +65,5 @@ $(document).ready(function() {
 				</div>
 				<button type="button" id="btn" class="button">가계부 수정</button>
 	</form>
-</body>
+</body></center>
 </html>
