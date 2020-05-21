@@ -75,7 +75,7 @@
 							<!--<div th:text="${(i-(firstDayOfWeek-1))} == ${dp.day} ? ${dp.price}: ''"></div> -->
 							<span th:if="${(i-(firstDayOfWeek-1))} == ${dp.day}">
 								<span th:class="${dp.price}>=0 ? 'gd-blue' : 'gd-red'" 
-										th:text="${dp.price}>=0 ? '+'+${dp.price} : ${dp.price}"></span>
+									th:text="${dp.price}>=0 ? ${dp.price} : ${dp.price}"></span>
 							</span>
 						</div>
 				</div>

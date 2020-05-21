@@ -14,9 +14,31 @@
 		AND MONTH(cash_date) = #{month}
 		GROUP BY DAY(cash_date)			
 	</select>
+	<!-- 가계부 추가 -->
+	<insert id="insertCashOne" parameterType="com.gdu.cashbook.vo.Cash">
+		INSERT INTO cash(
+			member_id,
+			cash_date,
+			cash_kind,
+			category_name,
+			cash_price,
+			cash_place,
+			cash_memo
+		) VALUES (
+			#{memberId},
+			#{cashDate},
+			#{cashKind},
+			#{categoryName},
+			#{cashPrice},
+			#{cashPlace},
+			#{cashMemo}
+		)
+	</insert>
 	<!-- 로그인한 가계부 수정 폼  -->
 	<select id="selectCashNoByCash" parameterType="com.gdu.cashbook.vo.Cash" resultType="com.gdu.cashbook.vo.Cash">
 		SELECT
+			cash_no as cashNo,
+			member_id as memberId,
 			cash_kind as cashKind,
 			category_name as categoryName,
 			cash_price as cashPrice,

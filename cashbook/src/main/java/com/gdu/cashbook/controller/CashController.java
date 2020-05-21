@@ -13,10 +13,12 @@ import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.cashbook.service.CashService;
 import com.gdu.cashbook.vo.Cash;
+import com.gdu.cashbook.vo.Category;
 import com.gdu.cashbook.vo.DayAndPrice;
 import com.gdu.cashbook.vo.LoginMember;
 
@@ -42,7 +44,7 @@ public class CashController {
 			 */
 			cDay.set(day.getYear(), day.getMonthValue()-1, day.getDayOfMonth()); //오늘날짜에서 day값으로 설정
 		}
-		
+	
 		//일별 가계부 총합계리스트 
 		String memberId =((LoginMember)session.getAttribute("loginMember")).getMemberId();
 		int year = cDay.get(Calendar.YEAR);
@@ -63,24 +65,7 @@ public class CashController {
 		model.addAttribute("firstDayOfWeek", firstDay.get(Calendar.DAY_OF_WEEK)); // 이번달에 1일이 무슨요일
 		return "getCashListByMonth";
 	}
-	//가계부 수정 폼
-	@GetMapping("/modifyCash")
-	public String modifyCash(Cash cash, Model model, HttpSession session) {
-		if(session.getAttribute("loginMember") ==null) {
-			return "redirect:/";
-		}
-		cash = cashService.modifyCash(cash);
-		model.addAttribute("modiCash", cash);
-		System.out.println(cash+"<--------------dddddddd");
-		return "modifyCash";
-	}
-	//가계부 삭제 post
-	@GetMapping("/removeCash")
-	public String removeCash(Cash cash, @RequestParam("cashNo") int cashNo) {
-		cash.setCashNo(cashNo);
-		cashService.removeCash(cash);
-		return "redirect:/getCashListByDate";
-		}
+	//일별 가계부 목록
 	@GetMapping("/getCashListByDate")
 	public String getCashListByDate(HttpSession session, Model model, 
 			@RequestParam(value = "day", required = false) //뷰에서 입력한 값을 받아옴
@@ -101,6 +86,7 @@ public class CashController {
 		//로그인 
 		if(session.getAttribute("loginMember") == null) {
 			return "redirect:/";
+			
 		}
 		
 		Cash cash = new Cash(); // +id, +date
@@ -112,4 +98,53 @@ public class CashController {
 		model.addAttribute("day", day); // today(오늘날짜) ->view
 		return "getCashListByDate";
 	}
+	//가계부 입력 폼
+	@GetMapping("/addCash")
+	public String addCash(Cash cash, HttpSession session, Model model, 
+			LocalDate day) {
+		if(session.getAttribute("loginMember") ==null) {
+			return "redirect:/";
+		}
+		if(day == null) {//day가 널일경우 로컬날짜로 한다
+			day = LocalDate.now(); 
+		}
+		model.addAttribute("day", day);
+		
+		//로그인 아이디
+		String loginMemberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
+		List<Category> categoryList = cashService.getSelectCategoryList();
+		model.addAttribute("cList", categoryList); //카테고리목록
+		model.addAttribute("memberId", loginMemberId); //멤버아이디
+		return "addCash";
+	}
+	//가계부 입력 액션
+	@PostMapping("/addCash")
+	public String addCash(Cash cash, Model model,
+			@RequestParam(value = "day", required = false )
+			@DateTimeFormat(pattern = "yyyy-MM-dd")
+			LocalDate day) {
+		cashService.addCash(cash);	
+		return "redirect:/getCashListByDate?day="+cash.getCashDate();
+	}
+	//가계부 수정폼
+	@GetMapping("/modifyCash")
+	public String modifyCash(Cash cash, Model model, HttpSession session) {
+		if(session.getAttribute("loginMember") ==null) {
+			return "redirect:/";
+		}
+		List<Category> categoryList = cashService.getSelectCategoryList();
+		model.addAttribute("cList", categoryList);
+		System.out.println(categoryList+"<-----categoryList");
+		cash = cashService.modifyCash(cash);
+		model.addAttribute("modiCash", cash);
+		System.out.println(cash+"<--------------dddddddd");
+		return "modifyCash";
+	}
+	//가계부 삭제 post
+	@GetMapping("/removeCash")
+	public String removeCash(Cash cash, @RequestParam("cashNo") int cashNo) {
+		cash.setCashNo(cashNo);
+		cashService.removeCash(cash);
+		return "redirect:/getCashListByDate";
+		}
 }

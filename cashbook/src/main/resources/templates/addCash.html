@@ -25,48 +25,52 @@ $(document).ready(function() {
 </head>
 <div th:include="/include/menu::sidemenu" class="sidenav"></div>
 <body><center>
-	<h1>가계부 수정</h1>
-	<form method="post" action="/modifyCash" id="myform">
+	<h1>가계부 입력</h1>
+	<form method="post" action="/addCash" id="myform">
 				<div>
-					<input type="hidden" th:value="${modiCash.cashNo}" name="cashNo" id="cashNo" readonly="readonly"> 
+					멤버아이디
+				</div>
+				<div>
+					<input type="hidden" th:value="${memberId}" name="memberId" id="memberId" readonly="readonly"> 
 				</div>
 				<div>
 					가계부 날짜
 				</div>
 				<div>
-					<input type="text" th:value="${modiCash.cashDate}" name="cashDate" id="cashDate"> 
+					<input type="date" th:value="${day}" name="cashDate" id="cashDate"> 
 				</div>
 				<div>
 					가계부 수입/지출
 				</div>
-				<div>
-					<input type="text" th:value="${modiCash.cashKind}" name="cashKind" id="cashKind"> 
-				</div>
+				<select name="cashKind">
+					<option th:value="지출" id="cashKind">지출</option>
+					<option th:value="수입" id="cashKind">수입</option>
+				</select>
 				<div class="text">
 					카테고리
 				</div>
-				<select>
-					<option th:each="cList : ${cList}" th:value="${cList}" th:text="${cList.categoryName}"></option>
+				<select name="categoryName">
+					<option th:each="cList : ${cList}" th:value="${cList.categoryName}" th:text="${cList.categoryName}"></option>
 				</select>
 				<div class="text">
 					금액
 				</div>
 				<div>
-					<input type="text" th:value="${modiCash.cashPrice}" name="cashPrice" id="cashPrice"> 
+					<input type="text" name="cashPrice" id="cashPrice"> 
 				</div>
 				<div class="text">
 					장소
 				</div>
 				<div>
-					<input type="text" th:value="${modiCash.cashPlace}" name="cashPlace" id="cashPlace"> 
+					<input type="text" name="cashPlace" id="cashPlace"> 
 				</div>
 				<div class="text">
 					메모
 				</div>
 				<div>
-					<input type="text" th:value="${modiCash.cashMemo}" name="cashMemo" id="cashMemo"> 
+					<input type="text" name="cashMemo" id="cashMemo"> 
 				</div>
-				<button type="button" id="btn" class="button">가계부 수정</button>
+				<button type="button" id="btn" class="button">가계부 추가</button>
 	</form>
 </body></center>
 </html>
