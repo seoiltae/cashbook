@@ -50,7 +50,15 @@
 	</select>
 	<!-- 로그인한 가계부 수정 액션 -->
 	<update id="updateCashOne" parameterType="com.gdu.cashbook.vo.Cash">
-		
+		UPDATE 
+			cash
+		SET cash_date = #{cashDate},
+			cash_kind = #{cashKind},
+			category_name = #{categoryName},
+			cash_price = #{cashPrice},
+			cash_place = #{cashPlace},
+			cash_memo = #{cashMemo}
+		WHERE cash_no = #{cashNo}
 	</update>
 	<!-- 로그인한 멤버의 가계부 정보 -->
 	<select id="selectCashListByDate" parameterType="com.gdu.cashbook.vo.Cash" resultType="com.gdu.cashbook.vo.Cash">

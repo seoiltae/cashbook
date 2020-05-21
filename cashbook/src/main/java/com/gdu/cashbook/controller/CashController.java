@@ -129,16 +129,32 @@ public class CashController {
 	//가계부 수정폼
 	@GetMapping("/modifyCash")
 	public String modifyCash(Cash cash, Model model, HttpSession session) {
+		//로그인 세션
 		if(session.getAttribute("loginMember") ==null) {
 			return "redirect:/";
 		}
+		//카테고리 리스트
 		List<Category> categoryList = cashService.getSelectCategoryList();
 		model.addAttribute("cList", categoryList);
+		
 		System.out.println(categoryList+"<-----categoryList");
-		cash = cashService.modifyCash(cash);
+		
+		cash = cashService.selectCashOneUp(cash);
 		model.addAttribute("modiCash", cash);
-		System.out.println(cash+"<--------------dddddddd");
+		System.out.println(cash+"<--------------dddddddd"); //디버깅
 		return "modifyCash";
+	}
+	//가계부 수정액션
+	@PostMapping("/modifyCash")
+	public String modifyCash(Cash cash, Model model,
+			@RequestParam("categoryName") String categoryName,
+			@RequestParam(value = "day", required = false) //날짜 LocalDate
+			@DateTimeFormat(pattern = "yyyy-MM-dd") // 받아올 날짜 형식
+			LocalDate day) {
+		cashService.modifyCash(cash);
+		cash.setCategoryName(categoryName);
+		System.out.println(cash+"<---------------수정결과");
+		return "redirect:/getCashListByDate?day="+cash.getCashDate();
 	}
 	//가계부 삭제 post
 	@GetMapping("/removeCash")

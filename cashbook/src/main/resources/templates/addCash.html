@@ -14,23 +14,33 @@
 
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script>
-$(document).ready(function() {
-	$('#btn').click(function(){
-		$('#myform').submit();
-	});
-});
-</script>
+	<script>
+		$(document).ready(function() {
+			$('#btn').click(function(){
+				$('#myform').submit();
+			});
+		});
+		//직접입력 선택 시 카테고리 추가기능
+		$(function(){
+		    //직접입력 인풋박스 기존에는 숨어있다가
+		$("#insertCategoryName").hide();
+		$("#categoryName").change(function() {
+		              //직접입력을 누를 때 나타남
+				if($("#categoryName").val() == "selCategory") {
+					$("#insertCategoryName").show();
+				}  else {
+					$("#insertCategoryName").hide();
+				}
+			}) 
+		});
+	</script>
 <style th:include="/include/menu::side"></style>
 </head>
 <div th:include="/include/menu::sidemenu" class="sidenav"></div>
 <body><center>
 	<h1>가계부 입력</h1>
 	<form method="post" action="/addCash" id="myform">
-				<div>
-					멤버아이디
-				</div>
-				<div>
+				<div><!-- 유저 아이디 -->
 					<input type="hidden" th:value="${memberId}" name="memberId" id="memberId" readonly="readonly"> 
 				</div>
 				<div>
@@ -49,9 +59,11 @@ $(document).ready(function() {
 				<div class="text">
 					카테고리
 				</div>
-				<select name="categoryName">
+				<select name="categoryName" id="categoryName">
 					<option th:each="cList : ${cList}" th:value="${cList.categoryName}" th:text="${cList.categoryName}"></option>
+					<option value="selCategory">직접입력</option>
 				</select>
+					<input type="text" id="insertCategoryName" name="categoryName">
 				<div class="text">
 					금액
 				</div>

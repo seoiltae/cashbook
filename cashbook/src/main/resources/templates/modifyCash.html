@@ -20,7 +20,21 @@ $(document).ready(function() {
 		$('#myform').submit();
 	});
 });
+// 직접입력 선택 시 카테고리 추가기능
+$(function(){
+    //직접입력 인풋박스 기존에는 숨어있다가
+$("#insertCategoryName").hide();
+$("#categoryName").change(function() {
+              //직접입력을 누를 때 나타남
+		if($("#categoryName").val() == "selCategory") {
+			$("#insertCategoryName").show();
+		}  else {
+			$("#insertCategoryName").hide();
+		}
+	}) 
+});
 </script>
+
 <style th:include="/include/menu::side"></style>
 </head>
 <div th:include="/include/menu::sidemenu" class="sidenav"></div>
@@ -34,20 +48,23 @@ $(document).ready(function() {
 					가계부 날짜
 				</div>
 				<div>
-					<input type="text" th:value="${modiCash.cashDate}" name="cashDate" id="cashDate"> 
+					<input type="date" th:value="${modiCash.cashDate}" name="cashDate" id="cashDate"> 
 				</div>
 				<div>
 					가계부 수입/지출
 				</div>
-				<div>
-					<input type="text" th:value="${modiCash.cashKind}" name="cashKind" id="cashKind"> 
-				</div>
+				<select id="cashKind" name="cashKind">
+                     <option value="수입" th:selected="${modiCash.cashKind eq '수입'}">수입</option>
+                     <option value="지출" th:selected="${modiCash.cashKind eq '지출'}">지출</option>
+                </select>
 				<div class="text">
 					카테고리
 				</div>
-				<select>
-					<option th:each="cList : ${cList}" th:value="${cList}" th:text="${cList.categoryName}"></option>
+				<select name="categoryName" id="categoryName">
+					<option th:each="cList : ${cList}" th:value="${cList.categoryName}" th:text="${cList.categoryName}" th:selected="${cList.categoryName eq modiCash.categoryName}"></option>
+					<option value="selCategory">직접입력</option>
 				</select>
+					<input type="text" id="insertCategoryName" name="insertCategoryName"/>
 				<div class="text">
 					금액
 				</div>

@@ -48,11 +48,14 @@ public class CashService {
 	}
 	
 	//가계부 수정 폼
-	public Cash modifyCash(Cash cash) {
+	public Cash selectCashOneUp(Cash cash) {
 		return cashMapper.selectCashNoByCash(cash);
 	}
 	//가계부 수정 액션
-	
+	public int modifyCash(Cash cash) {
+		int row = cashMapper.updateCashOne(cash);
+		return row;
+	}
 	//카테고리 목록 //가계부 입력 시 가계부 수정 시 카테고리 선택
 	public List<Category> getSelectCategoryList() {
 		return categoryMapper.selectCategoryList();
