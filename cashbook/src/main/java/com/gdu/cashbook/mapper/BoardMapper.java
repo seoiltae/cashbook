@@ -8,6 +8,6 @@ import org.apache.ibatis.annotations.Mapper;
 import com.gdu.cashbook.vo.Board;
 @Mapper
 public interface BoardMapper {
-	public List<Board> selectBoardList(Map<String, Object> date); //게시글 목록(페이징,검색)
-	public Board selectBoardOne(); //게시글 상세보기
+	public List<Board> selectBoardList(); //게시글 목록(페이징,검색)
+	public Board selectBoardOne(Board board); //게시글 상세보기
 }

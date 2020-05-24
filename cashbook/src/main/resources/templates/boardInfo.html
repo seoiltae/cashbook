@@ -17,30 +17,34 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 </head>
 	<body>
-		<div th:include="/include/menu::sidemenu" class="sidenav"></div>
+	<div th:include="/include/menu::sidemenu" class="sidenav"></div>
 		<div class="center">
-		<h1>게시판 목록</h1>
-		<div>
-			 <a th:href="@{/addBoard}">게시글작성</a>
-			 <a th:href="@{/boardMyInfo}">내 게시글</a>
-		</div>
-		<table border="1">
-			<thead>
+			<h1>memberInfo</h1>
+				<div>
+					 <a th:href="@{/removeBoard}">게시글삭제</a>
+				</div>
+			<table class="table tr">
 				<tr>
-					<th>게시글번호</th>
-					<th>작성자</th>
-					<th>제목</th>
-					<th>작성날짜</th>
+					<td>게시글번호</td>
+					<td th:text="${board.boardNo}"></td>
 				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="list : ${list}">
-					<td><a th:text="${list.boardNo}" th:href="@{/boardInfo(boardNo=${list.boardNo})}">상세보기</a></td>
-					<td th:text="${list.boardTitle}"></td>
-					<td th:text="${list.memberId}"></td>
-					<td th:text="${list.boardDate}"></td>
+				<tr>
+					<td>작성자</td>
+					<td th:text="${board.memberId}"></td>
 				</tr>
-			</tbody>
-		</table>
+				<tr>
+					<td>제목</td>
+					<td th:text="${board.boardTitle}"></td>
+				</tr>
+				<tr>
+					<td>내용</td>
+					<td th:text="${board.boardContents}"></td>
+				</tr>
+				<tr>
+					<td>작성날짜</td>
+					<td th:text="${board.boardDate}"></td>
+				</tr>
+			</table>
+		</div>
 	</body>
 </html>

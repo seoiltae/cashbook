@@ -14,7 +14,11 @@ public class BoardService {
 	@Autowired private BoardMapper boardMapper;
 	//게시판 목록
 	public List<Board> getBoardList() {
-		Map<String, Object> map = new HashMap<>(); //map.put() <-페이징 완료하면 맵에 페이징넣기
-		return boardMapper.selectBoardList(map);
+		//Map<String, Object> map = new HashMap<>(); //map.put() <-페이징 완료하면 맵에 페이징넣기
+		return boardMapper.selectBoardList();
+	}
+	//게시글 상세보기
+	public Board getBoardOne(Board board) {
+		return boardMapper.selectBoardOne(board);
 	}
 }

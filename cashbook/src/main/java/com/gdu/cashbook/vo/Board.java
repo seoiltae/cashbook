@@ -2,6 +2,11 @@ package com.gdu.cashbook.vo;
 
 public class Board {
 	private int boardNo;
+	private String memberId;
+	private String boardTitle;
+	private String boardContents;
+	private String boardDate;
+
 	public int getBoardNo() {
 		return boardNo;
 	}
@@ -32,10 +37,6 @@ public class Board {
 	public void setBoardDate(String boardDate) {
 		this.boardDate = boardDate;
 	}
-	private String memberId;
-	private String boardTitle;
-	private String boardContents;
-	private String boardDate;
 	@Override
 	public String toString() {
 		return "Board [boardNo=" + boardNo + ", memberId=" + memberId + ", boardTitle=" + boardTitle
