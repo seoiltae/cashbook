@@ -11,8 +11,9 @@
 			board_no as boardNo,
 			member_id as memberId,
 			board_title as boardTitle,
-			board_date as boardDate
-		FROM board	
+			board_date as boardDate 
+		FROM board
+		ORDER BY board_no DESC	
 	</select>
 	<!-- 게시글 상세보기 -->
 	<select id="selectBoardOne" parameterType="com.gdu.cashbook.vo.Board" resultType="com.gdu.cashbook.vo.Board">
@@ -25,4 +26,27 @@
 		FROM board
 		WHERE board_no = #{boardNo}
 	</select>
+	<!-- 게시글 추가하기 -->
+	<insert id="insertBoard" parameterType="com.gdu.cashbook.vo.Board">
+		INSERT INTO board(
+			board_no,
+			board_title,
+			board_contents,
+			member_id,
+			board_date
+		) VALUES (
+			#{boardNo},
+			#{boardTitle},
+			#{boardContents},
+			#{memberId},
+			NOW()
+		)
+	</insert>
+	<!-- 가계부 삭제 -->
+	<delete id="deleteBoard" parameterType="com.gdu.cashbook.vo.Board">
+		DELETE
+		FROM board
+		WHERE member_id = #{memberId}
+		AND board_no = #{boardNo}
+	</delete> 
 </mapper>

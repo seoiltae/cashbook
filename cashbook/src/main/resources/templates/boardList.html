@@ -28,9 +28,10 @@
 			<thead>
 				<tr>
 					<th>게시글번호</th>
-					<th>작성자</th>
 					<th>제목</th>
+					<th>작성자</th>
 					<th>작성날짜</th>
+					<th>삭제</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -39,6 +40,7 @@
 					<td th:text="${list.boardTitle}"></td>
 					<td th:text="${list.memberId}"></td>
 					<td th:text="${list.boardDate}"></td>
+					<td><a th:href="@{/removeBoard}">삭제</a></td>
 				</tr>
 			</tbody>
 		</table>
