@@ -37,18 +37,15 @@ public class CashService {
 		return map;
 	}
 	// 가계부 추가 액션
-	public int addCash(Cash cash) {
-		int row = cashMapper.insertCashOne(cash);
-		//	String check = categoryMapper.selectCategory(category);
-	/*	if(check == null) {
-			categoryMapper.insertCategoryOne(category);
+	public int addCash(Cash cash, Category category) {
+			Category check = categoryMapper.selectCategory(category);
 			int row = cashMapper.insertCashOne(cash);
+		if(check == null) {
+			categoryMapper.insertCategoryOne(category);
 			return row;
 		} else {
-			int row = cashMapper.insertCashOne(cash);
 			return row;
-		}*/
-		return row;
+		}
 	}
 	//가계부 삭제(혹시모를 트랜잭션 처리를 위해 void대신 int)
 	public int removeCash(Cash cash) {
@@ -61,18 +58,15 @@ public class CashService {
 		return cashMapper.selectCashNoByCash(cash);
 	}
 	//가계부 수정 액션
-	public int modifyCash(Cash cash) {
+	public int modifyCash(Cash cash, Category category) {
+		Category check = categoryMapper.selectCategory(category);
 		int row = cashMapper.updateCashOne(cash);
-	/*	String check = categoryMapper.selectCategory(category);
 		if(check == null) {
 			categoryMapper.insertCategoryOne(category);
-			int row = cashMapper.updateCashOne(cash);
 			return row;
 		} else {
-			int row = cashMapper.updateCashOne(cash);
 			return row;
-		} */
-		return row;
+		}
 	}
 	//카테고리 목록 //가계부 입력 시 가계부 수정 시 카테고리 선택
 	public List<Category> getSelectCategoryList() {
