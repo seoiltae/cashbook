@@ -12,4 +12,5 @@ public interface BoardMapper {
 	public Board selectBoardOne(Board board); //게시글 상세보기
 	public int insertBoard(Board board); // 게시글 추가
 	public int deleteBoard(Board board); // 게시글 삭제
+	public List<Board> selectMyBoardList(Board board); //나의 게시글 보기
 }

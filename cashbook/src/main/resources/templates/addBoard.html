@@ -47,21 +47,17 @@
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script>
 $(document).ready(function() {
-	$('#btn').click(function(){			$('#myform').submit();
-		}
+	$('#btn').click(function(){
+		$('#myForm').submit();
 		
 	}); //btn click end
-	
-	$('#myForm').click(function() {
-		$('#myForm').submit();
-	});
 }); 
 </script>
 </head>
 	<body>
 		<div class="container">
 			<div align=center class="row">
-			<h1>회원가입</h1>
+			<h1>글작성</h1>
 				<form method="post" action="/addBoard" id="myForm">
 				<div class="text">
 					제목
@@ -74,7 +70,7 @@ $(document).ready(function() {
 					아이디
 				</div>
 				<div class="div">
-					<input type="text" name="memberId" id="memberId" th:value="${loginMember}"> 
+					<input type="text" name="memberId" id="memberId" th:value="${loginMember}" readonly="readonly"> 
 					<span id="idHelper"></span>
 				</div>
 				<div class="text">
@@ -84,7 +80,7 @@ $(document).ready(function() {
 					<input type="text" name="boardContents" id="boardContents"> 
 					<span id="addrHelper"></span>
 				</div>
-				<button type="button" id="btn" class="button">회원가입</button>
+				<button type="button" id="btn" class="button">게시글작성</button>
 			</form>
 			</div>
 		</div>	

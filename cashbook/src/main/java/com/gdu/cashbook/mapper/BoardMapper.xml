@@ -42,6 +42,17 @@
 			NOW()
 		)
 	</insert>
+	<!-- 내 게시글 보기-->
+	<select id="selectMyBoardList" resultType="com.gdu.cashbook.vo.Board" parameterType="com.gdu.cashbook.vo.Board">
+		SELECT
+			board_no as boardNo,
+			member_id as memberId,
+			board_title as boardTitle,
+			board_contents as boardContents,
+			board_date as boardDate 
+		FROM board
+		WHERE member_id = #{memberId}
+	</select>
 	<!-- 가계부 삭제 -->
 	<delete id="deleteBoard" parameterType="com.gdu.cashbook.vo.Board">
 		DELETE

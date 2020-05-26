@@ -3,7 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style th:include="/include/menu::side"></style>
+<style>
+
+</style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -19,26 +21,29 @@
 	<body>
 		<div th:include="/include/menu::sidemenu" class="sidenav"></div>
 		<div class="center">
-		<h1>게시판 목록</h1>
+		<h1>나의 게시글 목록</h1>
 		<div>
 			 <a th:href="@{/addBoard}">게시글작성</a>
-			 <a th:href="@{/boardMyInfo(memberId=${loginMember})}">내 게시글</a>
+			 <a th:href="@{/boardList}">게시글목록</a>
 		</div>
 		<table border="1">
 			<thead>
 				<tr>
-					<th>게시글번호</th>
 					<th>제목</th>
-					<th>작성자</th>
+					<th>내용</th>
+					<th>내아이디</th>
 					<th>작성날짜</th>
+					<th>삭제</th>
 				</tr>
 			</thead>
+			
 			<tbody>
-				<tr th:each="list : ${list}">
-					<td><a th:text="${list.boardNo}" th:href="@{/boardInfo(boardNo=${list.boardNo})}">상세보기</a></td>
-					<td th:text="${list.boardTitle}"></td>
-					<td th:text="${list.memberId}"></td>
-					<td th:text="${list.boardDate}"></td>
+				<tr th:each="myBoardList : ${myBoardList}">
+					<td th:text="${myBoardList.boardTitle}"></td>
+					<td th:text="${myBoardList.boardContents}"></td>
+					<td th:text="${myBoardList.memberId}"></td>
+					<td th:text="${myBoardList.boardDate}"></td>
+					<td><a th:href="@{/removeBoard(boardTitle=${myBoardList.boardTitle}, boardContents=${myBoardList.boardContents}, memberId=${memberId}, boardNo=${myBoardList.boardNo})}">삭제</a></td>
 				</tr>
 			</tbody>
 		</table>
