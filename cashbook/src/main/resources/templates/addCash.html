@@ -63,7 +63,7 @@
 					카테고리
 				</div>
 				<select name="categoryName" id="categoryName">
-					<option th:each="cList : ${cList}" th:value="${cList.categoryName}" th:text="${cList.categoryName}"></option>
+					<option th:each="cList :${cList}" th:value="${cList.categoryName}" th:text="${cList.categoryName}"></option>
 					<option value="self">직접입력</option>
 				</select>
 					<input type="text" id="insertCategoryName" name="categoryName">

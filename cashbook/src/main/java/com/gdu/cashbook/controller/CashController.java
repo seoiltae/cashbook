@@ -119,11 +119,11 @@ public class CashController {
 	}
 	//가계부 입력 액션
 	@PostMapping("/addCash")
-	public String addCash(Cash cash, Model model, Category category,
+	public String addCash(Cash cash, Model model,
 			@RequestParam(value = "day", required = false )
 			@DateTimeFormat(pattern = "yyyy-MM-dd")
 			LocalDate day) {
-		cashService.addCash(cash, category);
+		cashService.addCash(cash);
 		return "redirect:/getCashListByDate?day="+cash.getCashDate();
 	}
 	//가계부 수정폼
@@ -146,12 +146,12 @@ public class CashController {
 	}
 	//가계부 수정액션
 	@PostMapping("/modifyCash")
-	public String modifyCash(Cash cash, Model model, Category category,
+	public String modifyCash(Cash cash, Model model,
 			@RequestParam("categoryName") String categoryName,
 			@RequestParam(value = "day", required = false) //날짜 LocalDate
 			@DateTimeFormat(pattern = "yyyy-MM-dd") // 받아올 날짜 형식
 			LocalDate day) {
-		cashService.modifyCash(cash, category);
+		cashService.modifyCash(cash);
 		cash.setCategoryName(categoryName);
 		System.out.println(cash+"<---------------수정결과");
 		return "redirect:/getCashListByDate?day="+cash.getCashDate();
