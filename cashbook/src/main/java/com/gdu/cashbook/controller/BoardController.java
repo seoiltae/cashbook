@@ -1,6 +1,7 @@
 package com.gdu.cashbook.controller;
 
 import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,8 +11,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.gdu.cashbook.mapper.BoardMapper;
 import com.gdu.cashbook.service.BoardService;
-import com.gdu.cashbook.vo.BackBoard;
 import com.gdu.cashbook.vo.Board;
 import com.gdu.cashbook.vo.LoginMember;
 @Controller
@@ -85,6 +86,27 @@ public class BoardController {
 		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
 		model.addAttribute("memberId", memberId);
 		boardService.removeBoard(board);
+		return "redirect:/boardMyInfo?memberId="+memberId;
+	}
+	//게시글 수정 폼
+	@GetMapping("/modifyBoard")
+	public String modifyBoard(Board board, HttpSession session, Model model) {
+		if(session.getAttribute("loginMember") ==null) { 
+			return "redirect:/"; 
+		}
+		board = boardService.getBoardUpdate(board);
+		model.addAttribute("board", board);
+		System.out.println();
+		return "modifyBoard";
+	}
+	//게시글 수정 액션
+	@PostMapping("/modifyBoard")
+	public String modifyBoard(Board board, HttpSession session) {
+		if(session.getAttribute("loginMember") ==null) {
+			return "redirect:/";
+		}
+		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
+		boardService.modifyBoard(board);
 		return "redirect:/boardMyInfo?memberId="+memberId;
 	}
 }

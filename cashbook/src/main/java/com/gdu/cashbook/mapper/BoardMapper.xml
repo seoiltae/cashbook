@@ -53,11 +53,32 @@
 		FROM board
 		WHERE member_id = #{memberId}
 	</select>
-	<!-- 가계부 삭제 -->
+	<!-- 게시판 삭제 -->
 	<delete id="deleteBoard" parameterType="com.gdu.cashbook.vo.Board">
 		DELETE
 		FROM board
 		WHERE member_id = #{memberId}
 		AND board_no = #{boardNo}
-	</delete> 
+	</delete>
+	<!-- 수정폼 셀렉트 -->
+	<select id="selectByUpdate" resultType="com.gdu.cashbook.vo.Board" parameterType="com.gdu.cashbook.vo.Board">
+		SELECT
+			board_no as boardNo,
+			member_id as memberId,
+			board_title as boardTitle,
+			board_contents as boardContents,
+			board_date as boardDate
+		FROM board
+		WHERE board_no = #{boardNo}
+		AND member_id = #{memberId}	
+	</select>
+	<!-- 게시글 수정액션 -->
+	<update id="updateBoard" parameterType="com.gdu.cashbook.vo.Board">
+		UPDATE 
+			board
+		SET board_title = #{boardTitle},
+			board_contents = #{boardContents},
+			board_date = NOW()
+		WHERE board_no = #{boardNo}	
+	</update> 
 </mapper>

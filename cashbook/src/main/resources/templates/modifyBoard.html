@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>ModifyCash</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function() {
+	$('#btn').click(function(){
+		$('#categoryName').val('Default Value'); //버튼 클릭시 직접입력한 값에 벨류값을 없앰
+		$('#myform').submit();
+	});
+});
+</script>
+<style th:include="/include/menu::side"></style>
+</head>
+<div th:include="/include/menu::sidemenu" class="sidenav"></div>
+<body><center>
+	<h1>게시판 수정</h1>
+	<form method="post" action="/modifyBoard" id="myform">
+				<div>
+					<input type="text" th:value="${board.boardNo}" name="boardNo" id="boardNo" readonly="readonly"> 
+				</div>
+				<div>
+					제목
+				</div>
+				<div>
+					<input type="text" th:value="${board.boardTitle}" name="boardTitle" id="boardTitle"> 
+				</div>
+				<div class="text">
+					내용 
+				</div>
+				<div>
+					<input type="text" th:value="${board.boardContents}" name="boardContents" id="boardContents"> 
+				</div>
+				<button type="button" id="btn" class="button">게시판 수정</button>
+	</form>
+</body></center>
+</html>

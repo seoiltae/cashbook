@@ -34,6 +34,7 @@
 					<th>내아이디</th>
 					<th>작성날짜</th>
 					<th>삭제</th>
+					<th>수정</th>
 				</tr>
 			</thead>
 			
@@ -44,6 +45,7 @@
 					<td th:text="${myBoardList.memberId}"></td>
 					<td th:text="${myBoardList.boardDate}"></td>
 					<td><a th:href="@{/removeBoard(boardTitle=${myBoardList.boardTitle}, boardContents=${myBoardList.boardContents}, memberId=${memberId}, boardNo=${myBoardList.boardNo})}">삭제</a></td>
+					<td><a th:href="@{/modifyBoard(boardNo=${myBoardList.boardNo}, memberId=${memberId})}">수정</a></td>
 				</tr>
 			</tbody>
 		</table>

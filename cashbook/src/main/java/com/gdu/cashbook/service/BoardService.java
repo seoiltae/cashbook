@@ -32,6 +32,14 @@ public class BoardService {
 	public List<Board> getBoardMyList(Board board) {
 		return boardMapper.selectMyBoardList(board);
 	}
+	//게시글 수정 폼
+	public Board getBoardUpdate(Board board) {
+		return boardMapper.selectByUpdate(board);
+	}
+	//게시글 수정액션
+	public int modifyBoard(Board board) {
+		return boardMapper.updateBoard(board);
+	}
 	//게시글 삭제하기
 	public int removeBoard(Board board) {
 		int row = boardMapper.deleteBoard(board);
