@@ -17,7 +17,6 @@
 <script>
 $(document).ready(function() {
 	$('#btn').click(function(){
-		$('#categoryName').val('Default Value'); //버튼 클릭시 직접입력한 값에 벨류값을 없앰
 		$('#myform').submit();
 	});
 });
@@ -29,6 +28,7 @@ $("#categoryName").change(function() {
               //직접입력을 누를 때 나타남
 		if($("#categoryName").val() == "self") {
 			$("#insertCategoryName").show();
+			$('#categoryName').val('Default Value');
 		}  else {
 			$("#insertCategoryName").hide();
 		}
@@ -62,7 +62,7 @@ $("#categoryName").change(function() {
 					카테고리
 				</div>
 				<select name="categoryName" id="categoryName">
-					<option th:each="cList : ${cList}" th:value="${cList.categoryName}" th:text="${cList.categoryName}" th:selected="${cList.categoryName eq modiCash.categoryName}"></option>
+					<option th:each="cList : ${cList}" th:value="${cList.categoryName}" th:text="${cList.categoryName}"></option>
 					<option value="self">직접입력</option>
 				</select>
 					<input type="text" id="insertCategoryName" name="insertCategoryName"/>

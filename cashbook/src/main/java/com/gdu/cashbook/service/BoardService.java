@@ -49,4 +49,13 @@ public class BoardService {
 		System.out.println(row+"<===================가게부 삭제 후 백업테이블에 입력");
 		return row;
 	}
+	/*//회원 탈퇴 시 작성한 게시글 전부 삭제하기
+		public int alldeleteByBoard(Board board) {
+			int row = boardMapper.alldeleteByBoard(board);
+			if(row == 1) { //게시글 삭제 시 백업게시판에 게시글 추가	
+			return	backBoardMapper.insertBackBoard(board);
+			}
+			System.out.println(row+"<===================가게부 삭제 후 백업테이블에 입력");
+			return row;
+		}*/
 }

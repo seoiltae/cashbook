@@ -93,4 +93,10 @@
 			WHERE member_id= #{memberId} AND cash_kind = '지출' AND cash_date = #{cashDate})
 		FROM dual	
 	</select>
+	<!-- 회원탈퇴 시 가계부 삭제 -->
+	<delete id="allDeleteByCash" parameterType="com.gdu.cashbook.vo.LoginMember">
+		DELETE
+		FROM cash
+		WHERE member_id = #{memberId}
+	</delete>
 </mapper>

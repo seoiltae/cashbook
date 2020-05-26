@@ -17,7 +17,6 @@
 	<script>
 		$(document).ready(function() {
 			$('#btn').click(function(){
-				$('#categoryName').val('Default Value'); //버튼 클릭시 직접입력한 값에 벨류값을 없앰
 				$('#myform').submit();
 			});
 		});
@@ -28,7 +27,9 @@
 		$("#categoryName").change(function() {
 		              //직접입력을 누를 때 나타남
 				if($("#categoryName").val() =="self") {
+					$('#categoryName').val('Default Value');
 					$("#insertCategoryName").show();
+					
 				}  else {
 					$("#insertCategoryName").hide();
 				}

@@ -80,5 +80,11 @@
 			board_contents = #{boardContents},
 			board_date = NOW()
 		WHERE board_no = #{boardNo}	
-	</update> 
+	</update>
+	<!-- 회원 탈퇴 시 작성게시글 전부 삭제 -->
+	 <delete id="alldeleteByBoard" parameterType="com.gdu.cashbook.vo.Board">
+	 	DELETE
+		FROM board
+		WHERE member_id = #{memberId}
+	 </delete>
 </mapper>

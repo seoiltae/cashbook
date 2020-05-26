@@ -5,8 +5,6 @@ package com.gdu.cashbook.service;
 import java.io.File;
 import java.util.UUID;
 
-import javax.management.RuntimeErrorException;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.SimpleMailMessage;
@@ -15,8 +13,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gdu.cashbook.mapper.CashMapper;
 import com.gdu.cashbook.mapper.MemberMapper;
 import com.gdu.cashbook.mapper.MemberidMapper;
+import com.gdu.cashbook.vo.Board;
 import com.gdu.cashbook.vo.LoginMember;
 import com.gdu.cashbook.vo.Member;
 import com.gdu.cashbook.vo.MemberForm;
@@ -27,6 +27,7 @@ public class MemberService {
 	@Autowired private MemberMapper memberMapper;
 	@Autowired private MemberidMapper memberidMapper;
 	@Autowired private JavaMailSender javaMailSender; //자바메일보내는 객체
+	@Autowired private CashMapper cashMapper;
 	@Value("D:\\it\\git-cashbook\\cashbook\\src\\main\\resources\\static\\upload\\")
 	private String path;
 	//비밀번호 찾기
@@ -120,8 +121,9 @@ public class MemberService {
 		// 2
 		//1. 멤버아이디테이블에 아이디 추가
 		Memberid memberid = new Memberid();
-		if(memberMapper.deleteMember(loginMember) == 1 ) {	
-			
+		Board board = new Board();
+		cashMapper.allDeleteByCash(loginMember);
+		if(memberMapper.deleteMember(loginMember)== 1 ) {
 			//2. 회원정보 회원탈퇴
 			file.delete(); //파일 삭제
 			memberid.setMemberId(loginMember.getMemberId());
