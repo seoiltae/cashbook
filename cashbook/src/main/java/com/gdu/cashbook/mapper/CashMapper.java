@@ -18,5 +18,5 @@ public interface CashMapper {
 	public int selectCashKindSum(Cash cash);// 오늘 가계부 총합계
 	public Cash selectCashNoByCash(Cash cash); // 로그인한 회원의 수정폼
 	public int updateCashOne(Cash cash); // 로그인한 회원의 수정 액션
-	public int allDeleteByCash(LoginMember loginMember); // 회원 탈퇴 시 가계부 삭제
+	public int allDeleteByCash(String memberId); // 회원 탈퇴 시 가계부 삭제
 }

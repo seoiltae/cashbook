@@ -12,7 +12,7 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
-
+import com.gdu.cashbook.mapper.BoardMapper;
 import com.gdu.cashbook.mapper.CashMapper;
 import com.gdu.cashbook.mapper.MemberMapper;
 import com.gdu.cashbook.mapper.MemberidMapper;
@@ -24,6 +24,7 @@ import com.gdu.cashbook.vo.Memberid;
 @Service
 @Transactional
 public class MemberService {
+	@Autowired private BoardMapper boardMapper;
 	@Autowired private MemberMapper memberMapper;
 	@Autowired private MemberidMapper memberidMapper;
 	@Autowired private JavaMailSender javaMailSender; //자바메일보내는 객체
@@ -117,12 +118,11 @@ public class MemberService {
 		String memberPic = memberMapper.selectMemberPic(loginMember.getMemberId());
 		//1_2 파일삭제
 		File file = new File(path+memberPic); //파일지정
-		
-		// 2
 		//1. 멤버아이디테이블에 아이디 추가
 		Memberid memberid = new Memberid();
 		Board board = new Board();
-		cashMapper.allDeleteByCash(loginMember);
+		cashMapper.allDeleteByCash(loginMember.getMemberId());
+		boardMapper.alldeleteByBoard(loginMember.getMemberId());
 		if(memberMapper.deleteMember(loginMember)== 1 ) {
 			//2. 회원정보 회원탈퇴
 			file.delete(); //파일 삭제

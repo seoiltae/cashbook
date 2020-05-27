@@ -94,7 +94,7 @@
 		FROM dual	
 	</select>
 	<!-- 회원탈퇴 시 가계부 삭제 -->
-	<delete id="allDeleteByCash" parameterType="com.gdu.cashbook.vo.LoginMember">
+	<delete id="allDeleteByCash" parameterType="String">
 		DELETE
 		FROM cash
 		WHERE member_id = #{memberId}
