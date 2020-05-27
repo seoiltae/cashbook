@@ -1,6 +1,8 @@
 package com.gdu.cashbook.service;
 
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +10,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.gdu.cashbook.mapper.BackBoardMapper;
 import com.gdu.cashbook.mapper.BoardMapper;
-import com.gdu.cashbook.vo.BackBoard;
 import com.gdu.cashbook.vo.Board;
 @Service
 @Transactional
@@ -16,9 +17,11 @@ public class BoardService {
 	@Autowired private BoardMapper boardMapper;
 	@Autowired private BackBoardMapper backBoardMapper;
 	//게시판 목록|검색페이징필수
-	public List<Board> getBoardList() {
-		//Map<String, Object> map = new HashMap<>(); //map.put() <-페이징 완료하면 맵에 페이징넣기
-		return boardMapper.selectBoardList();
+	public List<Board> getboardList(String seach) {
+		Map<String, Object> map = new HashMap<>();
+		List<Board> list = this.boardMapper.selectBoardList(seach);
+		map.put("seach", seach);
+		return list;
 	}
 	//게시글 상세보기
 	public Board getBoardOne(Board board) {
@@ -29,8 +32,12 @@ public class BoardService {
 		return boardMapper.insertBoard(board);
 	}
 	//나의 게시글 보기 |검색페이징필수
-	public List<Board> getBoardMyList(Board board) {
-		return boardMapper.selectMyBoardList(board);
+	public List<Board> getBoardMyList(String myseach, String memberId) {
+		Map<String, Object> map = new HashMap<>();
+		List<Board> list = boardMapper.selectMyBoardList(myseach, memberId);
+		map.put("memberId", memberId);
+		map.put("myseach", myseach);
+		return list;
 	}
 	//게시글 수정 폼
 	public Board getBoardUpdate(Board board) {

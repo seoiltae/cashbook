@@ -28,7 +28,7 @@ public class MemberService {
 	@Autowired private MemberidMapper memberidMapper;
 	@Autowired private JavaMailSender javaMailSender; //자바메일보내는 객체
 	@Autowired private CashMapper cashMapper;
-	@Value("D:\\it\\git-cashbook\\cashbook\\src\\main\\resources\\static\\upload\\")
+	@Value("C:\\Users\\gd7\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1590539816076\\cashbook\\src\\main\\resources\\static\\upload")
 	private String path;
 	//비밀번호 찾기
 	public int getMemberPw(Member member) {

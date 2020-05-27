@@ -6,13 +6,14 @@
 	<!-- 게시글 작성 -->
 	<insert id="" parameterType="com.gdu.cashbook.vo.Board"></insert>
 	<!-- 게시글리스트 -->
-	<select id="selectBoardList" parameterType="com.gdu.cashbook.vo.Board" resultType="com.gdu.cashbook.vo.Board">
+	<select id="selectBoardList" parameterType="java.util.Map" resultType="com.gdu.cashbook.vo.Board">
 		SELECT
 			board_no as boardNo,
 			member_id as memberId,
 			board_title as boardTitle,
 			board_date as boardDate 
 		FROM board
+		WHERE board_title LIKE CONCAT('%', #{search}, '%')
 		ORDER BY board_no DESC	
 	</select>
 	<!-- 게시글 상세보기 -->
@@ -43,15 +44,16 @@
 		)
 	</insert>
 	<!-- 내 게시글 보기-->
-	<select id="selectMyBoardList" resultType="com.gdu.cashbook.vo.Board" parameterType="com.gdu.cashbook.vo.Board">
+	<select id="selectMyBoardList" resultType="com.gdu.cashbook.vo.Board" parameterType="java.util.Map">
 		SELECT
 			board_no as boardNo,
 			member_id as memberId,
 			board_title as boardTitle,
 			board_contents as boardContents,
 			board_date as boardDate 
-		FROM board
+		FROM board	
 		WHERE member_id = #{memberId}
+		AND board_title LIKE CONCAT('%', #{myseach}, '%')
 	</select>
 	<!-- 게시판 삭제 -->
 	<delete id="deleteBoard" parameterType="com.gdu.cashbook.vo.Board">
@@ -82,7 +84,7 @@
 		WHERE board_no = #{boardNo}	
 	</update>
 	<!-- 회원 탈퇴 시 작성게시글 전부 삭제 -->
-	 <delete id="alldeleteByBoard" parameterType="com.gdu.cashbook.vo.Board">
+	 <delete id="alldeleteByBoard" parameterType="String">
 	 	DELETE
 		FROM board
 		WHERE member_id = #{memberId}

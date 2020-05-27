@@ -18,7 +18,7 @@
 </head>
 	<body>
 		<div th:include="/include/menu::sidemenu" class="sidenav"></div>
-		<div class="center">
+		<div class="container">
 		<h1>나의 게시글 목록</h1>
 		<div>
 			 <a class="btn btn-light" role="button" th:href="@{/addBoard}">게시글작성</a>
@@ -46,5 +46,10 @@
 				</tr>
 			</tbody>
 		</table>
+			<form method="get" action="/boardMyInfo">
+				<input type="search" name="seach" id="seach">
+				<button type="submit">검색</button>
+			</form>
+		</div>
 	</body>
 </html>

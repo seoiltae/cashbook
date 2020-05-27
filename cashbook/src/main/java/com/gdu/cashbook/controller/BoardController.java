@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
-import com.gdu.cashbook.mapper.BoardMapper;
 import com.gdu.cashbook.service.BoardService;
 import com.gdu.cashbook.vo.Board;
 import com.gdu.cashbook.vo.LoginMember;
@@ -20,15 +19,16 @@ public class BoardController {
 	@Autowired BoardService boardService;
 	//게시판 목록
 	@GetMapping("/boardList")
-	public String getBoardList(HttpSession session, Model model) {
+	public String getBoardList(HttpSession session, Model model,
+			@RequestParam(value="seach", defaultValue = "") String seach) {
 		if(session.getAttribute("loginMember") ==null) {
 			return "redirect:/";
 		}
-		List<Board> boardList = boardService.getBoardList();
-		System.out.println(boardList);
+		List<Board> list = this.boardService.getboardList(seach);
+		System.out.println(seach+"<<-------------검색검색");
 		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
 		model.addAttribute("loginMember", memberId);
-		model.addAttribute("list", boardList);	
+		model.addAttribute("list", list);
 		return "boardList";
 	}
 	//게시판 상세보기
@@ -64,14 +64,16 @@ public class BoardController {
 	}
 	//나의 게시글 보기
 	@GetMapping("/boardMyInfo")
-	public String myBoard(HttpSession session, Model model, Board board) {
+	public String myBoard(HttpSession session, Model model,
+			@RequestParam(value="myseach", defaultValue="", required = false) String myseach) {
 		if(session.getAttribute("loginMember") ==null) { 
 			session.invalidate();
 			return "redirect:/"; 
 		}
-		List<Board> myBoardList = boardService.getBoardMyList(board);
-		System.out.println(myBoardList+"<-------------------나의 게시글 목록");
 		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
+		
+		System.out.println(memberId+"<-----------------------------------------------------------현재 로그인");
+		List<Board> myBoardList = boardService.getBoardMyList(myseach, memberId);
 		model.addAttribute("memberId", memberId);
 		model.addAttribute("myBoardList", myBoardList);
 		return "boardMyInfo";
