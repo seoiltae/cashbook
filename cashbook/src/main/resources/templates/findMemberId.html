@@ -17,29 +17,62 @@
 <script>
 $(document).ready(function() {
 	$('#btn').click(function(){
+		if($('#memberName').val().length<1) {
+			alert('이름을 입력하세요');
+			return;
+		}
+		if($('#memberPhone').val().length<1) {
+			alert('번호를 입력하세요');
+			return;
+		}
+		if($('#memberEmail').val().length<1) {
+			alert('메일을 입력하세요');
+			return;
+		}
 		$('#findid').submit();
 	});
 });
 </script>
 </head>
 	<body>
+		<div class="container">
 		<h1>아이디 찾기</h1>
 		<form method="post" th:action="@{/findMemberId}" id="findid">
-			<div>
-				member_name:
-				<input type="text" name="memberName">
-			</div>
-			<div>
-				member_phone:
-				<input type="text" name="memberPhone">
-			</div>
-			<div>
-				member_mail:
-				<input type="text" name="memberEmail">
-			</div>
-			<div>
-				<button type="button" id="btn">찾기</button>
-			</div>
+			<table class="table table-striped">
+				<tr>
+					<th>
+						이름
+					</th>
+					<td>
+						<input type="text" name="memberName" id="memberName">
+					</td>
+				</tr>
+				<tr>
+					<th>
+						전화번호
+					</th>
+					<td>
+						<input type="text" name="memberPhone" id="memberPhone">
+					</td>
+				</tr>
+				<tr>
+					<th>
+						이메일
+					</th>
+					<td>
+						<input type="text" name="memberEmail" id="memberEmail">
+					</td>
+				</tr>
+			<tr>
+				<th>
+					&nbsp;
+				</th>
+				<td>
+					<button type="button" id="btn">찾기</button>
+				</td>
+			</tr>
+			</table>
 		</form>
+		</div>
 	</body>
 </html>

@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>ModifyCash</title>
+<title>addCash</title>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -17,6 +17,18 @@
 	<script>
 		$(document).ready(function() {
 			$('#btn').click(function(){
+				if($('#category').val()=='선택하세요') {
+					alert('카테고리를 선택해주세요');
+					return;
+				}
+				if($('#cashPrice').val().length<1){
+					alert('금액을 입력해주세요');
+					return;
+				}
+				if($('#cashPlace').val().length<1){
+					alert('장소를 선택하세요');
+					return;
+				}
 				$('#myform').submit();
 			});
 		});
@@ -34,63 +46,90 @@
 						$('#btn').click(function(){
 							$("#category").val('Default Value'); //옵션에 categoryName값을 없앤다.
 							$('#myform').submit();
-						});
-					});
-				}
-			})
-			
-		});
+						}); //#btn').click end
+					}); //(document).ready end
+				} //if#category end 
+			})//#category change(function() end
+		}); //function end
+		
 	</script>
 <style th:include="/include/menu::side"></style>
 </head>
-<div th:include="/include/menu::sidemenu" class="sidenav"></div>
-<body><center>
-	<h1>가계부 입력</h1>
-	<form method="post" action="/addCash" id="myform">
-				<div><!-- 유저 아이디 -->
-					<input type="hidden" th:value="${memberId}" name="memberId" id="memberId" readonly="readonly"> 
-				</div>
-				<div>
-					가계부 날짜
-				</div>
-				<div>
-					<input type="date" th:value="${day}" name="cashDate" id="cashDate"> 
-				</div>
-				<div>
-					가계부 수입/지출
-				</div>
-				<select name="cashKind">
-					<option th:value="지출" id="cashKind">지출</option>
-					<option th:value="수입" id="cashKind">수입</option>
-				</select>
-				<div class="text">
-					카테고리
-				</div>
-				<select name="categoryName" id="category">
-					<option>선택하세요</option>
-					<option th:each="cList :${cList}" th:value="${cList.categoryName}" th:text="${cList.categoryName}"></option>
-					<option value="self">직접입력</option>
-				</select>
-					<input type="text" id="insertCategoryName" name="categoryName">
-				<div class="text">
-					금액
-				</div>
-				<div>
-					<input type="text" name="cashPrice" id="cashPrice"> 
-				</div>
-				<div class="text">
-					장소
-				</div>
-				<div>
-					<input type="text" name="cashPlace" id="cashPlace"> 
-				</div>
-				<div class="text">
-					메모
-				</div>
-				<div>
-					<input type="text" name="cashMemo" id="cashMemo"> 
-				</div>
-				<button type="button" id="btn" class="button">가계부 추가</button>
-	</form>
-</body></center>
+	<body>
+		<div th:include="/include/menu::sidemenu" class="sidenav"></div>
+		<div class="container">
+		<h1>가계부 입력</h1>
+		<form method="post" action="/addCash" id="myform">
+			<span><!-- 유저 아이디 -->
+						<input type="hidden" th:value="${memberId}" name="memberId" id="memberId" readonly="readonly"> 
+			</span>
+			<table class="table table-striped">
+				<tr>
+					<th>
+						가계부 날짜
+					</th>
+					<td>
+						<input type="date" th:value="${day}" name="cashDate" id="cashDate"> 
+					</td>
+				</tr>	
+				<tr>
+					<th>
+						가계부 수입/지출
+					</th>
+					<td>
+						<select name="cashKind">
+							<option th:value="지출" id="cashKind">지출</option>
+							<option th:value="수입" id="cashKind">수입</option>
+						</select>
+					</td>
+				</tr>	
+				<tr>
+					<th>
+						카테고리
+					</th>
+					<td>
+						<select name="categoryName" id="category">
+							<option>선택하세요</option>
+							<option th:each="cList :${cList}" th:value="${cList.categoryName}" th:text="${cList.categoryName}"></option>
+							<option value="self">직접입력</option>
+						</select>
+							<input type="text" id="insertCategoryName" name="categoryName">
+					</td>
+				</tr>	
+				<tr>
+					<th>
+						금액
+					</th>
+					<td>
+						<input type="text" name="cashPrice" id="cashPrice"> 
+					</td>
+				</tr>	
+				<tr>
+					<th>
+						장소
+					</th>
+					<td>
+						<input type="text" name="cashPlace" id="cashPlace"> 
+					</td>
+				</tr>
+				<tr>	
+					<th>
+						메모
+					</th>
+					<td>
+						<input type="text" name="cashMemo" id="cashMemo"> 
+					</td>
+				</tr>	
+				<tr>
+					<th>
+						&nbsp;
+					</th>
+					<td>
+						<button type="button" id="btn" class="button">가계부 추가</button>
+					</td>
+				</tr>
+			</table>	
+		</form>
+		</div>
+	</body>
 </html>

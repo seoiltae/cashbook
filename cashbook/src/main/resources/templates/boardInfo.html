@@ -18,27 +18,27 @@
 </head>
 	<body>
 	<div th:include="/include/menu::sidemenu" class="sidenav"></div>
-		<div class="center">
-			<h1>게시글 자세히보기</h1>
-			<table class="table tr">
+		<div class="container">
+			<h1>상세게시글</h1>
+			<table class="table table-bordered table-striped">
 				<tr>
-					<td>게시글번호</td>
+					<th>게시글번호</th>
 					<td th:text="${board.boardNo}"></td>
 				</tr>
 				<tr>
-					<td>작성자</td>
+					<th>작성자</th>
 					<td th:text="${board.memberId}"></td>
 				</tr>
 				<tr>
-					<td>제목</td>
+					<th>제목</th>
 					<td th:text="${board.boardTitle}"></td>
 				</tr>
 				<tr>
-					<td>내용</td>
+					<th>내용</th>
 					<td th:text="${board.boardContents}"></td>
 				</tr>
 				<tr>
-					<td>작성날짜</td>
+					<th>작성날짜</th>
 					<td th:text="${board.boardDate}"></td>
 				</tr>
 			</table>

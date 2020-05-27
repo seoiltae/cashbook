@@ -23,14 +23,29 @@ $(document).ready(function() {
 </script>
 </head>
 	<body>
+		<div class="container">
 	  	<h1>회원 비밀번호 재확인</h1>
 			<form method="post" action="/removeMember" id="remoform">
-				<div>
-					비밀번호 입력:
-					<input type="password" name="memberPw" id="memberPw">
-				</div>
-					<button type="button" id="btn">회원탈퇴</button>
+				<table class="table table-striped">
+					<tr>
+						<th>
+							비밀번호 입력
+						</th>	
+						<td>
+							<input type="password" name="memberPw" id="memberPw">
+						</td>
+					</tr>
+					<tr>
+						<th>
+							&nbsp;
+						</th>
+						<td>
+							<button type="button" id="btn">회원탈퇴</button>
+						</td>	
+					</tr>
+				</table>	
 			</form>
+		</div>	
 		<!--  
 			<form method="get" action="/modifyMember" >
 				<div>

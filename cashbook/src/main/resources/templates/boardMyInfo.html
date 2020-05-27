@@ -3,9 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<style>
-
-</style>
+<style th:include="/include/menu::side"></style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -23,10 +21,10 @@
 		<div class="center">
 		<h1>나의 게시글 목록</h1>
 		<div>
-			 <a th:href="@{/addBoard}">게시글작성</a>
-			 <a th:href="@{/boardList}">게시글목록</a>
+			 <a class="btn btn-light" role="button" th:href="@{/addBoard}">게시글작성</a>
+			 <a class="btn btn-light" role="button" th:href="@{/boardList}">게시글목록</a>
 		</div>
-		<table border="1">
+		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
 					<th>제목</th>
@@ -37,7 +35,6 @@
 					<th>수정</th>
 				</tr>
 			</thead>
-			
 			<tbody>
 				<tr th:each="myBoardList : ${myBoardList}">
 					<td th:text="${myBoardList.boardTitle}"></td>

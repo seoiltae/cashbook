@@ -3,6 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style th:include="/include/menu::side"></style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
@@ -15,66 +16,93 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script>
+let helperInit = function() {
+	$('#idHelper').text("");
+	$('#pwHelper').text("");
+	$('#nameHelper').text("");
+	$('#addrHelper').text("");
+	$('#phoneHelper').text("");
+	$('#memberIdHelper').text("");
+	$('#emailHelper').text("");
+};
+
 $(document).ready(function() {
 	$('#btn').click(function(){
-		$('#myform').submit();
-	});
-});
+
+		if($('#memberId').val().length < 4) {
+			helperInit();
+			$('#idHelper').text("id 4자이상");
+			$('#memberId').focus();
+		} else if($('#memberPw').val().length < 4) {
+			helperInit();
+			$('#pwHelper').text("pw 4자이상");
+			$('#memberPw').focus();
+		} else if($('#memberName').val().length === 0) {
+			helperInit();
+			$('#nameHelper').text("이름을 입력하세요");
+			$('#memberName').focus();
+		} else if($('#memberAddr').val().length === 0) {
+			helperInit();
+			$('#addrHelper').text("주소를 입력하세요");
+			$('#memberAddr').focus();
+		} else if($('#memberPhone').val().length === 0) {
+			helperInit();
+			$('#phoneHelper').text("전화번호를 입력하세요");
+			$('#memberPhone').focus();
+		} else if($('#memberEmail').val().length === 0) {
+			helperInit();
+			$('#emailHelper').text("이메일을 입력하세요");
+			$('#memberEmail').focus();
+		} else {
+			$('#myform').submit();
+		}
+	}); //btn click end
+}); //document ready end
 </script>
 </head>
-
 <body>
+	<div th:include="/include/menu::sidemenu" class="sidenav"></div>
+	<div class="container">
 	<h1>회원정보 수정</h1>
-	<form method="post" action="/modifyMember" id="myform" enctype="multipart/form-data">
-				<div>
-					현재 사진
-				</div>
-				<div>
+		<form method="post" action="/modifyMember" id="myform" enctype="multipart/form-data">
+				<div class="input-group mb-3">
+					<span class="input-group-text">현재사진</span>&nbsp;
 					<img th:src="@{'/upload/'+${member.memberPic}}"></img>
 				</div>
-				<div>
-					사진 첨부
-				</div>
-				<div>
+				
+				<div class="input-group mb-3">
+					<span class="input-group-text">사진첨부</span>&nbsp;
 					<input type="file" name="memberPic" id="memberPic"> 
 				</div>
-				<div>
-					아이디
-				</div>
-				<div>
+				<div class="input-group mb-3">
+					<span class="input-group-text">아이디</span>&nbsp;
 					 <input type="text" th:value="${member.memberId}" name="memberId" id="memberId" readonly="readonly">
 				</div>
-				<div>
-					비밀번호
-				</div>
-				<div>
+				<div class="input-group mb-3">
+					<span class="input-group-text">비밀번호</span>&nbsp;
 					<input type="password" th:value="${member.memberPw}" name="memberPw" id="memberPw"> 
 				</div>
-				<div>
-					사용자이름
-				</div>
-				<div>
+				<div class="input-group mb-3">
+					<span class="input-group-text">사용자이름</span>&nbsp;
 					<input type="text" th:value="${member.memberName}" name="memberName" id="memberName"> 
 				</div>
-				<div>
-					주소
-				</div>
-				<div>
+				
+				<div class="input-group mb-3">
+					<span class="input-group-text">주소</span>&nbsp;
 					<input type="text" th:value="${member.memberAddr}" name="memberAddr" id="memberAddr"> 
 				</div>
-				<div class="text">
-					전화번호
-				</div>
-				<div>
+				<div class="input-group mb-3">
+					<span class="input-group-text">전화번호</span>&nbsp;
 					<input type="text" th:value="${member.memberPhone}" name="memberPhone" id="memberPhone"> 
 				</div>
-				<div class="text">
-					이메일
-				</div>
-				<div>
+				<div class="input-group mb-3">
+					<span class="input-group-text">이메일</span>&nbsp;
 					<input type="text" th:value="${member.memberEmail}" name="memberEmail" id="memberEmail"> 
 				</div>
-				<button type="button" id="btn" class="button">회원수정</button>
-	</form>
+				<div class="input-group mb-3">
+					<button type="button" id="btn">회원수정</button>
+				</div>
+		</form>
+	</div>
 </body>
 </html>

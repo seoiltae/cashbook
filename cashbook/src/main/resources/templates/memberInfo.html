@@ -18,38 +18,38 @@
 </head>
 	<body>
 	<div th:include="/include/menu::sidemenu" class="sidenav"></div>
-		<div class="center">
+		<div class="container">
 			<h1>memberInfo</h1>
-				<div> <!-- @{/confirm(id=1)} 매개변수 넘기는법 -->
-					 <a th:href="@{/modifyMember}">회원수정</a>
-					 <a th:href="@{/removeMember}">회원탈퇴</a>
-				</div>
-			<table class="table tr">
+			<div class="d-flex">
+				 <a class="btn btn-light" role="button" th:href="@{/modifyMember}">회원수정</a>
+				 <a class="btn btn-light" role="button" th:href="@{/removeMember}">회원탈퇴</a>
+			</div>
+			<table class="table table-bordered table-striped">
 				<tr>
-					<td>사진</td>
+					<th>사진</th>
 					<td>
 						<img th:src="@{'/upload/'+${member.memberPic}}"></img>
 						<!--  <img src="@{/upload/$member.memberPic}">-->
 					</td>
 				</tr>
 				<tr>
-					<td>아이디</td>
+					<th>아이디</th>
 					<td th:text="${member.memberId}"></td>
 				</tr>
 				<tr>
-					<td>이름</td>
+					<th>이름</th>
 					<td th:text="${member.memberName}"></td>
 				</tr>
 				<tr>
-					<td>주소</td>
+					<th>주소</th>
 					<td th:text="${member.memberAddr}"></td>
 				</tr>
 				<tr>
-					<td>전화번호</td>
+					<th>전화번호</th>
 					<td th:text="${member.memberPhone}"></td>
 				</tr>
 				<tr>
-					<td>이메일</td>
+					<th>이메일</th>
 					<td th:text="${member.memberEmail}"></td>
 				</tr>
 			</table>

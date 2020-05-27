@@ -17,7 +17,14 @@
 <script>
 $(document).ready(function() {
 	$('#btn').click(function(){
-		$('#categoryName').val('Default Value'); //버튼 클릭시 직접입력한 값에 벨류값을 없앰
+		if($('#boardTitle').val().length<1){
+			alert('제목을 입력해주세요');
+			return;
+		}
+		if($('#boardContents').val().length<1){
+			alert('내용을 입력해주세요');
+			return;
+		}
 		$('#myform').submit();
 	});
 });
@@ -25,25 +32,45 @@ $(document).ready(function() {
 <style th:include="/include/menu::side"></style>
 </head>
 <div th:include="/include/menu::sidemenu" class="sidenav"></div>
-<body><center>
+<body>
+	<div class="container">
 	<h1>게시판 수정</h1>
-	<form method="post" action="/modifyBoard" id="myform">
-				<div>
-					<input type="text" th:value="${board.boardNo}" name="boardNo" id="boardNo" readonly="readonly"> 
-				</div>
-				<div>
-					제목
-				</div>
-				<div>
-					<input type="text" th:value="${board.boardTitle}" name="boardTitle" id="boardTitle"> 
-				</div>
-				<div class="text">
-					내용 
-				</div>
-				<div>
-					<input type="text" th:value="${board.boardContents}" name="boardContents" id="boardContents"> 
-				</div>
-				<button type="button" id="btn" class="button">게시판 수정</button>
-	</form>
-</body></center>
+		<form method="post" action="/modifyBoard" id="myform">
+			<table class="table table-striped">
+				<tr>
+					<th>
+						&nbsp;
+					</th>
+					<td>
+						<input type="text" th:value="${board.boardNo}" name="boardNo" id="boardNo" readonly="readonly"> 
+					</td>
+				</tr>
+				<tr>
+					<th>
+						제목
+					</th>	
+					<td>
+						<input type="text" th:value="${board.boardTitle}" name="boardTitle" id="boardTitle"> 
+					</td>
+				</tr>
+				<tr>
+					<th>
+						내용
+					</th>	 
+					<td>
+						<input type="text" th:value="${board.boardContents}" name="boardContents" id="boardContents"> 
+					</td>
+				</tr>
+				<tr>
+					<th>
+						&nbsp;
+					</th>
+					<td>
+						<button type="button" id="btn" class="button">게시판 수정</button>
+					</td>
+				</tr>
+			</table>	
+		</form>
+	</div>
+</body>
 </html>

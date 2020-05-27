@@ -18,25 +18,25 @@
 </head>
 <div th:include="/include/menu::sidemenu" class="sidenav"></div>
 	<body>
-		<div class="container"><center>
-		<h1 class="main">2020년 가계부</h1>
+		<div class="container">
+		<h1>2020년 가계부</h1>
 		<div th:text="${day}"></div>
-		<div>
-			<a th:href="@{/getCashListByDate(day=${day.plusDays(-1)})}">이전</a>
-			<a th:href="@{/getCashListByDate(day=${day.plusDays(1)})}">다음</a>		
+		<div class="d-flex">
+			<a class="btn btn-light" role="button"  th:href="@{/getCashListByDate(day=${day.plusDays(-1)})}">이전</a>
+			<a class="btn btn-light" role="button"  th:href="@{/getCashListByDate(day=${day.plusDays(1)})}">다음</a>		
 		</div>
-		<table border="1">
+		<table class="table table-bordered table-striped">
 			<thead>
 				<tr>
-					<td>&nbsp;</td>
-					<td>카테고리</td>
-					<td>수입</td>
-					<td>지출</td>
-					<td>장소</td>
-					<td>메모</td>
-					<td>날짜</td>
-					<td>삭제</td>
-					<td>수정</td>
+					<th>&nbsp;</th>
+					<th>카테고리</th>
+					<th>수입</th>
+					<th>지출</th>
+					<th>장소</th>
+					<th>메모</th>
+					<th>날짜</th>
+					<th>삭제</th>
+					<th>수정</th>
 				</tr>
 			</thead>
 			<tbody>
@@ -56,13 +56,13 @@
 					<td th:text="${list.cashPlace}"></td>
 					<td th:text="${list.cashMemo}"></td>
 					<td th:text="${day}"></td>
-					<td><a th:href="@{/removeCash(cashNo=${list.cashNo})}">삭제</a></td>
-					<td><a th:href="@{/modifyCash(cashNo=${list.cashNo})}">수정</a></td>
+					<td><a class="btn btn-light" role="button" th:href="@{/removeCash(cashNo=${list.cashNo})}">삭제</a></td>
+					<td><a class="btn btn-light" role="button" th:href="@{/modifyCash(cashNo=${list.cashNo})}">수정</a></td>
 				</tr>
 			</tbody>
 		</table>
 			<div>(수입+지출)합계: <span th:text="${cashKindSum}"></span></div>
-			<div><a th:href="@{/addCash}">입력</a></div>
-	</div></center>	
+			<div><a class="btn btn-light" role="button" th:href="@{/addCash}">입력</a></div>
+	</div>	
 	</body>
 </html>

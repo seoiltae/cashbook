@@ -4,35 +4,6 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	.button {
-		position: absolute; left: 0px; width: 300px; height: 40px;
-		font-size: 16px;  text-align: center; 
-		background-color: #3498db;
-	    border: none;
-	    border-radius:4px;
-	    color: white;
-	    padding: 10px 10px;
-	    text-decoration: none;
-	    display: inline-block;
-	    margin: 4px 2px;
-	    cursor: pointer;
-		
-	}
-	.text {
-		 padding-top: 20px;
-		 text-align: left; 
-		}
-	.div {
-		 padding-bottom: 20px;
-		}
-	body {  
-    	 border: 1px solid #e0e0e0;
-    	
-		 position: absolute;  
-		 width: 400px; 
-		 left: 45%; 
-		 margin-left: auto;
-		}
 </style>
 <!-- Latest compiled and minified CSS -->
 <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
@@ -46,7 +17,6 @@
 <!-- Latest compiled JavaScript -->
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script>
-
 let helperInit = function() {
 	$('#idHelper').text("");
 	$('#pwHelper').text("");
@@ -54,6 +24,7 @@ let helperInit = function() {
 	$('#addrHelper').text("");
 	$('#phoneHelper').text("");
 	$('#memberIdHelper').text("");
+	$('#emailHelper').text("");
 };
 
 $(document).ready(function() {
@@ -83,7 +54,11 @@ $(document).ready(function() {
 			helperInit();
 			$('#phoneHelper').text("전화번호를 입력하세요");
 			$('#memberPhone').focus();
-		}  else {
+		} else if($('#memberEmail').val().length === 0) {
+			helperInit();
+			$('#emailHelper').text("이메일을 입력하세요");
+			$('#memberEmail').focus();
+		} else {
 			$('#myform').submit();
 		}
 		
@@ -103,11 +78,11 @@ $(document).ready(function() {
 </head>
 	<body>
 		<div class="container">
-			<div align=center class="row">
 			<h1>회원가입</h1>
 			<form method="post" action="/checkMemberId" id="idForm">	
-				<div>
-					아이디 중복 확인: <input type="text" name="memberIdCheck" id="memberIdCheck">
+				<div class="input-group mb-3">
+					<span class="input-group-text">아이디 중복 확인 </span>&nbsp;
+					<input class="form-control-md" type="text" name="memberIdCheck" id="memberIdCheck">
 					<button id="idBtn" type="button">중복체크</button>
 					<span th:text="${msg}"></span>
 					<span th:text="${msg2}"></span>
@@ -116,61 +91,47 @@ $(document).ready(function() {
 			</form>	
 			<!-- multipart/form-data 파일을 바이트타입으로 변환 시키는 인코딩 -->
 			<form method="post" action="/addMember" id="myform" enctype="multipart/form-data">
-				<div>
-					사진 : 
-					<input type="file" name="memberPic" >
+				<div class="input-group mb-3">
+					<span class="input-group-text">사진</span>&nbsp;
+					<input type="file" name="memberPic" id="memberPic">
 				</div>
-				<div class="text">
-					아이디
-				</div>
-				<div class="div">
+				
+				<div class="input-group mb-3">
+					<span class="input-group-text">아이디 </span>&nbsp;
 					 <input type="text" th:value="${memberIdCheck}" name="memberId" id="memberId" readonly="readonly">
 					<span id="idHelper"></span>
 				</div>
-				<div class="text">
-					비밀번호
-				</div>
-				<div class="div">
+				<div class="input-group mb-3">
+					<span class="input-group-text">비밀번호 </span>&nbsp;
 					<input type="password" name="memberPw" id="memberPw"> 
 					<span id="pwHelper"></span>
 				</div>
-				<div class="text">
-					비밀번호 확인
-				</div>
-				<div class="div">
+				<div class="input-group mb-3">
+					<span class="input-group-text">비밀번호 확인</span>&nbsp;
 					<input type="password"  id="memberPw2"> 
 				</div>
-				<div class="text">
-					사용자이름
-				</div>
-				<div class="div">
+				<div class="input-group mb-3">
+					<span class="input-group-text">사용자 이름</span>&nbsp;
 					<input type="text" name="memberName" id="memberName"> 
 					<span id="nameHelper"></span>
 				</div>
-				<div class="text">
-					주소
-				</div>
-				<div class="div">
+				<div class="input-group mb-3">
+					<span class="input-group-text">주소</span>&nbsp;
 					<input type="text" name="memberAddr" id="memberAddr"> 
 					<span id="addrHelper"></span>
 				</div>
-				<div class="text">
-					전화번호
-				</div>
-				<div class="div">
+				<div class="input-group mb-3">
+					<span class="input-group-text">전화번호</span>&nbsp;
 					<input type="text" name="memberPhone" id="memberPhone">
 					<span id="phoneHelper"></span> 
 				</div>
-				<div class="text">
-					이메일
-				</div>
-				<div class="div">
+				<div class="input-group mb-3">
+					<span class="input-group-text">이메일</span>&nbsp;
 					<input type="text" name="memberEmail" id="memberEmail"> 
 					<span id="emailHelper"></span>
 				</div>
 				<button type="button" id="btn" class="button">회원가입</button>
 			</form>
-			</div>
-		</div>	
+		</div>
 	</body>
 </html>

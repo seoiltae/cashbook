@@ -75,7 +75,7 @@
 		ORDER BY cash_no ASC
 	</select>
 	<!-- 로그인한 가계부 삭제 -->
-	<delete id="deleteCashOne" parameterType="com.gdu.cashbook.vo.Cash">
+	<delete id="deleteCashOne" parameterType="com.gdu.cashbook.vo.Cash" >
 		DELETE
 		FROM cash
 		WHERE cash_no = #{cashNo}

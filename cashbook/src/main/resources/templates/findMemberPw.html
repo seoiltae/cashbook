@@ -17,25 +17,42 @@
 <script>
 $(document).ready(function() {
 	$('#btn').click(function(){
+		if($('#memberId').val().length<1) {
+			alert('아이디를 입력하세요');
+			return;
+		}
+		if($('#memberEmail').val().length<1) {
+			alert('메일을 입력하세요');
+			return;
+		}
 		$('#findpw').submit();
 	});
 });
 </script>
 </head>
 	<body>
+		<div class="container">
 		<h1>비밀번호 찾기</h1>
 		<form method="post" th:action="@{/findMemberPw}" id="findpw">
-			<div>
-				아이디 :
-				<input type="text" name="memberId">
-			</div>
-			<div>
-				메일 :
-				<input type="text" name="memberEmail">
-			</div>
-			<div>
-				<button type="button" id="btn">비밀번호 찾기</button>
-			</div>
+		<table class="table table-striped">
+				<tr>
+					<th>
+						이름
+					</th>
+					<td>
+						<input type="text" name="memberName" id="memberName">
+					</td>
+				</tr>
+				<tr>
+					<th>
+						전화번호
+					</th>
+					<td>
+						<input type="text" name="memberPhone" id="memberPhone">
+					</td>
+				</tr>
+		</table>		
 		</form>
+		</div>
 	</body>
 </html>
