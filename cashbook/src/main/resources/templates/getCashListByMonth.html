@@ -48,6 +48,7 @@
 	span.gd-red {
 		color: #FF0000;
 	}
+	
 </style>
 </head>
 <div th:include="/include/menu::sidemenu" class="sidenav"></div>
@@ -56,7 +57,7 @@
 			<h1>월별가계부 관리</h1>
 			<h3 th:text="${month+'월'}"></h3>
 			<h4 th:text="${day}"></h4>
-			<h5 th:text="'이번달내역:'+${totalPrice}"></h5>
+			<h5>이번달 총액:<span th:class="${totalPrice}>=0 ? 'gd-blue' : 'gd-red'" th:text="${totalPrice}>=0 ? '+'+${totalPrice} : ${totalPrice}"></span></h5>
 			
 			<div>
 				<a class="btn btn-light" role="button" th:href="@{/getCashListByMonth(day=${day.plusMonths(-1)})}">이전</a>

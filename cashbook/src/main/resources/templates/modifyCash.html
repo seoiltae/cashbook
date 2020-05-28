@@ -29,6 +29,11 @@
 					alert('장소를 선택하세요');
 					return;
 				}
+				if($('#category').val()=="self") {
+					$("#category").val('Default Value');
+				} else {
+					$("#insertCategoryName").remove();
+				}
 				$('#myform').submit();
 			});
 		});
@@ -39,15 +44,8 @@
 		              //직접입력을 누를 때 나타남
 				if($("#category").val() !="self") { //옵션에서 self가 아닐경우 인풋숨김고 인풋값을 없앰
 					$("#insertCategoryName").hide(); //인풋 숨김
-					$("#insertCategoryName").remove(); //인풋없앰
 				}  else {
 					$("#insertCategoryName").show(); //인풋 보여줌
-					$(document).ready(function() { //버튼 클릭시 옵션에 categoryName과 인풋 categoryName이 둘다넘어가지 않게
-						$('#btn').click(function(){
-							$("#category").val('Default Value'); //옵션에 categoryName값을 없앤다.
-							$('#myform').submit();
-						});
-					});
 				}
 			})
 			
