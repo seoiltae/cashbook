@@ -56,6 +56,8 @@
 			<h1>월별가계부 관리</h1>
 			<h3 th:text="${month+'월'}"></h3>
 			<h4 th:text="${day}"></h4>
+			<h5 th:text="'이번달내역:'+${totalPrice}"></h5>
+			
 			<div>
 				<a class="btn btn-light" role="button" th:href="@{/getCashListByMonth(day=${day.plusMonths(-1)})}">이전</a>
 				<a class="btn btn-light" role="button" th:href="@{/getCashListByMonth(day=${day.plusMonths(1)})}">다음</a>		
@@ -83,5 +85,6 @@
 						</div>
 				</div>
 		</div>
+		
 	</body>
 </html>

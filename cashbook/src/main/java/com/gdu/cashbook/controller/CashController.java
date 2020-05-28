@@ -44,7 +44,7 @@ public class CashController {
 			 */
 			cDay.set(day.getYear(), day.getMonthValue()-1, day.getDayOfMonth()); //오늘날짜에서 day값으로 설정
 		}
-	
+		int totalPrice = 0;
 		//일별 가계부 총합계리스트 
 		String memberId =((LoginMember)session.getAttribute("loginMember")).getMemberId();
 		int year = cDay.get(Calendar.YEAR);
@@ -54,7 +54,10 @@ public class CashController {
 		System.out.println(memberId+"<-----------memberId");
 		for(DayAndPrice dp : dayAndPriceList) {
 	         System.out.println(dp);
-	      }
+	         totalPrice+=dp.getPrice();
+	         System.out.println(totalPrice+"<-------------------------------------total");
+		}
+		model.addAttribute("totalPrice", totalPrice);
 		model.addAttribute("dayAndPriceList", dayAndPriceList); //월별 가계부 총합계리스트
 		model.addAttribute("day", day); // 오늘년도,월,일
 		model.addAttribute("month", cDay.get(Calendar.MONTH)+1); //월
