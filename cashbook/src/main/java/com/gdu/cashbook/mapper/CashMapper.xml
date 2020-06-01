@@ -93,10 +93,6 @@
 			WHERE member_id= #{memberId} AND cash_kind = '지출' AND cash_date = #{cashDate})
 		FROM dual	
 	</select>
-	<!-- 월별 수입지출 통합 -->
-	<select id="" resultType="int" parameterType="java.util.Map">
-		
-	</select>
 	<!-- 회원탈퇴 시 가계부 삭제 -->
 	<delete id="allDeleteByCash" parameterType="String">
 		DELETE

@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>admin</title>
+<style>
+	button {
+		position: absolute; left: 0px; width: 300px; height: 40px;
+		font-size: 16px;  text-align: center; 
+		background-color: #3498db;
+	    border: none;
+	    border-radius:4px;
+	    color: white;
+	    padding: 10px 10px;
+	    text-decoration: none;
+	    display: inline-block;
+	    margin: 4px 2px;
+	    cursor: pointer;
+		
+	}
+	body {  
+		   
+    	   border: 1px solid #e0e0e0;
+   		  
+		   width: 400px; position: absolute; 
+		   left: 45%; 
+		   margin-left: auto;
+	}
+</style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+let helperInit = function() {
+	$('#idHelper').text("");
+	$('#pwHelper').text("");
+};
+$(document).ready(function() {
+	$('#btn').click(function() {
+		//유호성 검사 코드
+		if($('#adminId').val().length===0) {
+			helperInit();
+			$('#idHelper').text("아이디를 입력해주세요");
+			$('#adminId').focus();
+			return;
+		} else if ($('#adminPw').val().length===0) {
+			helperInit();
+			$('#pwHelper').text("비밀번호를 입력해주세요");
+			$('#adminPw').focus();
+			return;
+		}
+		$('#loginForm').submit();
+		
+	});
+});
+</script>
+</head>
+<body><br><br><br>
+	<div class="container">
+		<h1>관리자</h1><br><br>
+		<div class="row">
+		<form id="loginForm" method="post" action="/admin">
+			<div>
+				admin_id :
+				<input type="text" id="adminId" name="adminId">
+				<span id="idHelper"></span>
+			</div><br><br>
+			<div>
+				admin_pw :
+				<input type="password" id="adminPw" name="adminPw">
+				<span id="pwHelper"></span>
+			</div>
+			<div>
+				<span th:text="${msg}"></span>
+			</div><br><br>
+			<div>
+				<button type="button" id="btn" >로그인</button>
+			</div>
+		</form>
+	</div>
+	</div>	
+	</body>
+</html>

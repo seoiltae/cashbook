@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gdu.cashbook.mapper.AdminMapper">
+<!-- 관리자 로그인 -->
+<select id="selectLoginAdmin" parameterType="com.gdu.cashbook.vo.LoginAdmin" resultType="com.gdu.cashbook.vo.LoginAdmin">
+	SELECT
+		admin_id as adminId
+	FROM admin
+	WHERE admin_id = #{adminId}
+	AND admin_pw = PASSWORD(#{adminPw})	
+</select>
+<!-- 관리자의 회원정보관리 및 검색-->
+<select id="selectMemberList" parameterType="java.util.Map" resultType="com.gdu.cashbook.vo.Member">
+	SELECT 
+		member_id as memberId,
+		member_name as memberName,
+		member_addr as memberAddr,
+		member_phone as memberPhone,
+		member_email as memberEmail
+	FROM member	
+	WHERE member_id LIKE CONCAT('%', #{search}, '%')
+</select>
+<!-- 관리자의 회원정보 삭제 -->
+<delete id="deleteMemberByAdmin" parameterType="com.gdu.cashbook.vo.Member">
+	DELETE
+	FROM member
+	WHERE member_id = #{memberId}
+</delete>
+<!-- 관리자의 게시판 목록 -->
+<select id="selectBoardList" parameterType="java.util.Map" resultType="com.gdu.cashbook.vo.Board">
+	SELECT
+		board_no as boardNo,
+		member_id as memberId,
+		board_title as boardTitle,
+		board_contents as boardContents,
+		board_date as boardDate
+	FROM board
+	WHERE board_title LIKE CONCAT('%', #{searchBo}, '%')	
+</select>
+<!-- 관리자의 게시판 삭제 -->
+<delete id="deleteBoardByAdmin" parameterType="int">
+	DELETE
+	FROM board
+	WHERE board_no = #{boardNo}
+</delete>
+</mapper>

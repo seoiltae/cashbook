@@ -10,7 +10,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.gdu.cashbook.service.AdminService;
 import com.gdu.cashbook.service.MemberService;
+import com.gdu.cashbook.vo.LoginAdmin;
 import com.gdu.cashbook.vo.LoginMember;
 import com.gdu.cashbook.vo.Member;
 import com.gdu.cashbook.vo.MemberForm;
@@ -161,7 +163,7 @@ public class MemberController {
 	@GetMapping("/logout")
 	public String logout(HttpSession session) {
 		//로그인이 완료인 경우
-		if(session.getAttribute("loginMember") ==null) {
+		if(session.getAttribute("loginMember") ==null && session.getAttribute("loginAdmin") == null) {
 			return "redirect:/"; 
 		}
 		session.invalidate();

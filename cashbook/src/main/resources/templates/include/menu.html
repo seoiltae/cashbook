@@ -60,8 +60,8 @@ body {
 	<body>
 		<!-- side 메뉴바-->
 		<!-- frament1 /include/menu::sidemenu <--풀네임-->
-		<div th:fragment="sidemenu"> 
-			<div><span th:text="${session.loginMember.memberId}"></span>님</div>
+		<div th:fragment="sidemenu">
+
 			<ul>
 				<li><a th:href="@{/home}">홈</a></li>
 				<li><a th:href="@{/memberInfo}">회원정보</a></li>
@@ -69,6 +69,8 @@ body {
 				<li><a th:href="@{/getCashListByMonth}">월별가계부관리</a></li>
 				<li><a th:href="@{/boardList}">게시판</a></li>
 				<li><a th:href="@{/logout}">로그아웃</a></li>
+				<li><a th:href="@{/adminMember}">회원정보관리</a></li>
+				<li><a th:href="@{/adminBoard}">게시판정보관리</a></li>
 			</ul>
 		</div>
 		
