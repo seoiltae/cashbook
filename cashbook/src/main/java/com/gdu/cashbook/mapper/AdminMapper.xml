@@ -23,7 +23,7 @@
 	WHERE member_id LIKE CONCAT('%', #{search}, '%')
 </select>
 <!-- 관리자의 회원정보 삭제 -->
-<delete id="deleteMemberByAdmin" parameterType="com.gdu.cashbook.vo.Member">
+<delete id="deleteMemberByAdmin" parameterType="String">
 	DELETE
 	FROM member
 	WHERE member_id = #{memberId}

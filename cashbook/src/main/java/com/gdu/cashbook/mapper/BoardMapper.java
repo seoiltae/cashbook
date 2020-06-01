@@ -15,5 +15,5 @@ public interface BoardMapper {
 	public List<Board> selectMyBoardList(String myseach, String memberId); //나의 게시글 보기(페이징,검색)
 	public Board selectByUpdate(Board board); // 게시글 수정 폼
 	public int updateBoard(Board board); // 게시글 수정 액션
-	public int alldeleteByBoard(String memberId); // 회원탈퇴시 작성한 게시글 전부 삭제
+	public int allDeleteByBoard(String memberId); // 회원탈퇴시 작성한 게시글 전부 삭제
 }

@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="UTF-8">
+<title>관리자 </title>
+<style th:include="/include/menu::side"></style>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+</head>
+	<body>
+		<div th:include="/include/menu::sidemenu" class="sidenav"></div>
+		<div class="container">
+		<h1>회원정보목록</h1>
+		<table class="table table-bordered table-striped">
+			<thead>
+				<tr>
+					<th>회원아이디</th>
+					<th>회원이름</th>
+					<th>회원주소</th>
+					<th>회원폰</th>
+					<th>회원메일</th>
+					<th>삭제</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="list : ${list}">
+					<td th:text="${list.memberId}"></td>
+					<td th:text="${list.memberName}"></td>
+					<td th:text="${list.memberAddr}"></td>
+					<td th:text="${list.memberPhone}"></td>
+					<td th:text="${list.memberEmail}"></td>
+					<td><a th:href="@{/removeMemberByAdmin(memberId=${list.memberId})}">삭제</a></td>
+				</tr>
+			</tbody>
+		</table>
+			<form method="get" action="/boardList">
+				<input type="search" name="search" id="search">
+				<button type="submit">검색</button>
+			</form>
+		</div>
+	</body>
+</html>

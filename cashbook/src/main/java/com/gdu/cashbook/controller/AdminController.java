@@ -1,8 +1,5 @@
 package com.gdu.cashbook.controller;
-
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 
@@ -11,6 +8,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.cashbook.service.AdminService;
 import com.gdu.cashbook.vo.LoginAdmin;
@@ -19,22 +17,36 @@ import com.gdu.cashbook.vo.Member;
 @Controller
 public class AdminController {
 	@Autowired private AdminService adminService;
+	//관리자 회원정보 삭제
+	@GetMapping("/removeMemberByAdmin")
+	public String removeMemberByAdmin(Member member, HttpSession session, Model model,
+			@RequestParam("memberId") String memberId) {
+		if(session.getAttribute("loginAdmin") ==null) {
+			return "redirect:/";
+		}
+		System.out.println(memberId+"=================================멤버아이디값");
+		adminService.removeMemberByAdmin(member, memberId);
+		return "redirect:/removeMemberByAdmin";
+	}
 	//관리자 회원정보 관리
-	@GetMapping("memberListAdmin")
-	public List<Member> getMemberList(String search) {
-		Map<String, Object> map = new HashMap<>();
+	@GetMapping("adminMember")
+	public String getMemberList(HttpSession session, Model model,
+			@RequestParam(value="search", defaultValue = "") String search) {
+		if(session.getAttribute("loginAdmin") ==null) {
+			return "redirect:/";
+		}
+		System.out.println(search+" <-----검색검색");
 		List<Member> list = adminService.selectMemberList(search);
-		map.put("search", search);
-		return list;
+		model.addAttribute("list", list);
+		return "adminMember";
 	}
 	// 관리자 로그인 폼
 	@GetMapping("/admin")
 	public String admin(HttpSession session) {
-		//관리자 로그인 중일떄
+		//관리자 세션이 널이 아닐경우
 		if(session.getAttribute("loginAdmin") !=null) {
 			return "redirect:/";
 		}
-		//관리자가 아닐경우
 		return "admin";
 	}
 	//관리자 로그인 액션

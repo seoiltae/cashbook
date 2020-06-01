@@ -122,7 +122,7 @@ public class MemberService {
 		Memberid memberid = new Memberid();
 		Board board = new Board();
 		cashMapper.allDeleteByCash(loginMember.getMemberId());
-		boardMapper.alldeleteByBoard(loginMember.getMemberId());
+		boardMapper.allDeleteByBoard(loginMember.getMemberId());
 		if(memberMapper.deleteMember(loginMember)== 1 ) {
 			//2. 회원정보 회원탈퇴
 			file.delete(); //파일 삭제
