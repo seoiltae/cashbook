@@ -19,5 +19,5 @@ public interface AdminMapper {
 	//관리자의 게시판목록 및 검색
 	public List<Board> selectBoardList(String searchBo);
 	//관리자의 게시판 삭제
-	public int deleteBoardByAdmin(Board board);
+	public int deleteBoardByAdmin(int boardNo);
 }	

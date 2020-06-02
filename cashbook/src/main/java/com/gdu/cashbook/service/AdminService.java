@@ -30,6 +30,19 @@ public class AdminService {
 	@Autowired private MemberidMapper memberidMapper;
 	@Value("C:\\Users\\gd7\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1590539816076\\cashbook\\src\\main\\resources\\static\\upload")
 	private String path;
+	//관리자 게시판 삭제
+	public int removeBoardByAdmin(int boardNo) {
+		int row = adminMapper.deleteBoardByAdmin(boardNo);
+		return row;
+	}
+	//관리자 게시판관리
+	public List<Board> selectBoardList(String searchBo) {
+		Map<String, Object> map = new HashMap<>();
+		List<Board> list = boardMapper.selectBoardList(searchBo);
+		System.out.println(searchBo+"<---------------------AdminService searchBo");
+		map.put("searchBo", searchBo);
+		return list;
+	}
 	//관리자의 회원정보 삭제
 	public int removeMemberByAdmin(Member member, String memberId) {
 		// 멤버아이디의 사진
