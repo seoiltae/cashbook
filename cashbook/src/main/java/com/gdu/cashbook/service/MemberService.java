@@ -121,7 +121,9 @@ public class MemberService {
 		//1. 멤버아이디테이블에 아이디 추가
 		Memberid memberid = new Memberid();
 		Board board = new Board();
+		//가계부 삭제
 		cashMapper.allDeleteByCash(loginMember.getMemberId());
+		//게시판 삭제
 		boardMapper.allDeleteByBoard(loginMember.getMemberId());
 		if(memberMapper.deleteMember(loginMember)== 1 ) {
 			//2. 회원정보 회원탈퇴
