@@ -42,6 +42,22 @@
 					<td th:text="${board.boardDate}"></td>
 				</tr>
 			</table>
+			<div>
+				<table class="table table-bordered table-striped">
+					<thead>
+						<tr>
+							<th>작성자</th>
+							<th>내용</th>
+							<th>작성날짜</th>
+						</tr>
+						<tr th:each="list : ${list}">
+						    <td th:text="${list.memberId}"></td>
+							<td th:text="${list.commentContents}"></td>
+							<td th:text="${list.commentDate}"></td>
+						</tr>
+					</thead>
+				</table>
+			</div>
 		</div>
 	</body>
 </html>

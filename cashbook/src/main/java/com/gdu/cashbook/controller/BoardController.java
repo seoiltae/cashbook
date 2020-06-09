@@ -13,10 +13,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.cashbook.service.BoardService;
 import com.gdu.cashbook.vo.Board;
+import com.gdu.cashbook.vo.Comment;
 import com.gdu.cashbook.vo.LoginMember;
 @Controller
 public class BoardController {
 	@Autowired BoardService boardService;
+	
 	//게시판 목록
 	@GetMapping("/boardList")
 	public String getBoardList(HttpSession session, Model model,
@@ -33,12 +35,19 @@ public class BoardController {
 	}
 	//게시판 상세보기
 	@GetMapping("/boardInfo")
-	public String getBoardInfo(HttpSession session, Model model, Board board) {
+	public String getBoardInfo(HttpSession session, Model model, Board board,
+			@RequestParam("boardNo") int boardNo) {
 		if(session.getAttribute("loginMember") ==null) {
 			return "redirect:/";
 		}
+		Comment comment = new Comment();
+		//댓글 목록
+		List<Comment> list = boardService.getboardByComment(comment, boardNo);
+		System.out.println(list+"<---------Comment 댓글댓글");
+		//게시판 상세보기 
 		board = boardService.getBoardOne(board);
 		System.out.println(board+"<---------------------------선택한 넘버");
+		model.addAttribute("list", list);
 		model.addAttribute("board", board);
 		return "boardInfo";
 	}
@@ -78,6 +87,8 @@ public class BoardController {
 		model.addAttribute("myBoardList", myBoardList);
 		return "boardMyInfo";
 	}
+	////나의 게시글 상세보기
+	//@GetMapping("/")
 	//게시글 삭제 액션
 	@GetMapping("/removeBoard")
 	public String removeBoard(Board board, HttpSession session, Model model,

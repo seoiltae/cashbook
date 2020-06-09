@@ -57,6 +57,17 @@
 		WHERE member_id = #{memberId}
 		AND board_title LIKE CONCAT('%', #{myseach}, '%')
 	</select>
+	<!-- 내 게시글 상세보기 -->
+	<select id="selectMyBoardInfo" resultType="com.gdu.cashbook.vo.Board" parameterType="com.gdu.cashbook.vo.Board">
+		SELECT
+			board_no as boardNo,
+			member_id as memberId,
+			board_title as boardTitle,
+			board_contents as boardContents,
+			board_date as boardDate
+		FROM board
+		WHERE board_no = #{boardNo} 	
+	</select>
 	<!-- 게시판 삭제 -->
 	<delete id="deleteBoard" parameterType="com.gdu.cashbook.vo.Board">
 		DELETE

@@ -3,7 +3,57 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gdu.cashbook.mapper.CommentMapper">
-	<select id="">
-		
+	<!-- 게시판 마다 댓글 목록 -->
+	<select id="boardByComment" resultType="com.gdu.cashbook.vo.Comment" parameterType="com.gdu.cashbook.vo.Comment">
+		SELECT 
+			comment_no as commentNo,
+			board_no as boardNo,
+			member_id as memberId,
+			comment_contents as commentContents,
+			comment_date as commentDate
+		FROM comment
+		WHERE board_no = #{boardNo}	
 	</select>
+	<!-- 댓글 작성 -->
+	<insert id="insertComment" parameterType="com.gdu.cashbook.vo.Comment">
+		INSERT INTO comment(
+			board_no,
+			member_id,
+			comment_contents,
+			comment_date
+		) VALUES (
+			#{boardNo},
+			#{memberId},
+			#{commentContents},
+			NOW()
+		)
+	</insert>
+	<!-- 댓글 수정 폼 -->
+	<select id="updateSelectComment" resultType="com.gdu.cashbook.vo.Comment" parameterType="com.gdu.cashbook.vo.Comment">
+		SELECT
+			comment_no as commentNo,
+			board_no as boardNo,
+			member_id as memberId,
+			comment_contents as commentContents,
+			comment_date as commentDate
+		FROM comment
+		WHERE comment_no = #{commentNo}
+		AND member_id = #{memberId}	
+	</select>
+	<!-- 댓글 수정 액션-->
+	<update id="updateComment" parameterType="com.gdu.cashbook.vo.Comment">
+		UPDATE
+			comment
+		SET comment_contents = #{commentContents},
+			comment_date = NOW()
+		WHERE board_no = #{boardNo}
+		AND comment_no = #{commentNo}	
+	</update>
+	<!-- 댓글 삭제 -->
+	<delete id="deleteComment" parameterType="com.gdu.cashbook.vo.Comment">
+		DELETE
+		FROM comment
+		WHERE comment_no = #{comment_no}
+		AND member_id = #{memberId}
+	</delete>
 </mapper>
