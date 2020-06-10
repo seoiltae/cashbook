@@ -17,5 +17,6 @@ public interface CommentMapper {
 	public int updateComment(Comment comment);
 	//댓글 삭제
 	public int deleteComment(Comment comment);
-	
+	//회원 탈퇴시 댓글 삭제
+	public int deleteAllComment(String memberId);
 }

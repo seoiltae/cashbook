@@ -56,4 +56,10 @@
 		WHERE comment_no = #{comment_no}
 		AND member_id = #{memberId}
 	</delete>
+	<!-- 회원탈퇴 시 댓글삭제 -->
+	<delete id="deleteAllComment" parameterType="String">
+		DELETE
+		FROM comment
+		WHERE member_id = #{memberId}
+	</delete>
 </mapper>

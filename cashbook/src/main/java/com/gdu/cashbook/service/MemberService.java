@@ -12,8 +12,10 @@ import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
+
 import com.gdu.cashbook.mapper.BoardMapper;
 import com.gdu.cashbook.mapper.CashMapper;
+import com.gdu.cashbook.mapper.CommentMapper;
 import com.gdu.cashbook.mapper.MemberMapper;
 import com.gdu.cashbook.mapper.MemberidMapper;
 import com.gdu.cashbook.vo.Board;
@@ -29,6 +31,7 @@ public class MemberService {
 	@Autowired private MemberidMapper memberidMapper;
 	@Autowired private JavaMailSender javaMailSender; //자바메일보내는 객체
 	@Autowired private CashMapper cashMapper;
+	@Autowired private CommentMapper commentMapper;
 	@Value("C:\\Users\\gd7\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1590539816076\\cashbook\\src\\main\\resources\\static\\upload")
 	private String path;
 	//비밀번호 찾기
@@ -113,6 +116,7 @@ public class MemberService {
 		
 	//로그인한 회원탈퇴
 	public int removeMember(LoginMember loginMember) {
+		
 		//1. 멤버 이미지 파일 삭제
 		//1_1 파일이름 select member_pic from member
 		String memberPic = memberMapper.selectMemberPic(loginMember.getMemberId());
@@ -123,6 +127,8 @@ public class MemberService {
 		Board board = new Board();
 		//가계부 삭제
 		cashMapper.allDeleteByCash(loginMember.getMemberId());
+		//댓글 삭제
+		commentMapper.deleteAllComment(loginMember.getMemberId());
 		//게시판 삭제
 		boardMapper.allDeleteByBoard(loginMember.getMemberId());
 		if(memberMapper.deleteMember(loginMember)== 1 ) {

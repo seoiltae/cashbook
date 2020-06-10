@@ -18,8 +18,70 @@ import com.gdu.cashbook.vo.LoginMember;
 @Controller
 public class BoardController {
 	@Autowired BoardService boardService;
-	
-	//게시판 목록
+	// 게시판 댓글 입력 폼
+	@GetMapping("/addComment")
+	public String addComment(HttpSession session, Model model,
+			Board board) {
+		if(session.getAttribute("loginMember") ==null) { 
+			session.invalidate();
+			return "redirect:/"; 
+		}
+		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
+		model.addAttribute("memberId", memberId);
+		model.addAttribute("boardNo", board.getBoardNo());
+		return "addComment?boardNo="+board.getBoardNo();
+	}
+	//게시판 댓글 입력 액션
+	@PostMapping("/addComment") 
+	public String addComment(HttpSession session, Model model, Comment comment,
+			@RequestParam("boardNo") int boardNo) 	{
+		if(session.getAttribute("loginMember") ==null) { 
+			return "redirect:/"; 
+		}	
+		boardService.addComment(comment);
+		System.out.println(boardNo+"<----------------------댓글 입력 시 선택된 게시글 번호");
+		//댓글 작성 후 해당 게시글로 이동
+		return "redirect:/boardInfo?boardNo="+boardNo;
+	}
+	// 게시판 댓글 수정 폼
+	@GetMapping("/modifyComment")
+	public String modifyComment(HttpSession session, Model model, Comment comment) {
+		if(session.getAttribute("loginMember") ==null) { 
+			return "redirect:/"; 
+		}	
+		comment = boardService.getUpdateSelectComment(comment);
+		System.out.println(comment.getBoardNo()+"<------------수정할 댓글 정보");
+		System.out.println(comment.getCommentContents()+"<------------수정할 댓글 정보");
+		System.out.println(comment.getCommentNo()+"<------------수정할 댓글 정보");
+		System.out.println(comment.getMemberId()+"<------------수정할 댓글 정보");
+		System.out.println(comment.getCommentDate()+"<------------수정할 댓글 정보");
+		model.addAttribute("comment", comment);
+		return "modifyComment";
+	}
+	//게시판 댓글 수정 액션
+	@PostMapping("/modifyComment")
+	public String modifyComment(HttpSession session, Model model, Comment comment,
+			@RequestParam("boardNo") int boardNo, @RequestParam("commentNo") int commentNo) {
+		if(session.getAttribute("loginMember") ==null) { 
+			return "redirect:/"; 
+		}	
+		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
+		boardService.modifyComment(comment);
+		System.out.println(memberId+"<--------------------댓글 수정 시 memberId");
+		System.out.println(boardNo+"<---------------------댓글 수정 시 boardNo");
+		System.out.println(commentNo+"<-------------------댓글 수정 시 commentNo");
+		return "redirect:/boardInfo?boardNo="+boardNo;
+	}
+	//게시판 댓글 삭제
+	@GetMapping("/removeComment")
+	public String removeComment(HttpSession session, Comment comment,
+			@RequestParam("boardNo") int boardNo, @RequestParam("commentNo") int commentNo) {
+		if(session.getAttribute("loginMember") ==null) {
+			return "redirect:/";
+		}
+		boardService.removeComment(comment);
+		return "redirect:/removeComment";
+	}
 	@GetMapping("/boardList")
 	public String getBoardList(HttpSession session, Model model,
 			@RequestParam(value="seach", defaultValue = "") String seach) {
@@ -87,8 +149,6 @@ public class BoardController {
 		model.addAttribute("myBoardList", myBoardList);
 		return "boardMyInfo";
 	}
-	////나의 게시글 상세보기
-	//@GetMapping("/")
 	//게시글 삭제 액션
 	@GetMapping("/removeBoard")
 	public String removeBoard(Board board, HttpSession session, Model model,
@@ -109,7 +169,6 @@ public class BoardController {
 		}
 		board = boardService.getBoardUpdate(board);
 		model.addAttribute("board", board);
-		System.out.println();
 		return "modifyBoard";
 	}
 	//게시글 수정 액션
