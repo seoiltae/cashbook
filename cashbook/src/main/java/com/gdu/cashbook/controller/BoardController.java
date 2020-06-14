@@ -27,9 +27,11 @@ public class BoardController {
 			return "redirect:/"; 
 		}
 		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
+		//로그인한 아이디
 		model.addAttribute("memberId", memberId);
+		//현재 게시글의 번호
 		model.addAttribute("boardNo", board.getBoardNo());
-		return "addComment?boardNo="+board.getBoardNo();
+		return "addComment";
 	}
 	//게시판 댓글 입력 액션
 	@PostMapping("/addComment") 
@@ -80,8 +82,9 @@ public class BoardController {
 			return "redirect:/";
 		}
 		boardService.removeComment(comment);
-		return "redirect:/removeComment";
+		return "redirect:/boardInfo?boardNo="+comment.getBoardNo();
 	}
+	//게시판 목록
 	@GetMapping("/boardList")
 	public String getBoardList(HttpSession session, Model model,
 			@RequestParam(value="seach", defaultValue = "") String seach) {
@@ -111,6 +114,8 @@ public class BoardController {
 		System.out.println(board+"<---------------------------선택한 넘버");
 		model.addAttribute("list", list);
 		model.addAttribute("board", board);
+		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
+		model.addAttribute("loginMember", memberId);
 		return "boardInfo";
 	}
 	//게시판 추가하기 폼

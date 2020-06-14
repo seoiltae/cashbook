@@ -53,8 +53,8 @@
 	<delete id="deleteComment" parameterType="com.gdu.cashbook.vo.Comment">
 		DELETE
 		FROM comment
-		WHERE comment_no = #{comment_no}
-		AND member_id = #{memberId}
+		WHERE comment_no = #{commentNo}
+		AND board_no = #{boardNo}
 	</delete>
 	<!-- 회원탈퇴 시 댓글삭제 -->
 	<delete id="deleteAllComment" parameterType="String">

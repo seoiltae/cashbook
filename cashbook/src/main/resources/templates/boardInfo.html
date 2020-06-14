@@ -49,11 +49,17 @@
 							<th>작성자</th>
 							<th>내용</th>
 							<th>작성날짜</th>
+							<th>댓글삭제</th>
+							<th>댓글수정</th>
 						</tr>
 						<tr th:each="list : ${list}">
 						    <td th:text="${list.memberId}"></td>
 							<td th:text="${list.commentContents}"></td>
 							<td th:text="${list.commentDate}"></td>
+							<td th:if="${list.memberId} ==${loginMember}"><a th:href="@{removeComment(boardNo=${board.boardNo}, commentNo=${list.commentNo})}">댓글삭제</a></td>
+							<td th:unless="${list.memberId} ==${loginMember}"><a></a></td>
+							<td th:if="${list.memberId} ==${loginMember}"><a th:href="@{modifyComment(commentNo=${list.commentNo}, memberId=${loginMember})}">댓글 수정</a></td>
+							<td th:unless="${list.memberId} ==${loginMember}"><a></a></td>
 						</tr>
 					</thead>
 				</table>

@@ -37,7 +37,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="myBoardList : ${myBoardList}">
-					<td th:text="${myBoardList.boardTitle}"></td>
+					<td><a th:href="@{/boardInfo(boardNo=${myBoardList.boardNo})}" th:text="${myBoardList.boardTitle}"></a></td>
 					<td th:text="${myBoardList.boardContents}"></td>
 					<td th:text="${myBoardList.memberId}"></td>
 					<td th:text="${myBoardList.boardDate}"></td>

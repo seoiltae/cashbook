@@ -1,10 +1,72 @@
 <!DOCTYPE html>
-<html>
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
-</head>
-<body>
+<title>modifyComment</title>
+<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
 
-</body>
+<!-- jQuery library -->
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+<!-- Popper JS -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+
+<!-- Latest compiled JavaScript -->
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
+<script>
+$(document).ready(function() {
+	$('#btn').click(function(){
+		if($('#commentContents').val().length<1) {
+			alert('댓글을 작성하세요');
+			return;
+		}
+		$('#myForm').submit();
+	}); //btn click end
+}); //ready end
+</script>
+<style th:include="/include/menu::side"></style>
+</head>
+	<body>
+		<div th:include="/include/menu::sidemenu" class="sidenav"></div>
+		<div class="container">
+			<h1>댓글수정</h1>
+				<form method="post" action="/modifyComment" id="myForm">
+				<table class="table table-striped">
+				<tr>
+					<th>
+						게시글 번호
+					</th>
+					<td>
+						 <input type="text" name="boardNo" id="boardNo" th:value="${comment.boardNo}" readonly="readonly">
+					</td>
+				</tr>
+				<tr>
+					<th>
+						댓글 번호
+					</th>
+					<td>
+						<input type="text" name="commentNo" id="commentNo" th:value="${comment.commentNo}" readonly="readonly">
+					</td>	
+				</tr>
+				<tr>
+					<th>
+						내용
+					</th>
+					<td>
+						<textarea rows="5" cols="40" th:field="${comment.commentContents}"name="commentContents" id="commentContents"></textarea>
+					</td>
+				</tr>
+				<tr>
+					<th>
+						&nbsp;
+					</th>
+					<td>
+						<button type="button" id="btn" class="button">게시글수정</button>
+					</td>
+				</tr>
+			</table>
+			</form>
+		</div>
+	</body>
 </html>
