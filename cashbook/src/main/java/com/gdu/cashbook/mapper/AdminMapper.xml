@@ -45,11 +45,4 @@
 	FROM cashbook_board
 	WHERE board_no = #{boardNo}
 </delete>
-
-<!--관리자의 게시판 댓글 삭제 -->
-<!-- <delete id="deleteCommentByAdmin" parameterType="">
-	DELETE
-	FROM cashbook_comment
-	WHERE comment_no = #{commentNo}
-</delete>  -->
 </mapper>

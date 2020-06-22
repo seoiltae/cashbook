@@ -28,8 +28,9 @@ public class AdminService {
 	@Autowired private CashMapper cashMapper;
 	@Autowired private BoardMapper boardMapper;
 	@Autowired private MemberidMapper memberidMapper;
-	@Value("C:\\Users\\gd7\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1590539816076\\cashbook\\src\\main\\resources\\static\\upload")
+	@Value("/seoit11/tomcat/webapps/cashbook/WEB-INF/classes/static/upload/")
 	private String path;
+
 	//관리자 게시판 삭제
 	public int removeBoardByAdmin(int boardNo) {
 		int row = adminMapper.deleteBoardByAdmin(boardNo);

@@ -103,7 +103,7 @@ public class BoardController {
 	@GetMapping("/boardInfo")
 	public String getBoardInfo(HttpSession session, Model model, Board board,
 			@RequestParam("boardNo") int boardNo) {
-		if(session.getAttribute("loginMember") ==null || session.getAttribute("loginAdmin")==null) {
+		if(session.getAttribute("loginMember") ==null && session.getAttribute("loginAdmin") ==null) {
 			return "redirect:/";
 		}
 		Comment comment = new Comment();
@@ -116,6 +116,8 @@ public class BoardController {
 		model.addAttribute("list", list);
 		model.addAttribute("board", board);
 		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();
+	//	String adminId = ((LoginAdmin)session.getAttribute("loginAdmin")).getAdminId();
+	//	model.addAttribute("loginAdmin", adminId);
 		model.addAttribute("loginMember", memberId);
 		return "boardInfo";
 	}
@@ -144,7 +146,6 @@ public class BoardController {
 	public String myBoard(HttpSession session, Model model,
 			@RequestParam(value="myseach", defaultValue="", required = false) String myseach) {
 		if(session.getAttribute("loginMember") ==null) { 
-			session.invalidate();
 			return "redirect:/"; 
 		}
 		String memberId = ((LoginMember)session.getAttribute("loginMember")).getMemberId();

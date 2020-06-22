@@ -19,10 +19,8 @@ import com.gdu.cashbook.vo.Member;
 @Controller
 public class AdminController {
 	@Autowired private AdminService adminService;
-	@Autowired private BoardService boardService;
-	//관리자 게시판 상세보기
 	//관리자 게시판 삭제
-	@GetMapping("/removeBoardByAdmin")
+	//@GetMapping("/removeBoardByAdmin")
 	public String removeBoardByAdmin(HttpSession session, Model model,
 			@RequestParam("boardNo") int boardNo) { //넘버를 전송받아와 해당넘버의 데이터를 삭제
 		if(session.getAttribute("loginAdmin") ==null) {

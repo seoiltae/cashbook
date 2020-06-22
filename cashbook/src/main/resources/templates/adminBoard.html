@@ -34,11 +34,11 @@
 			<tbody>
 				<tr th:each="list : ${list}">
 					<td th:text="${list.boardNo}"></td>
-					<td th:text="${list.boardTitle}"></td>
+					<td><a th:text="${list.boardTitle}" th:href="@{boardInfo(boardNo=${list.boardNo})}"></a></td>
 					<td th:text="${list.boardContents}"></td>
 					<td th:text="${list.memberId}"></td>
 					<td th:text="${list.boardDate}"></td>
-					<td><a th:href="@{/removeBoardByAdmin(boardNo=${list.boardNo})}">삭제</a></td>
+					<td><a th:href="@{removeBoardByAdmin(boardNo=${list.boardNo})}">삭제</a></td>
 				</tr>
 			</tbody>
 		</table>
