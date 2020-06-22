@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.gdu.cashbook.service.BoardService;
 import com.gdu.cashbook.vo.Board;
 import com.gdu.cashbook.vo.Comment;
+import com.gdu.cashbook.vo.LoginAdmin;
 import com.gdu.cashbook.vo.LoginMember;
 @Controller
 public class BoardController {
@@ -102,7 +103,7 @@ public class BoardController {
 	@GetMapping("/boardInfo")
 	public String getBoardInfo(HttpSession session, Model model, Board board,
 			@RequestParam("boardNo") int boardNo) {
-		if(session.getAttribute("loginMember") ==null) {
+		if(session.getAttribute("loginMember") ==null || session.getAttribute("loginAdmin")==null) {
 			return "redirect:/";
 		}
 		Comment comment = new Comment();

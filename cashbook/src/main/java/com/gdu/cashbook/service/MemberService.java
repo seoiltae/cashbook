@@ -32,7 +32,7 @@ public class MemberService {
 	@Autowired private JavaMailSender javaMailSender; //자바메일보내는 객체
 	@Autowired private CashMapper cashMapper;
 	@Autowired private CommentMapper commentMapper;
-	@Value("C:\\Users\\gd7\\Documents\\workspace-spring-tool-suite-4-4.6.1.RELEASE\\maven.1590539816076\\cashbook\\src\\main\\resources\\static\\upload")
+	@Value("/seoit11/tomcat/webapps/cashbook/WEB-INF/classes/static/upload/")
 	private String path;
 	//비밀번호 찾기
 	public int getMemberPw(Member member) {
@@ -78,7 +78,7 @@ public class MemberService {
 		if(originName.equals("")) { //파일값이 null일 경우 원래 있던 파일의 이름이랑 ==
 			memberPic = originNamePic;
 		}else {	
-			File ofile = new File(path+"\\"+originNamePic); //새로운 파일생성
+			File ofile = new File(path+originNamePic); //새로운 파일생성
 			if(ofile.exists() && !originNamePic.equals("default.jpg")) {//원래파일이 아닐경우
 				ofile.delete(); //파일 삭제
 		}
@@ -103,7 +103,7 @@ public class MemberService {
 		int row =memberMapper.updateMember(member);
 		
 		if(!originName.equals("")) {
-			File file = new File(path+"\\"+originNamePic);
+			File file = new File(path+originNamePic);
 			try {
 					multif.transferTo(file);
 			} catch (Exception e) {
@@ -180,7 +180,7 @@ public class MemberService {
 			if(!originName.equals("")) { //originName이 공백이 아닐 경우 새로 파일 생성
 				// 2. 파일저장 /업로드 위치에 파일저장
 				// / linux | \\ windows <--파일경로 지정시
-				File file = new File(path+"\\"+memberPic); //새로운 파일 생성
+				File file = new File(path+memberPic); //새로운 파일 생성
 				try {
 					multif.transferTo(file);
 				} catch (Exception e) {

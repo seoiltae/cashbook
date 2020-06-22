@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.gdu.cashbook.service.AdminService;
+import com.gdu.cashbook.service.BoardService;
 import com.gdu.cashbook.vo.Board;
 import com.gdu.cashbook.vo.LoginAdmin;
 import com.gdu.cashbook.vo.Member;
@@ -18,6 +19,8 @@ import com.gdu.cashbook.vo.Member;
 @Controller
 public class AdminController {
 	@Autowired private AdminService adminService;
+	@Autowired private BoardService boardService;
+	//관리자 게시판 상세보기
 	//관리자 게시판 삭제
 	@GetMapping("/removeBoardByAdmin")
 	public String removeBoardByAdmin(HttpSession session, Model model,
