@@ -65,6 +65,8 @@ body {
 		<!-- frament1 /include/menu::sidemenu <--풀네임-->
 		<div th:fragment="sidemenu">
 			<!-- 회원사이드 메뉴 -->
+			 <h1 th:if="${session.loginMember} ==${session.loginMember} AND ${session.loginAdmin} ==null" th:text="${session.loginMember.memberId}"></h1> 
+			 <h1 th:unless="${session.loginMember} ==${session.loginMember} AND ${session.loginAdmin} ==null" th:text="${session.loginAdmin.adminId}"></h1>
 			<ul th:if="${session.loginMember} ==${session.loginMember} AND ${session.loginAdmin} ==null">
 				<li><a th:href="@{/home}">홈</a></li>
 				<li><a th:href="@{/memberInfo}">회원정보</a></li>
