@@ -21,8 +21,8 @@
 		<div class="container">
 		<h1>게시판 목록</h1>
 		<div class="d-flex">
-			 <a class="btn btn-light" role="button" th:href="@{/addBoard}">게시글작성</a>
-			 <a class="btn btn-light" role="button" th:href="@{/boardMyInfo(memberId=${loginMember})}">내 게시글</a>
+			 <a class="btn btn-light" role="button" th:href="@{addBoard}">게시글작성</a>
+			 <a class="btn btn-light" role="button" th:href="@{boardMyInfo(memberId=${loginMember})}">내 게시글</a>
 		</div>
 		<table class="table table-bordered table-striped">
 			<thead>
@@ -35,7 +35,7 @@
 			</thead>
 			<tbody>
 				<tr th:each="list : ${list}">
-					<td><a class="btn btn-light" role="button" th:text="${list.boardNo}" th:href="@{/boardInfo(boardNo=${list.boardNo})}">상세보기</a></td>
+					<td><a class="btn btn-light" role="button" th:text="${list.boardNo}" th:href="@{boardInfo(boardNo=${list.boardNo})}">상세보기</a></td>
 					<td th:text="${list.boardTitle}"></td>
 					<td th:text="${list.memberId}"></td>
 					<td th:text="${list.boardDate}"></td>

@@ -31,7 +31,7 @@ $(document).ready(function() {
 		<div th:include="/include/menu::sidemenu" class="sidenav"></div>
 		<div class="container">
 			<h1>글작성</h1>
-				<form method="post" action="/addComment" id="myForm">
+				<form method="post" th:action="@{addComment}" id="myForm">
 				<table class="table table-striped">
 				<tr>
 					<th>

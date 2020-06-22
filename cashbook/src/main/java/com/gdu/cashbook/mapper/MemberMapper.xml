@@ -6,7 +6,7 @@
 <mapper namespace="com.gdu.cashbook.mapper.MemberMapper">
 	<select id="selectMemberPic" parameterType="String" resultType="String">
 		SELECT member_pic
-		FROM member
+		FROM cashbook_member
 		WHERE member_id = #{memberId}
 	</select>
 	<!-- 비밀번호 찾기 궈리  
@@ -14,7 +14,7 @@
 		2.1번에서 입력한 pw를 메일로 전송
 	-->
 	<update id="updateMemberPw" parameterType="com.gdu.cashbook.vo.Member">
-		UPDATE member
+		UPDATE cashbook_member
 		SET member_pw = PASSWORD(#{memberPw})
 		WHERE member_id = #{memberId}
 		AND member_email = #{memberEmail}	
@@ -23,7 +23,7 @@
 	<select id="selectMemberIdByMember" parameterType="com.gdu.cashbook.vo.Member" resultType="String">
 		SELECT 
 			CONCAT(SUBSTRING(member_id, 1, 3), '*****')
-		FROM member
+		FROM cashbook_member
 		WHERE member_name = #{memberName}
 		AND member_phone = #{memberPhone}
 		AND member_email = #{memberEmail}	
@@ -31,7 +31,7 @@
 	<!-- 현재 로그인한 멤버의 회원탈퇴 -->
 	<delete id="deleteMember" parameterType="com.gdu.cashbook.vo.LoginMember">
 		DELETE 
-		FROM member 
+		FROM cashbook_member 
 		WHERE member_id = #{memberId}
 		AND	member_pw = PASSWORD(#{memberPw})
 	</delete>
@@ -45,13 +45,13 @@
 			member_phone as memberPhone,
 			member_email as memberEmail,
 			member_pic as memberPic
-		FROM member	
+		FROM cashbook_member	
 		WHERE member_id = #{memberId}
 	</select>
 	<!-- 로그인한 회원정보 수정액션 -->
 	<update id="updateMember" parameterType="com.gdu.cashbook.vo.Member">
 		UPDATE 
-			member 
+			cashbook_member 
 		SET member_pw = PASSWORD(#{memberPw}),
 			member_name = #{memberName},
 			member_addr = #{memberAddr},
@@ -69,29 +69,29 @@
 			member_phone as memberPhone,
 			member_email as memberEmail,
 			member_pic as memberPic
-		FROM member
+		FROM cashbook_member
 		WHERE member_id = #{memberId}
 	</select>
 	<!-- 회원 가입시 아이디중복확인쿼리 -->
 	<select id="selectMemberId" parameterType="String" resultType="String">
 		SELECT 
 			member_id
-		FROM (	SELECT member_id FROM member
+		FROM (	SELECT member_id FROM cashbook_member
 				UNION
-				SELECT member_id  FROM memberid) t
+				SELECT member_id  FROM cashbook_memberid) t
 		WHERE member_id = #{memberIdCheck}
 	</select>
 	<!-- 로그인 쿼리 -->
 	<select id="selectLoginMember" parameterType="com.gdu.cashbook.vo.LoginMember" resultType="com.gdu.cashbook.vo.LoginMember">
 		SELECT 
 			member_id as memberId
-		FROM member
+		FROM cashbook_member
 		WHERE member_id = #{memberId}
 		AND member_pw = PASSWORD(#{memberPw})	
 	</select>
 	<!-- 회원가입 쿼리 -->
 	<insert id="insertMember" parameterType="com.gdu.cashbook.vo.Member">
-		INSERT INTO member(
+		INSERT INTO cashbook_member(
 			member_id,
 			member_pw,
 			member_name,

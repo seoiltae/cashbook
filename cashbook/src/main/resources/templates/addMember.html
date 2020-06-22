@@ -79,7 +79,7 @@ $(document).ready(function() {
 	<body>
 		<div class="container">
 			<h1>회원가입</h1>
-			<form method="post" action="/checkMemberId" id="idForm">	
+			<form method="post" th:action="@{checkMemberId}" id="idForm">	
 				<div class="input-group mb-3">
 					<span class="input-group-text">아이디 중복 확인 </span>&nbsp;
 					<input class="form-control-md" type="text" name="memberIdCheck" id="memberIdCheck">
@@ -90,7 +90,7 @@ $(document).ready(function() {
 				</div>
 			</form>	
 			<!-- multipart/form-data 파일을 바이트타입으로 변환 시키는 인코딩 -->
-			<form method="post" action="/addMember" id="myform" enctype="multipart/form-data">
+			<form method="post" th:action="@{addMember}" id="myform" enctype="multipart/form-data">
 				<div class="input-group mb-3">
 					<span class="input-group-text">사진</span>&nbsp;
 					<input type="file" name="memberPic" id="memberPic">

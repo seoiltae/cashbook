@@ -21,14 +21,14 @@
 		<div class="container">
 			<h1>memberInfo</h1>
 			<div class="d-flex">
-				 <a class="btn btn-light" role="button" th:href="@{/modifyMember}">회원수정</a>
-				 <a class="btn btn-light" role="button" th:href="@{/removeMember}">회원탈퇴</a>
+				 <a class="btn btn-light" role="button" th:href="@{modifyMember}">회원수정</a>
+				 <a class="btn btn-light" role="button" th:href="@{removeMember}">회원탈퇴</a>
 			</div>
 			<table class="table table-bordered table-striped">
 				<tr>
 					<th>사진</th>
 					<td>
-						<img th:src="@{'/upload/'+${member.memberPic}}"></img>
+						<img th:src="${'/cashbook/upload/'+member.memberPic}"></img>
 						<!--  <img src="@{/upload/$member.memberPic}">-->
 					</td>
 				</tr>

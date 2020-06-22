@@ -67,7 +67,7 @@ $(document).ready(function() {
 	<div class="container">
 		<h1>관리자</h1><br><br>
 		<div class="row">
-		<form id="loginForm" method="post" action="/admin">
+		<form id="loginForm" method="post" th:action="@{admin}">
 			<div>
 				admin_id :
 				<input type="text" id="adminId" name="adminId">

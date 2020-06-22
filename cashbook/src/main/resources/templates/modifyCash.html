@@ -57,7 +57,7 @@
 		<div th:include="/include/menu::sidemenu" class="sidenav"></div>
 		<div class="container">
 		<h1>가계부 수정</h1>
-		<form method="post" action="/modifyCash" id="myform">
+		<form method="post" th:action="@{modifyCash}" id="myform">
 					<span>
 						<input type="hidden" th:value="${modiCash.cashNo}" name="cashNo" id="cashNo" readonly="readonly"> 
 					</span>

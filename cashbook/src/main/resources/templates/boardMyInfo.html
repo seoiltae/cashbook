@@ -21,8 +21,8 @@
 		<div class="container">
 		<h1>나의 게시글 목록</h1>
 		<div>
-			 <a class="btn btn-light" role="button" th:href="@{/addBoard}">게시글작성</a>
-			 <a class="btn btn-light" role="button" th:href="@{/boardList}">게시글목록</a>
+			 <a class="btn btn-light" role="button" th:href="@{addBoard}">게시글작성</a>
+			 <a class="btn btn-light" role="button" th:href="@{boardList}">게시글목록</a>
 		</div>
 		<table class="table table-bordered table-striped">
 			<thead>
@@ -37,16 +37,16 @@
 			</thead>
 			<tbody>
 				<tr th:each="myBoardList : ${myBoardList}">
-					<td><a th:href="@{/boardInfo(boardNo=${myBoardList.boardNo})}" th:text="${myBoardList.boardTitle}"></a></td>
+					<td><a th:href="@{boardInfo(boardNo=${myBoardList.boardNo})}" th:text="${myBoardList.boardTitle}"></a></td>
 					<td th:text="${myBoardList.boardContents}"></td>
 					<td th:text="${myBoardList.memberId}"></td>
 					<td th:text="${myBoardList.boardDate}"></td>
-					<td><a th:href="@{/removeBoard(boardTitle=${myBoardList.boardTitle}, boardContents=${myBoardList.boardContents}, memberId=${memberId}, boardNo=${myBoardList.boardNo})}">삭제</a></td>
-					<td><a th:href="@{/modifyBoard(boardNo=${myBoardList.boardNo}, memberId=${memberId})}">수정</a></td>
+					<td><a th:href="@{removeBoard(boardTitle=${myBoardList.boardTitle}, boardContents=${myBoardList.boardContents}, memberId=${memberId}, boardNo=${myBoardList.boardNo})}">삭제</a></td>
+					<td><a th:href="@{modifyBoard(boardNo=${myBoardList.boardNo}, memberId=${memberId})}">수정</a></td>
 				</tr>
 			</tbody>
 		</table>
-			<form method="get" action="/boardMyInfo">
+			<form method="get" th:action="@{boardMyInfo}">
 				<input type="search" name="seach" id="seach">
 				<button type="submit">검색</button>
 			</form>

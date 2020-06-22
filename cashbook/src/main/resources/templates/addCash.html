@@ -57,7 +57,7 @@
 		<div th:include="/include/menu::sidemenu" class="sidenav"></div>
 		<div class="container">
 		<h1>가계부 입력</h1>
-		<form method="post" action="/addCash" id="myform">
+		<form method="post" th:action="@{addCash}" id="myform">
 			<span><!-- 유저 아이디 -->
 				<input type="hidden" th:value="${memberId}" name="memberId" id="memberId" readonly="readonly"> 
 			</span>

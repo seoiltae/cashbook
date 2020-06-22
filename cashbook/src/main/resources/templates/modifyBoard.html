@@ -35,7 +35,7 @@ $(document).ready(function() {
 <body>
 	<div class="container">
 	<h1>게시판 수정</h1>
-		<form method="post" action="/modifyBoard" id="myform">
+		<form method="post" th:action="@{modifyBoard}" id="myform">
 			<table class="table table-striped">
 				<tr>
 					<th>

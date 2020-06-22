@@ -71,7 +71,7 @@ $(document).ready(function() {
 	<div class="container">
 		<h1>로그인</h1><br><br>
 		<div class="row">
-		<form id="loginForm" method="post" action="/login">
+		<form id="loginForm" method="post" th:action="@{login}">
 			<div>
 				member_id :
 				<input type="text" id="memberId" name="memberId">

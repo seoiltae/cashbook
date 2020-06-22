@@ -11,12 +11,12 @@
 			member_id as memberId,
 			comment_contents as commentContents,
 			comment_date as commentDate
-		FROM comment
+		FROM cashbook_comment
 		WHERE board_no = #{boardNo}	
 	</select>
 	<!-- 댓글 작성 -->
 	<insert id="insertComment" parameterType="com.gdu.cashbook.vo.Comment">
-		INSERT INTO comment(
+		INSERT INTO cashbook_comment(
 			board_no,
 			member_id,
 			comment_contents,
@@ -36,14 +36,14 @@
 			member_id as memberId,
 			comment_contents as commentContents,
 			comment_date as commentDate
-		FROM comment
+		FROM cashbook_comment
 		WHERE comment_no = #{commentNo}
 		AND member_id = #{memberId}	
 	</select>
 	<!-- 댓글 수정 액션-->
 	<update id="updateComment" parameterType="com.gdu.cashbook.vo.Comment">
 		UPDATE
-			comment
+			cashbook_comment
 		SET comment_contents = #{commentContents},
 			comment_date = NOW()
 		WHERE board_no = #{boardNo}
@@ -52,14 +52,14 @@
 	<!-- 댓글 삭제 -->
 	<delete id="deleteComment" parameterType="com.gdu.cashbook.vo.Comment">
 		DELETE
-		FROM comment
+		FROM cashbook_comment
 		WHERE comment_no = #{commentNo}
 		AND board_no = #{boardNo}
 	</delete>
 	<!-- 회원탈퇴 시 댓글삭제 -->
 	<delete id="deleteAllComment" parameterType="String">
 		DELETE
-		FROM comment
+		FROM cashbook_comment
 		WHERE member_id = #{memberId}
 	</delete>
 </mapper>

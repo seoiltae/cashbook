@@ -7,11 +7,11 @@
 	<select id="selectCategoryList" resultType="com.gdu.cashbook.vo.Category">
 		SELECT
 			category_name as categoryName
-		FROM category
+		FROM cashbook_category
 	</select>
 	<!-- 가계부 추가시 카테고리 추가 -->
 	<insert id="insertCategoryOne" parameterType="com.gdu.cashbook.vo.Category">
-		INSERT INTO category(
+		INSERT INTO cashbook_category(
 			category_name
 		) VALUES (
 			#{categoryName}
@@ -21,7 +21,7 @@
 	<select id="selectCategory" parameterType="com.gdu.cashbook.vo.Category"  resultType="com.gdu.cashbook.vo.Category">
 		SELECT
 			category_name as categoryName
-		FROM category
+		FROM cashbook_category
 		WHERE category_name = #{categoryName}
 	</select>
 </mapper>

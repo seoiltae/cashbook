@@ -8,7 +8,7 @@
 		SELECT DAY(cash_date) as day,
 			SUM(CASE WHEN cash_kind = '수입' THEN cash_price
 			WHEN cash_kind = '지출' THEN -cash_price END) as price
-		FROM cash
+		FROM cashbook_cash
 		WHERE member_id = #{memberId}
 		AND YEAR(cash_date) = #{year}
 		AND MONTH(cash_date) = #{month}
@@ -16,7 +16,7 @@
 	</select>
 	<!-- 가계부 추가 -->
 	<insert id="insertCashOne" parameterType="com.gdu.cashbook.vo.Cash">
-		INSERT INTO cash(
+		INSERT INTO cashbook_cash(
 			member_id,
 			cash_date,
 			cash_kind,
@@ -45,13 +45,13 @@
 			cash_place as cashPlace,
 			cash_memo as cashMemo,
 			cash_date as cashDate
-		FROM cash	
+		FROM cashbook_cash	
 		WHERE cash_no = #{cashNo}
 	</select>
 	<!-- 로그인한 가계부 수정 액션 -->
 	<update id="updateCashOne" parameterType="com.gdu.cashbook.vo.Cash">
 		UPDATE 
-			cash
+			cashbook_cash
 		SET cash_date = #{cashDate},
 			cash_kind = #{cashKind},
 			category_name = #{categoryName},
@@ -69,7 +69,7 @@
 			cash_price as cashPrice,
 			cash_place as cashPlace,
 			cash_memo as cashMemo
-		FROM cash
+		FROM cashbook_cash
 		WHERE member_id = #{memberId}
 		AND cash_date = #{cashDate}
 		ORDER BY cash_no ASC
@@ -77,7 +77,7 @@
 	<!-- 로그인한 가계부 삭제 -->
 	<delete id="deleteCashOne" parameterType="com.gdu.cashbook.vo.Cash" >
 		DELETE
-		FROM cash
+		FROM cashbook_cash
 		WHERE cash_no = #{cashNo}
 	</delete>
 	<!-- 로그인한 멤버의 오늘 가계부 총합계 , 총합이 null이면 0으로 표시 
@@ -85,18 +85,18 @@
 	<select id="selectCashKindSum" parameterType="com.gdu.cashbook.vo.Cash" resultType="int">
 		SELECT
 			(SELECT IFNULL(SUM(cash_price), 0)
-			FROM cash
+			FROM cashbook_cash
 			WHERE member_id= #{memberId} AND cash_kind = '수입' AND cash_date = #{cashDate})
 			-
 			(SELECT IFNULL(SUM(cash_price), 0)
-			FROM cash
+			FROM cashbook_cash
 			WHERE member_id= #{memberId} AND cash_kind = '지출' AND cash_date = #{cashDate})
 		FROM dual	
 	</select>
 	<!-- 회원탈퇴 시 가계부 삭제 -->
 	<delete id="allDeleteByCash" parameterType="String">
 		DELETE
-		FROM cash
+		FROM cashbook_cash
 		WHERE member_id = #{memberId}
 	</delete>
 </mapper>

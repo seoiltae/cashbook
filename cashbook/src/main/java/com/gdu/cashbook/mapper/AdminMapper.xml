@@ -7,7 +7,7 @@
 <select id="selectLoginAdmin" parameterType="com.gdu.cashbook.vo.LoginAdmin" resultType="com.gdu.cashbook.vo.LoginAdmin">
 	SELECT
 		admin_id as adminId
-	FROM admin
+	FROM cashbook_admin
 	WHERE admin_id = #{adminId}
 	AND admin_pw = PASSWORD(#{adminPw})	
 </select>
@@ -19,13 +19,13 @@
 		member_addr as memberAddr,
 		member_phone as memberPhone,
 		member_email as memberEmail
-	FROM member	
+	FROM cashbook_member	
 	WHERE member_id LIKE CONCAT('%', #{search}, '%')
 </select>
 <!-- 관리자의 회원정보 삭제 -->
 <delete id="deleteMemberByAdmin" parameterType="String">
 	DELETE
-	FROM member
+	FROM cashbook_member
 	WHERE member_id = #{memberId}
 </delete>
 <!-- 관리자의 게시판 목록 -->
@@ -36,13 +36,20 @@
 		board_title as boardTitle,
 		board_contents as boardContents,
 		board_date as boardDate
-	FROM board
+	FROM cashbook_board
 	WHERE board_title LIKE CONCAT('%', #{searchBo}, '%')	
 </select>
 <!-- 관리자의 게시판 삭제 -->
 <delete id="deleteBoardByAdmin" parameterType="int">
 	DELETE
-	FROM board
+	FROM cashbook_board
 	WHERE board_no = #{boardNo}
+</delete>
+
+<!--관리자의 게시판 댓글 삭제 -->
+<delete id="deleteCommentByAdmin" parameterType="">
+	DELETE
+	FROM cashbook_comment
+	WHERE comment_no = #{commentNo}
 </delete>
 </mapper>

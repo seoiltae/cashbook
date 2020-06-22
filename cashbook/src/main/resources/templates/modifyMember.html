@@ -64,10 +64,10 @@ $(document).ready(function() {
 	<div th:include="/include/menu::sidemenu" class="sidenav"></div>
 	<div class="container">
 	<h1>회원정보 수정</h1>
-		<form method="post" action="/modifyMember" id="myform" enctype="multipart/form-data">
+		<form method="post" th:action="@{modifyMember}" id="myform" enctype="multipart/form-data">
 				<div class="input-group mb-3">
 					<span class="input-group-text">현재사진</span>&nbsp;
-					<img th:src="@{'/upload/'+${member.memberPic}}"></img>
+					<img th:src="${'/cashbook/upload/'+member.memberPic}"></img>
 				</div>
 				
 				<div class="input-group mb-3">

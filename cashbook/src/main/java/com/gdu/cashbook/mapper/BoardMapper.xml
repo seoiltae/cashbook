@@ -5,7 +5,7 @@
 <mapper namespace="com.gdu.cashbook.mapper.BoardMapper">
 	<!-- 총 게시글 갯수 출력 -->
 	<select id="countBOard" resultType="int">
-		SELECT COUNT(*) FROM BOARD
+		SELECT COUNT(*) FROM cashbook_board
 	</select>
 	<!-- 게시글리스트 -->
 	<select id="selectBoardList" parameterType="java.util.Map" resultType="com.gdu.cashbook.vo.Board">
@@ -14,7 +14,7 @@
 			member_id as memberId,
 			board_title as boardTitle,
 			board_date as boardDate 
-		FROM board
+		FROM cashbook_board
 		WHERE board_title LIKE CONCAT('%', #{search}, '%')
 		ORDER BY board_no DESC	
 	</select>
@@ -26,12 +26,12 @@
 			board_title as boardTitle,
 			board_contents as boardContents,
 			board_date as boardDate
-		FROM board
+		FROM cashbook_board
 		WHERE board_no = #{boardNo}
 	</select>
 	<!-- 게시글 추가하기 -->
 	<insert id="insertBoard" parameterType="com.gdu.cashbook.vo.Board">
-		INSERT INTO board(
+		INSERT INTO cashbook_board(
 			board_no,
 			board_title,
 			board_contents,
@@ -53,7 +53,7 @@
 			board_title as boardTitle,
 			board_contents as boardContents,
 			board_date as boardDate 
-		FROM board	
+		FROM cashbook_board	
 		WHERE member_id = #{memberId}
 		AND board_title LIKE CONCAT('%', #{myseach}, '%')
 	</select>
@@ -65,13 +65,13 @@
 			board_title as boardTitle,
 			board_contents as boardContents,
 			board_date as boardDate
-		FROM board
+		FROM cashbook_board
 		WHERE board_no = #{boardNo} 	
 	</select>
 	<!-- 게시판 삭제 -->
 	<delete id="deleteBoard" parameterType="com.gdu.cashbook.vo.Board">
 		DELETE
-		FROM board
+		FROM cashbook_board
 		WHERE member_id = #{memberId}
 		AND board_no = #{boardNo}
 	</delete>
@@ -83,14 +83,14 @@
 			board_title as boardTitle,
 			board_contents as boardContents,
 			board_date as boardDate
-		FROM board
+		FROM cashbook_board
 		WHERE board_no = #{boardNo}
 		AND member_id = #{memberId}	
 	</select>
 	<!-- 게시글 수정액션 -->
 	<update id="updateBoard" parameterType="com.gdu.cashbook.vo.Board">
 		UPDATE 
-			board
+			cashbook_board
 		SET board_title = #{boardTitle},
 			board_contents = #{boardContents},
 			board_date = NOW()
@@ -99,7 +99,7 @@
 	<!-- 회원 탈퇴 시 작성게시글 전부 삭제 -->
 	 <delete id="allDeleteByBoard" parameterType="String">
 	 	DELETE
-		FROM board
+		FROM cashbook_board
 		WHERE member_id = #{memberId}
 	 </delete>
 </mapper>

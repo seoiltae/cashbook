@@ -33,7 +33,7 @@ $(document).ready(function() {
 	<body>
 		<div class="container">
 		<h1>비밀번호 찾기</h1>
-		<form method="post" th:action="@{/findMemberPw}" id="findpw">
+		<form method="post" th:action="@{findMemberPw}" id="findpw">
 		<table class="table table-striped">
 				<tr>
 					<th>
@@ -51,8 +51,8 @@ $(document).ready(function() {
 						<input type="text" name="memberEmail" id="memberEmail">
 					</td>
 				</tr>
-		</table>		
-				<button type="button" id="btn">비밀번호 찾기</button>
+		</table>
+				<button type="button" id="btn" class="button">비밀번호찾기</button>		
 		</form>
 		</div>
 	</body>
