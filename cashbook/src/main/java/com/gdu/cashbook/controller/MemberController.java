@@ -54,11 +54,15 @@ public class MemberController {
 	}
 	//아이디 찾기 액션
 	@PostMapping("/findMemberId")
-	public String findMemberId(HttpSession session, Model model, Member member) {
+	public String findMemberId(HttpSession session, Model model, Member member){
 		if(session.getAttribute("loginMember") !=null) {
 			return "redirect:/";
 		}
 		String memberId = memberService.getMemberIdByMember(member);
+		System.out.println(memberId+"<--------------------------------");
+		//System.out.println(member.getMemberEmail());
+		//System.out.println(member.getMemberName());
+		//System.out.println(member.getMemberPhone());
 		model.addAttribute("memberIdSub", memberId);
 		return "memberIdView";
 	}

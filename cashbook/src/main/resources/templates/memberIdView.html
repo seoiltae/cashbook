@@ -18,7 +18,7 @@
 	<body>
 		<h1>아이디 찾기 화면</h1>
 		<div>
-			아이디 : <span th:text="${memberIdSub}"></span>
+			아이디 : <span th:text="${memberIdSub} !=null ? ${memberIdSub} : '잘못입력하셨습니다'"></span>
 		</div>
 	</body>
 </html>
